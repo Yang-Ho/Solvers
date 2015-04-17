@@ -1,0 +1,146 @@
+\documentclass{tufte-book}
+
+\title{CSC499 Honors Class \\Project Report \\Template}
+\author[T]{Yang Ho and Johnny Nguyen, under the
+tutelage of Dr. Franc Brglez, 
+Computer Science, NCSU}
+\publisher{Publishers of This Report}
+
+%%%%% from Franc Brglez
+\newcommand{\labs}{\texttt{labs}}
+\newcommand{\coordUpdate}{\texttt{coordUpdate}}
+\newcommand{\lMAts}{\texttt{lMAts}}
+\newcommand{\lssMAts}{\texttt{lssMAts}}
+\newcommand{\lssRRts}{\texttt{lssRRts}}
+\newcommand{\lssOrel}{\texttt{lssOrel}}
+\newcommand{\lssOrelU}{\texttt{lssOrel\_{U}}}
+\newcommand{\lssOrelE}{\texttt{lssOrel\_{8}}}
+\newcommand{\lssMAtsE}{\texttt{lssMAts\_{8}}}
+
+%%%%%%%%%% From Borko
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\newcommand{\valueBest}{$\Theta({\underline{\varsigma}}^{*})$}
+\newcommand{\valueTarget}{$\Theta^{ub}_{L}$}
+\renewcommand{\algorithmicbody}{}
+\newcommand{\CALL}[2]{\texttt{{#1}(#2)}}
+\newcommand{\PROCEDURE}[1]{%
+	\renewcommand{\algorithmicwhile}{\textbf{procedure}}
+	\renewcommand{\algorithmicdo}{ }
+	\WHILE{#1}
+	\renewcommand{\algorithmicwhile}{\textbf{while}}
+	\renewcommand{\algorithmicdo}{\textbf{do}}	
+}
+\newcommand{\ENDPROCEDURE}{\ENDWHILE}
+\renewcommand\algorithmiccomment[1]{\hfill $\vartriangleright$ #1 }
+\floatstyle{plain}
+\newfloat{myalgo}{tbhp}{mya}
+
+\newenvironment{algorithm-wide}[2][tbh]%
+{\begin{myalgo}[#1]
+\centering
+\begin{minipage}{#2}
+\begin{algorithm}[H]}%
+{\end{algorithm}
+\end{minipage}
+\end{myalgo}}
+
+\definecolor{Gray}{rgb}{0.9,0.9,0.9}
+
+\setcounter{secnumdepth}{ 1} % { 1} to get BOTH chapters and sections numbered 
+                             % { 0} to get only chapters numbered
+                             % {-1} to turn off all numbering
+\begin{document}
+
+\maketitle
+% v.4 copyright page
+\newpage
+\begin{fullwidth}
+~\vfill
+\thispagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+Copyright \copyright\ \the\year\ \thanklessauthor
+
+\par\smallcaps{Published by \thanklesspublisher}
+
+\par\smallcaps{tufte-latex.googlecode.com}
+
+\par Licensed under the Apache License, Version 2.0 (the ``License''); you may not
+use this file except in compliance with the License. You may obtain a copy
+of the License at \url{http://www.apache.org/licenses/LICENSE-2.0}. Unless
+required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an \smallcaps{``AS IS'' BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND}, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.\index{license}
+
+\par\textit{First printing, \monthyear}
+\end{fullwidth}
+
+\newpage
+\chapter*{Summary}
+\vspace*{-4ex}
+\newthought{This report}\sidenote{The
+template for this report is based on an eBook template 
+at~\url{https://github.com/fbrglez/gitPublic/tree/master/xLatex} which itself is a derivate of the Tufte Book Template 
+which can be accessed
+at~\url{https://github.com/Tufte-LaTeX/tufte-latex} 
+} 
+summarizes our work on the project
+with a working title of 
+{\em On Rapid Prototyping of Combinatorial Solvers}.
+\par
+As a prerequisite, we have installed the {\em R} shell, the {\em tcl/TkCon} shell, the {\em python} shell, and various \LaTeX\ templates. The default working shell is
+{\em bash} under linux for Yang Ho and {\em bash} under MacOSX for Johnny Nguyen.
+The files shared in the project are accessible on  
+GitHub\cite{Lib-OPUS2-gitPublic-Brglez}.
+%GitHub\cite{Lib-OPUS-xBed-2015-gitPublic-Brglez}.
+%\footnote{See {\color{blue} \url{https://github.com/fbrglez/gitPublic/}}.
+All of the initial prototypes of combinatorial solvers are written in tcl and
+are introduced, with required tcl commands and test cases, during the weekly class meeting by the instructor. There are several goals of this project. First, we observe the behaviour and learn about properties of each solver in real time
+by executing tcl commands and modifying the tcl code, rather than study the pseudo code in 
+the abstract. Second, we learn about python to construct a solver that is comparable to
+the tcl implementation, not only in consiseness and clarity but most importanly, may well exceed the runtime performance of the tcl solver. Third, we instrument each solver
+for performance evaluation on a large number of instances running on the same CPU, so we can infer performance differences between solvers that are statistically significant.
+\par
+Our current work involves two combinatorial solvers:
+one solves the {\em lightout puzzle}, one solves the {\em linear ordering problem}.
+The various phases of this project are summarized into sections as outlined
+under {\em Contents} 
+below\footnote{Note that each line in the ``Contents'' also represents a hyperlink to the respective section and subsection.}.
+ 
+\newthought{And now,} filler text with command \verb+\lipsum[2]+.
+\lipsum[2]
+
+% r.5 contents
+\tableofcontents
+\listoffigures
+\listoftables
+\listofalgorithms
+% Start the main matter (normal chapters)
+\mainmatter
+
+\input{Ch-About}
+
+\input{Ch-Figures}
+
+\input{Ch-Tables}
+
+\input{Ch-Algorithms2}
+
+%%
+% The back matter contains appendices, bibliographies, indices, glossaries, etc.
+\backmatter
+
+% NOTE: only the file bibTemp.bib is in the local directory of this document!!
+\bibliography{\detokenize{../../OPUS},\detokenize{../../OPUS2},\detokenize{./bibTemp}}
+%\bibliographystyle{plainnat}
+\bibliographystyle{unsrt}
+
+\printindex
+
+\end{document}
+

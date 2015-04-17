@@ -1,0 +1,109 @@
+\begin{algorithm}[!T]
+\begin{footnotesize}
+\begin{minipage}[!T]{0.99\linewidth}
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{lssOrel}{$\sigma_0, \Theta^{ub}_L, t_{lmt}, \omega_{lmt}$}}
+\STATE {${\underline \varsigma}_0\!:\!\Theta({\underline \varsigma}_0) \gets {\tt coordInit}(\sigma_0)$}
+\COMMENT{initial solution}
+\STATE $\tau \gets 1 $ 
+\COMMENT {initialize cntProbe}
+\STATE ${\underline \varsigma^*}\!:\!\Theta({\underline \varsigma^*}) \gets {\underline \varsigma}_0\!:\!\Theta({\underline \varsigma}_0)$ 
+\COMMENT{initial best solution} 
+\STATE $isCens \gets 0$
+\COMMENT{initialize $isCensored$}
+\STATE $tgReached \gets 0$                                     
+\COMMENT{initialize $targetReached$}
+\STATE $\beta \gets 0$                                         
+\COMMENT{initialize $cntTrapped$}
+\STATE $\omega \gets 0$                                        
+\COMMENT{initialize total number of steps}
+\WHILE {{\bf true}}
+  \STATE $\omega_{s}\!:\!{\underline \varsigma^*}\!:\!\Theta({\underline \varsigma^*}) \gets {\tt walk.saw}({\underline \varsigma}_{0}\!:\!\Theta({\underline \varsigma}_{0}),t_{lmt},\omega_{lmt})$ 
+  \COMMENT{return a completed walk segment}
+  \STATE $\omega \gets \omega + \omega_{s} $                   
+  \COMMENT{update total number of steps}
+  \IF{$\Theta({\underline \varsigma^*}) \leq \Theta^{ub}_L$}
+    \IF {$\Theta({\underline \varsigma^*}) = \Theta^{ub}_L$}
+      \STATE{$tgReached = 1$}                                  
+      \COMMENT{upper-bound is reached}
+    \ELSE
+      \STATE $tgReached = 2$                                   
+      \COMMENT{upper-bound is improved}
+    \ENDIF
+    \STATE {\bf{break}}
+  \ENDIF
+  \IF{$t \geq t_{lmt}$}
+    \STATE $isCens \gets 1$                                    
+    \COMMENT{return solution as ``censored''}
+    \STATE {\bf{break}}
+  \ENDIF
+  \STATE ${\underline \varsigma}_0\!:\!\Theta({\underline \varsigma}_0) \gets {\tt coordInit}()$ 
+  \COMMENT{initialize a new walk segment}
+  \STATE $\tau \gets \tau + 1 $                               
+  \COMMENT{update $cntProbe$}
+  \STATE $\omega \gets \omega + 1 $                           
+  \COMMENT{update total number of steps}
+\ENDWHILE
+\STATE $Table \gets (\sigma_0, {\underline \varsigma^*}, \Theta({\underline \varsigma^*}), \omega, \tau, t, isCens, tgReached)$
+\ENDPROCEDURE
+\end{algorithmic}
+\end{minipage}
+
+\vspace{0.2cm}
+\begin{minipage}[!T]{0.49\linewidth}
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{walk.saw}{${\underline \varsigma}_{0}\!:\!\Theta({\underline \varsigma}_{0}),t_{lmt}, \omega_{lmt}$}}
+\IF {$\Theta({\underline \varsigma}_{0}) \le \Theta({\underline \varsigma^*})$}
+    \STATE ${\underline \varsigma^*}\!:\!\Theta({\underline \varsigma^*}) \gets {\underline \varsigma}_0\!:\!\Theta({\underline \varsigma}_0)$
+    \COMMENT{new best solution}
+\ENDIF
+\STATE $\omega_{s} \gets 0$     
+\COMMENT{walk segment length}                                   
+\STATE $Walk_{0} \gets \{ {\underline \varsigma}_0 \}$
+\COMMENT{new walk segment}
+\WHILE {$\Theta({\underline \varsigma^*})  > \Theta^{ub}_L$ \textbf{and} $\omega_{s} < \omega_{lmt}$}
+    \IF [timeout]{$t \geq t_{lmt}$}
+        \STATE {\bf break}
+    \ENDIF
+    \STATE $\omega_{s}=\omega_{s}+1$
+    \COMMENT{{\bf a new step!}}
+    \STATE $Walk_{\omega_{s}}\!:\!{\underline \varsigma}_{\omega_{s}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}}) \gets$
+    \STATE { \hspace{0.5cm} $ \gets {\tt newPivot.saw}({\underline \varsigma}_{\omega_{s} - 1}, Walk_{\omega_{s} - 1})$}
+     \IF { $\Theta({\underline \varsigma}_{\omega_{s}}) \le \Theta({\underline \varsigma^*})$} 
+       \STATE ${\underline \varsigma^*}\!:\!\Theta({\underline \varsigma^*}) \gets {\underline \varsigma_{\omega_{s}}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}})$
+     \ENDIF
+\ENDWHILE
+\STATE {\bf return} $\omega_{s}\!:\!{\underline \varsigma^*}\!:\!\Theta({\underline \varsigma^*})$
+\ENDPROCEDURE
+\end{algorithmic}
+\end{minipage}
+\begin{minipage}[!T]{0.49\linewidth}
+\label{fg_global_search_c}
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{newPivot.saw}{${\underline \varsigma}_{\omega_{s} -1},Walk_{\omega_{s} -1}$}}
+\STATE $\mathbb{Z} \gets i = 1,2, \ldots ,L $ 
+\STATE $\mathbb{Z}_p \gets permute(\mathbb{Z}) $ 
+\STATE ${\cal N} ({\underline \varsigma}_{\omega_{s} -1}) \gets  \{{\underline \varsigma}_{\omega_{s} -1}^i | d({\underline \varsigma}_{\omega_{s} -1}, {\underline \varsigma}_{\omega_{s} -1}^i ) = 1, i \in \mathbb{Z}_p\}$ 
+\STATE ${\cal N}_{saw} ({\underline \varsigma}_{\omega_{s} -1}) \gets  \{ {\cal N} ({\underline \varsigma}_{\omega -1}) |
+                      {\underline \varsigma}_{\omega_{s} -1}^i \not\in  Walk_{\omega_{s} -1}\}$
+   \IF {\strut  ${\cal N}_{saw}  ({\underline \varsigma}_{\omega_{s} -1}) \not= \emptyset$}  
+        \STATE ${\underline \varsigma}_{\omega_{s}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}}) \gets {\tt bestNeighbor}({\cal N}_{saw} ({\underline \varsigma}_{\omega_{s} -1}))$
+        \STATE $Walk_{\omega_{s}} \gets Walk_{\omega_{s}-1} \cup \{{\underline \varsigma}_{\omega_{s}}\}$
+        \STATE $\tau \gets \tau + |~{\cal N}_{saw} ({\underline \varsigma}_{\omega_{s} -1})~| $ 
+        \COMMENT{update $cntProbe$}
+   \ELSE[\textbf{deal with a trapped pivot}]
+        \STATE $\beta = \beta + 1$ 
+        \STATE ${\underline \varsigma}_{\omega_{s}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}}) \gets {\tt coordInit}()$ 
+        \COMMENT{re-initialize}
+        \STATE $Walk_{\omega_{s}} \gets \{ {\underline \varsigma}_{\omega_{s}} \}$
+        \STATE $\tau \gets \tau + 1 $ 
+        \COMMENT{update $cntProbe$}
+    \ENDIF
+\STATE \textbf{return} $Walk_{\omega_{s}}\!:\!{\underline \varsigma}_{\omega_{s}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}})$ 
+\ENDPROCEDURE 
+\end{algorithmic}
+\end{minipage}
+\caption[Algorithm file: alg-global-search2-normal.tex]{A fully instrumented version of solver \lssOrel\ -- normal width.} 
+\label{alg-global-search2-normal}
+\end{footnotesize}
+\end{algorithm}

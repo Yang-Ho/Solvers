@@ -1,0 +1,73 @@
+\begin{table*}[t]\index{xBed!notation}
+\footnotesize%
+\caption[From the file tb-labs-wide-notation-summary.tex][3ex]
+{Summary of notation: symbols, names, and descriptions.}
+\label{tb-labs-wide-notation-summary}
+\centering
+\begin{tabular}[]{c c}
+\begin{tabular}[t]{l l l}  
+\centering
+\bf{symbol}  & \bf{short name} & \bf{brief description} \\ \hline\\[-1.25ex]
+$L$ & coordDim & instance size \\[1.25ex]
+%$\lambda$ & laevusNumber & coord. prefix size \\[0.95ex]
+$L'$ & coordDim'& instance size under  \\[-0.25ex]
+      &          &  skew-symmetry   \\[-0.25ex]
+%     &          &  coord. prefix size: \\%[0.95ex]
+      &          &  $(L+1)/2 $ \\[1.25ex]
+$\sigma_0$ &  seedInit     &  initial seed integer \\[1.05ex]
+${\underline \varsigma}_0$ & coordInit & initial coordinate \\[1.05ex]
+$\Theta({\underline \varsigma}_0)$ & valueInit & initial value \\[1.05ex]
+${\underline \varsigma}_j$ & coordPivot & pivot coordinate\\[1.75ex]
+$\Theta({\underline \varsigma}_j)$ & valuePivot & pivot value \\[1.75ex]
+${\underline \varsigma}_j^i$ & coordNeighb & pivot neighbor coord. \\[1.75ex] %${\underline \varsigma}_j^i$ \\[1.55ex] 
+${\cal N} ({\underline \varsigma}_j)$ & coordNeighbSet & full neighborhood set \\[-0.45ex] %complete \\[-0.95ex] 
+                                      &                & of pivot coordinate \\[1.75ex] 
+{${\cal N}_{saw} ({\underline \varsigma}_j)$} & {sawNeighbSet} & {SAW neighborhood set} \\[+1.15ex] 
+$\omega_c$     & walkSegmCoef &  walk segment coefficient\\[+01.20ex]  
+$\omega_{lmt} = \omega_c \times L' $ & walkSegmLmt & walk segm. length limit\\[1.75ex] 
+{$Walk_{\omega} ~= $}  & {~~~} & {~~~} \\[0.25ex]
+~~=~$\{{\underline \varsigma}_0, \dots , {\underline \varsigma}_\omega\}$ 
+& walkList & walk list after $\omega$ steps \\[3.50ex]
+%$t$ & runtime & CPU runtime  \\[0.45ex] 
+%$t_{lmt}$ & runtimeLmt & solver timeout value\\ 
+%$\tau$ & cntProbe & \# of function probes \\% (f. evals) \\  
+%$\rho$ & cntRestart & \# of walk restarts  \\[0.45ex] 
+\hline
+\multicolumn{3}{l}{ }  \\[-1.0ex]
+\multicolumn{3}{l}{For \labs\ problems with an odd value of $L$, $L' = (L+1)/2 $}  \\ 
+\multicolumn{3}{l}{represents a {\em de facto} instance size under skew-symmetry.}  \\ 
+\end{tabular}
+&% 
+\begin{tabular}[t]{ l l l} 
+\centering
+\bf{symbol}  & \bf{short name} & \bf{brief description} \\ \hline\\[-1.25ex]
+$t$ & runtime & CPU runtime  \\[0.35ex]  
+$t_{lmt}$ & runtimeLmt & solver timeout value\\[0.35ex]  
+$\tau$ & cntProbe & \# of function probes \\[0.35ex] % (f. evals)   
+$\rho$ & cntRestart & \# of walk restarts  \\[0.35ex]  
+$ \beta $ & cntTrapped & \# of trapped solutions \\[0.75ex]  
+${\underline \varsigma}^*$ & coordBest & best coordinate \\[0.75ex]
+$\Theta({\underline \varsigma}^*)$ & valueBest & best value \\[0.75ex]
+$\Theta^{ub}_L$ & valueTarget & best upper bound\\[1.05ex]  
+~~                 & isCensored & solution status: 1 if\\
+~~                 & ~~         & $t >= t_{lmt}$; 0 otherwise\\[0.5ex]
+~~                 & targetReached & solution status:  \\
+~~                 & ~~         & 0 if $\Theta({\underline \varsigma}^*) > \Theta^{ub}_L$,\\[0.5ex]
+~~                 & ~~         & 1 if $\Theta({\underline \varsigma}^*) = \Theta^{ub}_L$,\\[0.5ex]
+~~                 & ~~         & 2 if $\Theta({\underline \varsigma}^*) < \Theta^{ub}_L$\\[0.5ex]
+$N$                & sampleSize & \# of instances and initial  \\[-0.2ex]
+~~                 &            & seeds in the experiment \\[0.55ex]  
+${\cal H}(sid,\Theta_{L}^{ub})$   & hitRatio     & \# of uncensored solutions\\[-0.35ex]
+~~                                & ~~           & under targetReached = 1\\[-0.35ex] 
+~~                                & ~~           & divided by sampleSize $N$  \\[0.35ex]  
+${\cal S}(sid,\Theta_{L}^{ub},p)$ & asymptotic   & predicted waiting time to\\[-0.35ex]
+~~                                & solvability  & satisfy ${\cal H}(...)=1$ with  \\ [-0.35ex]
+~~                                & ~~           & solver {\em sid}, probability $p$ \\[0.50ex]
+\hline
+\multicolumn{3}{l}{ }  \\[-1.0ex]
+\multicolumn{3}{l}{For \labs\ problems, $\Theta({\underline \varsigma}^*)$ represents the {\em minimum energy value}} \\
+\multicolumn{3}{l}{returned by the solver. }  
+\end{tabular}
+\end{tabular}
+\vspace*{-2ex}
+\end{table*}

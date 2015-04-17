@@ -1,0 +1,104 @@
+\begin{thebibliography}{10}
+
+\bibitem{Lib-OPUS2-gitPublic-Brglez}
+Franc Brglez.
+\newblock {GitHub Archive on Rapid Prototyping of Combinatorial Solvers}.
+\newblock {For updates, see \url{https://github.com/fbrglez/gitPublic}},
+  January 2015.
+
+\bibitem{Bringhurst2005}
+Robert Bringhurst.
+\newblock {\em The Elements of Typography}.
+\newblock Hartley \& Marks, 3.1 edition, 2005.
+
+\bibitem{Tufte2006}
+Edward~R. Tufte.
+\newblock {\em Beautiful Evidence}.
+\newblock Graphics Press, {LLC}, first edition, May 2006.
+
+\bibitem{Tufte1990}
+Edward~R. Tufte.
+\newblock {\em Envisioning Information}.
+\newblock Graphics Press, Cheshire, Connecticut, 1990.
+
+\bibitem{Lib-OPUS2-labs-2015-arxiv-Boskovic}
+Borko Bo\v{s}kovi\'{c}, Franc Brglez, and Janez Brest.
+\newblock {Low-Autocorrelation Binary Sequences: On Improved Merit Factors and
+  Runtime Predictions to Achieve Them}.
+\newblock {\em {\url{http://arxiv.org/}, also under journal review}}, 2015.
+
+\bibitem{Lib-OPUS-labs-1977-IEEE_TIT-Golay}
+Marcel~J.E. Golay.
+\newblock Sieves for low autocorrelation binary sequences.
+\newblock {\em IEEE: Transactions on Information Theory}, 23:43--51, 1977.
+
+\bibitem{Lib-OPUS-labs-1982-IEEE_TIT-Golay}
+Marcel~J.E. Golay.
+\newblock The merit factor of long low autocorrelation binary sequences.
+\newblock {\em IEEE: Transactions on Information Theory}, 28:543--549, 1982.
+
+\bibitem{Lib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym}
+Marcel~J.E. Golay and Duncan~B. Harris.
+\newblock A new search for skewsymmetric binary sequences with optimal merit
+  factors.
+\newblock {\em Information Theory, IEEE Transactions on}, 36(5):1163--1166,
+  1990.
+
+\bibitem{Lib-OPUS-labs-1987-JourPhys-Bernasconi}
+Jacob Bernasconi.
+\newblock {Low autocorrelation binary sequences: statistical mechanics and
+  configuration space analysis}.
+\newblock {\em J. Phys.}, 48:559--567, April 1987.
+
+\bibitem{Lib-OPUS-labs-2003-GECCO-Goldberg-periodic}
+Martin Pelikan and David~E. Goldberg.
+\newblock Hierarchical boa solves ising spin glasses and maxsat.
+\newblock In {\em Proceedings of the 2003 international conference on Genetic
+  and evolutionary computation: PartII}, GECCO'03, pages 1271--1282, Berlin,
+  Heidelberg, 2003. Springer-Verlag.
+
+\bibitem{Lib-OPUS-labs-1996-JPhysA-Mertens-BB_solutions}
+Stephan Mertens.
+\newblock Exhaustive search for low-autocorrelation binary sequences.
+\newblock {\em Journal of Physics A: Mathematical and General}, 29:473--481,
+  1996.
+\newblock The sequences for 48 < L <= 60 have been found with an improved
+  implementation due to Heiko Bauke. All values are available at
+  \url{http://www-e.uni-magdeburg.de/mertens/research/labs/open.dat}.
+
+\bibitem{Lib-OPUS2-labs-2014-homepage-Knauer}
+{LABS Problem: 2002 Merit Factor Records posted by Knauer}.
+\newblock {Now re-posted under two mirrroring sites:
+  \url{http://cbl.ncsu.edu/xBed/xProj/B.labs/} and
+  \url{http://labraj.uni-mb.si/en/B.labs}}, 2014.
+
+\bibitem{Lib-OPUS-labs-1985-Phillips-Beenker}
+G.F.M. Beenker, T.A.C.M. Claasen, and P.W.C. Hermens.
+\newblock {Binary sequences with a maximally flat amplitude spectrum}.
+\newblock {\em Philips J. Res.}, vol. 40:289--304, 1985.
+
+\bibitem{Lib-OPUS2-labs-2014-homepage}
+Franc Brglez, Janez Brest, and Borko Bo\v{s}kovi\'c.
+\newblock {Home Page of the LABS Problem Performance Experiments and
+  Solutions}.
+\newblock {Posted under two mirrroring sites:
+  \url{http://cbl.ncsu.edu/xBed/xProj/B.labs/} and
+  \url{http://labraj.uni-mb.si/en/B.labs}}, 2014.
+
+\bibitem{Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez}
+Franc Brglez, Yang Ho, and Johnny Nguyen.
+\newblock {\em {On Combinatorial Optimization and Rapid Prototyping of
+  Stochastic Solvers}}.
+\newblock {Search for eBooks under \url{https://github.com/fbrglez/gitPublic/}
+  ... For edited chapters from the book, search under \url{http://arxiv.org/}},
+  2015.
+
+\bibitem{Lib-OPUS2-ebook-xBed-2015-Brglez}
+{Franc Brglez and Janez Brest and Borko Bo\v{s}kovi\'{c} }.
+\newblock {\em {xBed: An Open Environment for Design of and Experiments with
+  Combinatorial Solvers}}.
+\newblock {Search for eBooks under \url{https://github.com/fbrglez/gitPublic/}
+  ... For edited chapters from the book, search under \url{http://arxiv.org/}},
+  2015.
+
+\end{thebibliography}

@@ -1,3 +1,4 @@
 import sys
-sys.path.append("../xBed/xLib/")
-import P.coord
+sys.path.extend(["../xBed/xLib/", "../xProj/P.lop/xLib/"])
+#import P.coord
+#import P.test

@@ -1,0 +1,86 @@
+
+\begin{figure*}[t!]
+\vspace*{-1ex}
+%\subfloat[\lssMAts\ solver, based on $MA_{TS}$ in~\cite{Lib-OPUS-labs-2009-ASC-Gallardo-memetic}.]{
+\begin{minipage}[t]{0.49\linewidth}
+\centering
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{lssMAts}{$\Theta^{ub}_L, t_{lmt}$}}
+\FOR{$i\gets 1$ {\bf to} $popsize$} \label{alg_lssMAts_For1}
+    \STATE $pop_i\gets$ \CALL{RandomBinarySequence}{$L$}
+    \STATE \CALL{Evaluate}{$pop_i$}
+\ENDFOR \label{alg_lssMAts_For2}
+\STATE \colorbox{Gray}{\valueBest $\gets \CALL{ValueBest}{pop}$}
+\WHILE {\colorbox{Gray}{ $t < t_{lmt}$ {\bf ~and~}  \valueBest $\,>\,$ \valueTarget} }
+    \FOR{$i=1$ {\bf to} $\mathit{offsize}$}     
+        \IF {recombination is performed ($p_X$)} \label{alg_lssMAts_Rec1}
+            \STATE $parent_1 \gets $\CALL{Select}{$pop$}
+            \STATE $parent_2 \gets $\CALL{Select}{$pop$}
+            \STATE $\mathit{offspring_i}\gets$\CALL{Recombine}{$parent_1, parent_2$}
+        \ELSE
+            \STATE $\mathit{offspring}_i \gets $\CALL{Select}{$pop$}
+        \ENDIF \label{alg_lssMAts_Rec2}
+        \IF {mutation is performed ($p_m$)} \label{alg_lssMAts_Mut1}
+            \STATE $\mathit{offspring}_i \gets $\CALL{Mutate}{$\mathit{offspring}_i$}
+        \ENDIF \label{alg_lssMAts_Mut2}
+        \STATE $\mathit{offspring}_i \gets$\CALL{TabuSearch}{$\mathit{offspring}_i$}
+        \STATE \CALL{Evaluate}{$\mathit{offspring}_i$}
+    \ENDFOR
+    \STATE $pop \gets$\CALL{Replace}{$pop$, $\mathit{offspring}$} \label{alg_lssMAts_Sel}
+    \STATE \colorbox{Gray}{\valueBest $\gets \CALL{ValueBest}{pop}$}
+\ENDWHILE
+\ENDPROCEDURE 
+\end{algorithmic}
+\label{fg-lssMAts-lssRRts-a}
+\end{minipage}
+%}
+%\subfloat[\lssRRts\ solver, based on reduction of \lssMAts.]{
+\begin{minipage}[t]{0.49\linewidth}
+{\small	
+The procedure \lssMAts\ on the left is an instrumented versions of the 
+\labs\ solver named as $MA_{TS}$
+in~ cite {\em Lib-OPUS-labs-2009-ASC-Gallardo-memetic}.
+Settings of all parameters,
+used also in our experiments, are described
+in~ cite {\em Lib-OPUS-labs-2009-ASC-Gallardo-memetic}.
+See a concise reprise below.
+\par\vspace*{2ex}
+\begin{tabular}{l l}
+ {\bf setting} & {\bf value} \\
+ \hline
+ population size: & 100 \\
+ mutation probability: & $2/(L+1)$ \\
+ crossover probability: & 0.9 \\
+ tournament selection size: & 2 \\
+ crossover: & uniform \\
+ tabu search walk length: & a random choice  \\
+ ~~              &  from the range\\
+ ~~              & {\small [$\frac{L}{2}, \frac{3 L}{2}$]}
+\end{tabular}
+}
+\vspace{0.6cm}
+\centering
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{lssRRts}{$\Theta^{ub}_L, t_{lmt}$}}
+\STATE $pop_1\gets$ \CALL{RandomBinarySequence}{$L$}
+\STATE \CALL{Evaluate}{$pop_1$}
+\STATE \colorbox{Gray} {\valueBest $\gets \CALL{ValueBest}{pop}$}
+\WHILE {\colorbox{Gray}{ $t < t_{lmt}$ {\bf ~and~}  \valueBest $\,>\,$ \valueTarget} }
+        \STATE $\mathit{pop_1} \gets $\CALL{RandomBinarySequence}{$L$}
+        \STATE $\mathit{pop_1} \gets $\CALL{TabuSearch}{$\mathit{pop_1}$}
+        \STATE \CALL{Evaluate}{$\mathit{pop_1}$}
+        \STATE \colorbox{Gray}{\valueBest $\gets \CALL{ValueBest}{pop}$}
+\ENDWHILE
+\ENDPROCEDURE 
+\end{algorithmic}
+\vspace{0.18cm}
+\label{fg-lssMAts-lssRRts-b}
+\end{minipage}
+%}
+%% NOTE the short caption feature with []: [Two instrumented versions of the \labs\ solver $MA_{TS}$]
+\caption[Figure file: fg-lssMAts-lssRRts.tex]{We illustrate two instrumented versions of the \labs\ solver named as $MA_{TS}$
+in cite {\em Lib-OPUS-labs-2009-ASC-Gallardo-memetic}  
+under the caption ``Pseudo code of the memetic algorithm''.} 
+\label{fg-lssMAts-lssRRts}
+\end{figure*}
+ 

@@ -1,0 +1,98 @@
+
+\section{Typesetting Examples of Algorithms}
+\label{chap-About-Algorithms}
+
+\newthought{There are a number} of examples of algorithms in this section.
+For additional examples of algorithms, see Chapter~\ref{chap-Algorithms2}.
+
+\lipsum[4]
+
+\input{Algorithms/alg-newPivot-normal}
+
+\newthought{The algorithm examples} are listed in this order:
+\begin{enumerate} 
+\item 
+Algorithm~\ref{alg-newPivot-normal} is in-line and normal width.
+\item
+Algorithm~\ref{alg-newPivot-wide} is in-line and full-width
+below a full-width Figure~\ref{fg-tufte-wide-sine}.
+\item 
+Algorithm~\ref{alg-global-search2-normal} is on a full page and normal width.
+\item 
+Algorithm~\ref{alg-global-search2-normal} is on a full page and full-width.
+\item 
+Algorithm~\ref{alg-lssMAts-lssRRts-wide} is at the top of the page and full-width.
+\end{enumerate}
+
+\clearpage
+\input{Figures/fg-tufte-wide-sine}
+\input{Algorithms/alg-newPivot-wide}
+
+\newthought{Notably}, typesetting of the Algorithm~\ref{alg-newPivot-wide} results in excessive width, for better rendition 
+of identical algorithm, see
+Algorithm~\ref{alg-newPivot-normal} in the preceding page.
+
+\lipsum[4]
+
+\newthought{On the next page}, Algorithm~\ref{alg-global-search2-normal}
+takes a full page at normal width. However, the version
+in  Algorithm~\ref{alg-global-search2-wide} describes the same
+algorithm, also on a full page, but in a wider, easier-to-read 
+format.
+
+
+\input{Algorithms/alg-global-search2-normal}
+
+\input{Algorithms/alg-global-search2-wide}
+
+\clearpage
+\input{Algorithms/alg-lssMAts-lssRRts-wide}
+
+\newthought{On this page}, Algorithm~\ref{alg-lssMAts-lssRRts-wide}
+is placed at the top of the page with the [!t] option.
+\lipsum[4]
+\lipsum[1]
+
+\newthought{Here is} a simple in-line Algorithm description we can include, with some restrictions, in a margin note as well.
+\begin{algorithm}
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{lssRRts}{$\Theta^{ub}_L, t_{lmt}$}}
+\STATE $pop_1\gets$ \CALL{RandomBinarySequence}{$L$}
+\STATE \CALL{Evaluate}{$pop_1$}
+\STATE \colorbox{Gray} {\valueBest $\gets \CALL{ValueBest}{pop}$}
+\WHILE {\colorbox{Gray}{ $t < t_{lmt}$ {\bf ~and~}  \valueBest $\,>\,$ \valueTarget} }
+        \STATE $\mathit{pop_1} \gets $\CALL{RandomBinarySequence}{$L$}
+        \STATE $\mathit{pop_1} \gets $\CALL{TabuSearch}{$\mathit{pop_1}$}
+        \STATE \CALL{Evaluate}{$\mathit{pop_1}$}
+        \STATE \colorbox{Gray}{\valueBest $\gets \CALL{ValueBest}{pop}$}
+\ENDWHILE
+\ENDPROCEDURE 
+\end{algorithmic}
+\caption{Pseudo code for \lssRRts\ -- in-line version}.
+\end{algorithm}
+
+\newthought{Here is a margin note} for a 
+pseudo-code that describes a simple procedure\marginnote[-6ex]{
+%\begin{algorithm} %%%% does NOT work with \marginnote
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{lssRRts}{$\Theta^{ub}_L, t_{lmt}$}}
+\STATE $pop_1\gets$ \CALL{RandBinSeq}{$L$}
+\STATE \CALL{Evaluate}{$pop_1$}
+\STATE \colorbox{Gray} {\valueBest $\gets \CALL{ValueBest}{pop}$}
+\WHILE {\colorbox{Gray}{ $t < t_{lmt}$ {\bf ~and~}  \valueBest $\,>\,$ \valueTarget} }
+        \STATE $\mathit{pop_1} \gets $\CALL{RandBinSeq}{$L$}
+        \STATE $\mathit{pop_1} \gets $\CALL{TabuSearch}{$\mathit{pop_1}$}
+        \STATE \CALL{Evaluate}{$\mathit{pop_1}$}
+        \STATE \colorbox{Gray}{\valueBest $\gets \CALL{ValueBest}{pop}$}
+\ENDWHILE
+\ENDPROCEDURE 
+\end{algorithmic}
+%\caption{Pseudo code for \lssRRts}.
+%\end{algorithm}
+}. NOTE: we cannot use the \verb+\algorithm+ and \verb+\caption+ environment 
+under  \verb+\marginnote+.
+
+\lipsum[4]
+
+
+ 

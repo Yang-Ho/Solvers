@@ -1,0 +1,123 @@
+%\chapter{About Text Items}
+%\label{chap-About}
+%\newthought{Text items in this chapter} are divided into two sections: 
+%(1) test items from Tufte,
+%(2) test items  from other sources.
+%
+%\newthought{For details} about how figures and tables are being represented,
+%see Chapters~\ref{chap-Figures} and~\ref{chap-Tables}.
+%
+%\input{Ch-About-Tufte}
+%\input{Ch-About-Other}
+\section{About Text Items from Other Sources}
+\label{chap-About-Other}
+
+\newthought{The primary text items} for this section are selections
+from\cite[-1ex]{Lib-OPUS2-labs-2015-arxiv-Boskovic}.
+
+\vspace*{1.5ex}\noindent
+The command \verb+\cmt+ as listed below,
+\cmt{creates a `comment' sentence like this one.}\\  
+\verb+\newcommand{\cmt}[1]{\textsf{[#1]}}+
+
+\vspace*{1.5ex}\noindent
+The command \verb+\OMIT+ as listed below\\
+\verb+\newcommand{\OMIT}[1]{}+ \\
+suppresses a block of text listed in the latex source code below
+(it makes it invisible).
+\OMIT{
+\TOPIC{Local paragraph} 
+This boldface {\em Local paragraph.} has been created by using 
+the local command \verb+\TOPIC+: see the command below\\
+\verb+\newcommand{\TOPIC}[1]{\vspace{1.3ex}\par\noindent\textbf{#1.}}+
+}
+
+\TOPIC{Local paragraph} 
+This boldface headings, terminated with a period, {\em Local paragraph.} has been created by using 
+the local command \verb+\TOPIC+: see the command below\\
+\verb+\newcommand{\TOPIC}[1]{\vspace{1.3ex}\par\noindent\textbf{#1.}}+\\
+\noindent
+NOTE: such heading may be considered `too bold' in the context of Tufte's ideas in
+{\em Beautiful Evidence}.
+
+\paragraph{Tufte's Paragraph} Paragraph headings (as shown here) are introduced by
+italicized text and separated from the main paragraph by a bit of space.
+The command is \\
+\verb+\paragraph{}+
+
+
+\TOPIC{About the labs problem}
+The {\em aperiodic low-autocorrelation binary sequence} (\labs) problem 
+has a simple formulation: take a binary sequence of length $L$,  
+$S = s_1 s_2 \ldots s_L$, $s_i \in \{ +1,-1 \}$, the autocorrelation function
+$C_k(S) = \sum_{i=1}^{L-k}s_{i}s_{i+k},$ and minimize the energy function:
+\begin{equation}
+E(S) =  \sum_{k=1}^{L-1}C_{k}^{2}(S)
+\label{eq_energy}
+\end{equation}
+or alternatively, maximize the 
+{\em merit factor F}\cite[-1ex]{Lib-OPUS-labs-1977-IEEE_TIT-Golay,
+Lib-OPUS-labs-1982-IEEE_TIT-Golay,
+Lib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym}:
+\begin{equation}
+F(S) =  {L^2}/({2E(S)}).
+\label{eq_meritFactor}
+\end{equation}
+ 
+
+The asymptotic value for the maximum merit factor $F$, introduced
+by Golay, has been re-derived
+using arguments from statistical mechanics\cite[2ex]{Lib-OPUS-labs-1987-JourPhys-Bernasconi}:
+\begin{equation}
+{\rm as~~~} L \rightarrow \infty {\rm ,~~~then~~~}F  \rightarrow 12.3248
+\label{eq_asymptotic}
+\end{equation} 
+The publication of the asymptotic value in Eq. \ref{eq_asymptotic}
+is providing an on-going challenge since no published solutions can yet claim to converge to this value
+as the length of the sequence increases. 
+
+\TOPIC{Creating a filler text}
+The remainder of this paragraph has been created with the command \verb+\lipsum[4]+.
+\lipsum[4]
+
+%\paragraph{Creating more filler text}
+%The remainder of this paragraph has been created with command \verb+\lipsum[1]+.
+%\lipsum[1]
+
+\TOPIC{More about the labs problem}
+Finding the optimum sequence is significantly harder than solving the special cases of the Ising spin-glass problems with limited interaction and periodic boundary conditions, for 
+example\cite{Lib-OPUS-labs-2003-GECCO-Goldberg-periodic}. 
+While effective methods have been presented to solve the special 
+cases\cite[3ex]{Lib-OPUS-labs-2003-GECCO-Goldberg-periodic}, up to $L = 400$, 
+the best merit factors that has also been {\em proven optimal} for the problem as formulated in Eq. \ref{eq_meritFactor}
+are presently known for values of $L \le 60$ 
+only\cite[3ex]{Lib-OPUS-labs-1996-JPhysA-Mertens-BB_solutions}.
+A web page of \labs\ best merit factors and solutions, 
+up to the sequence length of $L=304$, has been compiled by Joshua Knauer in 2002.
+This page is no longer accessible and has now been restored 
+at two mirroring sites\cite[3ex]{Lib-OPUS2-labs-2014-homepage-Knauer} next to 
+additional and  comprehensive tables of {\em best-value solutions}.
+These tables contain not only updates on the best known figures of merit but also 
+on the number of {\em unique}  solutions in {\em canonic form} and the solutions themselves.
+%
+
+{\bf Now, we need more text on this page if we are to make
+extra space for the citation that should be moved into the margins on the next page.}
+Can or should we have {\em some citations} not appear in the margin, only at
+under Bibliography at the very end? Such a feature would not appear logical
+in the context of Tufte's book template, would it?
+The message from Tufte's book template seem to be: do not overcrowd with citations on any given page,
+have sufficient text to justify the introduction (and context) of any new citation ... This criterion can be considered different for books when compared to peer-reviewed article ...
+
+
+This text has been created with the command \verb+\lipsum[4]+.
+\lipsum[1]
+
+Relationships between results reported 
+in\cite[-5ex]{Lib-OPUS-labs-1982-IEEE_TIT-Golay,Lib-OPUS-labs-1985-Phillips-Beenker}
+and\cite[3ex]{Lib-OPUS-labs-1987-JourPhys-Bernasconi,Lib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym}, 
+and all subsequent updates under\cite[3ex]{Lib-OPUS2-labs-2014-homepage}
+are depicted in four panels in Figure~\ref{fg-R-labs-wide-4-figures} (See Chapter~\ref{chap-Figures}.
+The latest experimental results support the trend towards the conjectured asymptotic value of $F=12.3248$,
+however as we demonstrate later on in the paper, the computational cost to reach this value may well exceed the currently available resources unless a better solver is discovered.
+

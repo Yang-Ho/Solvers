@@ -1,0 +1,135 @@
+\section{Text Items Selected from Tufte's Book Template}
+\label{chap-About-Tufte}
+
+\newthought{The primary text items} for this section are selections
+from Tufte Book Template\sidenote{The Tufte Book Template can be accessed
+at~\url{https://github.com/Tufte-LaTeX/tufte-latex}.}
+Here, we extracted three sections from the Chapter on
+{\em On the Use of the tufte-book Document Class}:
+From this template, have extracted three sections
+\begin{itemize}
+\item Page Layout: Headings
+\item Sidenotes
+\item References
+\end{itemize}
+However, in this document, we treat all of these three sections as subsections. 
+
+
+\subsection{Page Layout: Headings}\label{sec:headings}\index{headings}
+
+\newthought{Tufte's books} include the following heading levels: parts,
+chapters,\sidenote{Parts and chapters are defined for the \texttt{tufte-book}
+class only.}  sections, subsections, and paragraphs.  Not defined by default
+are: sub-subsections and subparagraphs.
+
+\begin{table}[h]
+  \begin{center}
+    \footnotesize%
+    \begin{tabular}{lcr}
+      \toprule
+      Heading & Style & Size \\
+      \midrule
+      Part & roman & \measure{24}{36}{40} \\
+      Chapter & italic & \measure{20}{30}{40} \\
+      Section & italic & \measure{12}{16}{26} \\
+      Subsection & italic & \measure{11}{15}{26} \\
+      Paragraph & italic & 10/14 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \caption{Heading styles used in \BE.}
+  \label{tab:heading-styles}
+\end{table}
+
+\paragraph{Paragraph} Paragraph headings (as shown here) are introduced by
+italicized text and separated from the main paragraph by a bit of space.
+
+This style provides \textsc{a}- and \textsc{b}-heads (that is,
+\Verb|\section| and \Verb|\subsection|), demonstrated above.
+
+If you need more than two levels of section headings, you'll have to define
+them yourself at the moment; there are no pre-defined styles for anything below
+a \Verb|\subsection|.  As Bringhurst points out in \textit{The Elements of
+Typographic Style},\cite{Bringhurst2005} you should ``use as many levels of
+headings as you need: no more, and no fewer.''
+
+The \TL classes will emit an error if you try to use
+\linebreak\Verb|\subsubsection| and smaller headings.
+
+% let's start a new thought -- a new section
+\newthought{In his later books},\cite{Tufte2006} Tufte
+starts each section with a bit of vertical space, a non-indented paragraph,
+and sets the first few words of the sentence in \textsc{small caps}.  To
+accomplish this using this style, use the \doccmddef{newthought} command:
+\begin{docspec}
+  \doccmd{newthought}\{In his later books\}, Tufte starts\ldots
+\end{docspec}
+
+
+\subsection{Sidenotes}\label{sec:sidenotes}
+One of the most prominent and distinctive features of this style is the
+extensive use of sidenotes.  There is a wide margin to provide ample room
+for sidenotes and small figures.  Any \doccmd{footnote}s will automatically
+be converted to sidenotes.\footnote{This is a sidenote that was entered
+using the \texttt{\textbackslash footnote} command.}  If you'd like to place ancillary
+information in the margin without the sidenote mark (the superscript
+number), you can use the \doccmd{marginnote} command.\marginnote{This is a
+margin note.  Notice that there isn't a number preceding the note, and
+there is no number in the main text where this note was written.}
+
+The specification of the \doccmddef{sidenote} command is:
+\begin{docspec}
+  \doccmd{sidenote}[\docopt{number}][\docopt{offset}]\{\docarg{Sidenote text.}\}
+\end{docspec}
+
+Both the \docopt{number} and \docopt{offset} arguments are optional.  If you
+provide a \docopt{number} argument, then that number will be used as the
+sidenote number.  It will change of the number of the current sidenote only and
+will not affect the numbering sequence of subsequent sidenotes.
+
+Sometimes a sidenote may run over the top of other text or graphics in the
+margin space.  If this happens, you can adjust the vertical position of the
+sidenote by providing a dimension in the \docopt{offset} argument.  Some
+examples of valid dimensions are:
+\begin{docspec}
+  \ttfamily 1.0in \qquad 2.54cm \qquad 254mm \qquad 6\Verb|\baselineskip|
+\end{docspec}
+If the dimension is positive it will push the sidenote down the page; if the
+dimension is negative, it will move the sidenote up the page.
+
+While both the \docopt{number} and \docopt{offset} arguments are optional, they
+must be provided in order.  To adjust the vertical position of the sidenote
+while leaving the sidenote number alone, use the following syntax:
+\begin{docspec}
+  \doccmd{sidenote}[][\docopt{offset}]\{\docarg{Sidenote text.}\}
+\end{docspec}
+The empty brackets tell the \Verb|\sidenote| command to use the default
+sidenote number.
+
+If you \emph{only} want to change the sidenote number, however, you may
+completely omit the \docopt{offset} argument:
+\begin{docspec}
+  \doccmd{sidenote}[\docopt{number}]\{\docarg{Sidenote text.}\}
+\end{docspec}
+
+The \doccmddef{marginnote} command has a similar \docarg{offset} argument:
+\begin{docspec}
+  \doccmd{marginnote}[\docopt{offset}]\{\docarg{Margin note text.}\}
+\end{docspec}
+
+\subsection{References}
+References are placed alongside their citations as sidenotes,
+as well.  This can be accomplished using the normal \doccmddef{cite}
+command.\sidenote{The first paragraph of this document includes a citation.}
+
+The complete list of references may also be printed automatically by using
+the \doccmddef{bibliography} command.  (See the end of this document for an
+example.)  If you do not want to print a bibliography at the end of your
+document, use the \doccmddef{nobibliography} command in its place.  
+
+To enter multiple citations at one location,\cite[-3\baselineskip]{Tufte2006,Tufte1990} you can
+provide a list of keys separated by commas and the same optional vertical
+offset argument: \Verb|\cite{Tufte2006,Tufte1990}|.  
+\begin{docspec}
+  \doccmd{cite}[\docopt{offset}]\{\docarg{bibkey1,bibkey2,\ldots}\}
+\end{docspec}

@@ -1,0 +1,1868 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.7)  16 APR 2015 13:54
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**A00-main-CSC499-Sp15.tex
+(./A00-main-CSC499-Sp15.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+(./tufte-book.cls
+Document Class: tufte-book 2009/12/11 v3.5.0 Tufte-book class
+(./tufte-common.def
+File: tufte-common.def 2009/12/11 v3.5.0 Common code for the Tufte-LaTeX styles
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+\XKV@toks=\toks14
+\XKV@tempa@toks=\toks15
+\XKV@depth=\count79
+File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/xkeyval/keyval.tex)))
+(/usr/local/texlive/2013/texmf-dist/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2009/04/17 v1.3 Extended ifthen features
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count80
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count81
+\calc@Bcount=\count82
+\calc@Adimen=\dimen102
+\calc@Bdimen=\dimen103
+\calc@Askip=\skip41
+\calc@Bskip=\skip42
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count83
+\calc@Cskip=\skip43
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+Package: ifmtarg 2009/09/02 v1.2a check for an empty argument
+))
+Class tufte-book Info: Loading the base class `book'.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count84
+\c@chapter=\count85
+\c@section=\count86
+\c@subsection=\count87
+\c@subsubsection=\count88
+\c@paragraph=\count89
+\c@subparagraph=\count90
+\c@figure=\count91
+\c@table=\count92
+\abovecaptionskip=\skip44
+\belowcaptionskip=\skip45
+\bibindent=\dimen104
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
+\ttl@box=\box26
+\beforetitleunit=\skip46
+\aftertitleunit=\skip47
+\ttl@plus=\dimen105
+\ttl@minus=\dimen106
+\ttl@toksa=\toks16
+\titlewidth=\dimen107
+\titlewidthlast=\dimen108
+\titlewidthfirst=\dimen109
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/titlesec/titletoc.sty
+Package: titletoc 2011/12/15 v1.6 TOC entries
+\ttl@leftsep=\dimen110
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+)
+\@linkdim=\dimen111
+\Hy@linkcounter=\count93
+\Hy@pagecounter=\count94
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count95
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `unicode' set `true' on input line 4319.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2012/11/06 v6.83m Hyperref: PDF Unicode definition (HO)
+)
+Package hyperref Info: Option `hyperfootnotes' set `false' on input line 4319.
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count96
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen112
+\Fld@menulength=\count97
+\Field@Width=\dimen113
+\Fld@charsize=\dimen114
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count98
+\c@Item=\count99
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count100
+\c@bookmark@seq@number=\count101
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip48
+)
+
+Package hyperref Warning: Option `pagecolor' is not available anymore.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/ms/ragged2e.sty
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/ms/everysel.sty
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+)
+\CenteringLeftskip=\skip49
+\RaggedLeftLeftskip=\skip50
+\RaggedRightLeftskip=\skip51
+\CenteringRightskip=\skip52
+\RaggedLeftRightskip=\skip53
+\RaggedRightRightskip=\skip54
+\CenteringParfillskip=\skip55
+\RaggedLeftParfillskip=\skip56
+\RaggedRightParfillskip=\skip57
+\JustifyingParfillskip=\skip58
+\CenteringParindent=\skip59
+\RaggedLeftParindent=\skip60
+\RaggedRightParindent=\skip61
+\JustifyingParindent=\skip62
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+\Gm@cnth=\count102
+\Gm@cntv=\count103
+\c@Gm@tempcnt=\count104
+\Gm@bindingoffset=\dimen115
+\Gm@wd@mp=\dimen116
+\Gm@odd@mp=\dimen117
+\Gm@even@mp=\dimen118
+\Gm@layoutwidth=\dimen119
+\Gm@layoutheight=\dimen120
+\Gm@layouthoffset=\dimen121
+\Gm@layoutvoffset=\dimen122
+\Gm@dimlist=\toks17
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/changepage/changepage.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count105
+\cp@tempcnt=\count106
+)
+\@tufte@overhang=\skip63
+\@tufte@fullwidth=\skip64
+\@tufte@caption@fill=\skip65
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/paralist/paralist.sty
+Package: paralist 2013/06/09 v2.4 Extended list environments
+\pltopsep=\skip66
+\plpartopsep=\skip67
+\plitemsep=\skip68
+\plparsep=\skip69
+\pl@lab=\toks18
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/textcase/textcase.sty
+Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/microtype/letterspace.sty
+Package: letterspace 2013/05/23 v2.5a Robust letterspacing (RS)
+LaTeX Info: Redefining \lsstyle on input line 307.
+LaTeX Info: Redefining \lslig on input line 308.
+LaTeX Info: Redefining \textls on input line 333.
+\MT@outer@kern=\dimen123
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip70
+\bibsep=\skip71
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count107
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/natbib/bibentry.sty
+Package: bibentry 2007/10/30 1.5 (PWD)
+)
+(./A00-main-CSC499-Sp15.bbl)
+\c@@tufte@num@bibkeys=\count108
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/sauerj/optparams.sty
+Package: optparams 2004/08/14 v0.9 multiple optional parameters in macros
+)
+\@tufte@sidenote@vertical@offset=\skip72
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
+\@tufte@margin@floatbox=\box27
+\@tufte@figure@box=\box28
+\@tufte@caption@box=\box29
+\@tufte@caption@vertical@offset=\skip73
+\@tufte@float@contents@width=\skip74
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/mathpazo.sty
+Package: mathpazo 2005/04/12 PSNFSS-v9.2a Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup4
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/helvet.sty
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/bera/beramono.sty
+Package: beramono 2004/01/31 (WaS)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip75
+\f@ncyO@elh=\skip76
+\f@ncyO@erh=\skip77
+\f@ncyO@olh=\skip78
+\f@ncyO@orh=\skip79
+\f@ncyO@elf=\skip80
+\f@ncyO@erf=\skip81
+\f@ncyO@olf=\skip82
+\f@ncyO@orf=\skip83
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Package option `usenames' ignored on input line 216.
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+\Gread@gobject=\count109
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/xcolor/svgnam.def
+File: svgnam.def 2007/01/21 v2.11 Predefined colors according to SVG 1.1 (UK)
+))
+\langwohyphens=\language79
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
+\c@tracingmulticols=\count110
+\mult@box=\box30
+\multicol@leftmargin=\dimen124
+\c@unbalance=\count111
+\c@collectmore=\count112
+\doublecol@number=\count113
+\multicoltolerance=\count114
+\multicolpretolerance=\count115
+\full@width=\dimen125
+\page@free=\dimen126
+\premulticols=\dimen127
+\postmulticols=\dimen128
+\multicolsep=\skip84
+\multicolbaselineskip=\skip85
+\partial@page=\box31
+\last@line=\box32
+\mult@rightbox=\box33
+\mult@grightbox=\box34
+\mult@gfirstbox=\box35
+\mult@firstbox=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\c@columnbadness=\count116
+\c@finalcolumnbadness=\count117
+\last@try=\dimen129
+\multicolovershoot=\dimen130
+\multicolundershoot=\dimen131
+\mult@nat@firstbox=\box54
+\colbreak@box=\box55
+\multicol@sort@counter=\count118
+))
+(./tufte-book-local.tex
+Package hyperref Info: Option `colorlinks' set `true' on input line 1.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/rotating/rotating.sty
+Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+)
+\Gin@req@height=\dimen132
+\Gin@req@width=\dimen133
+)
+\c@r@tfl@t=\count119
+\rotFPtop=\skip86
+\rotFPbot=\skip87
+\rot@float@box=\box56
+\rot@mess@toks=\toks19
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/lipsum/lipsum.sty
+Package: lipsum 2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
+\c@lips@count=\count120
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen134
+\lightrulewidth=\dimen135
+\cmidrulewidth=\dimen136
+\belowrulesep=\dimen137
+\belowbottomsep=\dimen138
+\aboverulesep=\dimen139
+\abovetopsep=\dimen140
+\cmidrulesep=\dimen141
+\cmidrulekern=\dimen142
+\defaultaddspace=\dimen143
+\@cmidla=\count121
+\@cmidlb=\count122
+\@aboverulesep=\dimen144
+\@belowrulesep=\dimen145
+\@thisruleclass=\count123
+\@lastruleclass=\count124
+\@thisrulewidth=\dimen146
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count125
+\FV@InFile=\read1
+\FV@TabBox=\box57
+\c@FancyVerbLine=\count126
+\FV@StepNumber=\count127
+\FV@OutFile=\write3
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/units/units.sty
+Package: units 1998/08/04 v0.9b Typesetting units
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/units/nicefrac.sty
+Package: nicefrac 1998/08/04 v0.9b Nice fractions
+\L@UnitsRaiseDisplaystyle=\skip88
+\L@UnitsRaiseTextstyle=\skip89
+\L@UnitsRaiseScriptstyle=\skip90
+))
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+\@indexfile=\write4
+\openout4 = `A00-main-CSC499-Sp15.idx'.
+
+
+Writing index file A00-main-CSC499-Sp15.idx
+)
+Class tufte-book Info: Loading tufte-book-local.tex.
+)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 3.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks20
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2013/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count128
+\float@exts=\toks21
+\float@box=\box58
+\@float@everytoks=\toks22
+\@floatcapt=\box59
+)
+\@float@every@algorithm=\toks23
+\c@algorithm=\count129
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count130
+\c@ALC@line=\count131
+\c@ALC@rem=\count132
+\c@ALC@depth=\count133
+\ALC@tlm=\skip91
+\algorithmicindent=\skip92
+)
+\@float@every@myalgo=\toks24
+\c@myalgo=\count134
+
+(./A00-main-CSC499-Sp15.aux
+
+LaTeX Warning: Label `fg-tufte-wide-sine' multiply defined.
+
+
+LaTeX Warning: Label `fg-key-blackp-normal-1-figure' multiply defined.
+
+
+LaTeX Warning: Label `fg-key-blackp-normal-1-figure' multiply defined.
+
+)
+\openout1 = `A00-main-CSC499-Sp15.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 55.
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Try loading font information for T1+pplj on input line 55.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/t1pplj.fd
+File: t1pplj.fd 2004/09/06 font definitions for T1/pplj.
+)
+\AtBeginShipoutBox=\box60
+Package hyperref Info: Link coloring ON on input line 55.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count135
+)
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
+
+(./A00-main-CSC499-Sp15.out) (./A00-main-CSC499-Sp15.out)
+\@outlinefile=\write5
+\openout5 = `A00-main-CSC499-Sp15.out'.
+
+
+ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 55.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: letterpaper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside asymmetric 
+* h-part:(L,W,R)=(72.26999pt, 312.0pt, 230.02501pt)
+* v-part:(T,H,B)=(72.26999pt, 616.0pt, 106.7pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=312.0pt
+* \textheight=616.0pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-42.0pt
+* \headheight=14.0pt
+* \headsep=28.0pt
+* \topskip=10.0pt
+* \footskip=25.29494pt
+* \marginparwidth=144.0pt
+* \marginparsep=24.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\big@size=\dimen147
+(/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count136
+\scratchdimen=\dimen148
+\scratchbox=\box61
+\nofMPsegments=\count137
+\nofMParguments=\count138
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count139
+\MPscratchDim=\dimen149
+\MPnumerator=\count140
+\makeMPintoPDFobject=\count141
+\everyMPtoPDFconversion=\toks26
+) (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Font Info:    Try loading font information for T1+phv on input line 57.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 57.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 16.19989pt on input line 57.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 32.39978pt on input line 57.
+
+Overfull \hbox (3.9354pt too wide) in paragraph at lines 57--57
+\T1/phv/m/n/18/200ls TUTE-LAGE OF DR. FRANC BR-GLEZ, COM-PUTER 
+ []
+
+
+Overfull \hbox (16.17259pt too wide) in paragraph at lines 57--57
+[]\T1/phv/m/n/36/200ls CSC499 HON-ORS CLASS  
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 12.59991pt on input line 57.
+[1
+
+
+{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Try loading font information for TS1+pplj on input line 65.
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ts1pplj.fd
+File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
+)
+LaTeX Font Info:    Try loading font information for T1+fvm on input line 73.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/bera/t1fvm.fd
+File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
+)
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 8.50006pt on input line 73.
+LaTeX Font Info:    Try loading font information for OT1+pplx on input line 73.
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ot1pplx.fd
+File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
+)
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 73.
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omlzplm.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
+)
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 73.
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omszplm.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
+)
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 73.
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omxzplm.fd
+File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
+)
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 73.
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ot1zplm.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
+)
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 73.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 73.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 73.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 73.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 73.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 73.
+ [2
+
+]
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 91.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 91.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 91.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 91.
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 6.80005pt on input line 91.
+
+
+LaTeX Warning: Marginpar on page 3 moved.
+
+
+Package natbib Warning: Citation `Lib-OPUS2-gitPublic-Brglez' undefined on inpu
+t line 99.
+
+
+LaTeX Warning: Marginpar on page 3 moved.
+
+
+LaTeX Warning: Marginpar on page 3 moved.
+
+[3
+
+] [4
+
+] (./A00-main-CSC499-Sp15.toc
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 2.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 2.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 2.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 2.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 2.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 2.
+)
+\tf@toc=\write6
+\openout6 = `A00-main-CSC499-Sp15.toc'.
+
+ [5] [6
+
+] (./A00-main-CSC499-Sp15.lof)
+\tf@lof=\write7
+\openout7 = `A00-main-CSC499-Sp15.lof'.
+
+
+[7] [8
+
+] (./A00-main-CSC499-Sp15.lot)
+\tf@lot=\write8
+\openout8 = `A00-main-CSC499-Sp15.lot'.
+
+ [9] [10
+
+] (./A00-main-CSC499-Sp15.loa)
+\tf@loa=\write9
+\openout9 = `A00-main-CSC499-Sp15.loa'.
+
+
+[11] [12
+
+] (./Ch-About.tex
+Chapter 1.
+[13
+
+] (./Ch-About-Conventions.tex
+<Figures/fg-latex-conventions.png, id=224, 308.15125pt x 932.48375pt>
+File: Figures/fg-latex-conventions.png Graphic file (type png)
+
+<use Figures/fg-latex-conventions.png>
+Package pdftex.def Info: Figures/fg-latex-conventions.png used on input line 11
+.
+(pdftex.def)             Requested size: 144.00354pt x 435.7632pt.
+
+
+LaTeX Warning: Marginpar on page 14 moved.
+
+
+Overfull \hbox (11.67836pt too wide) in paragraph at lines 22--33
+\T1/pplj/m/n/10 search2-normal.tex as []\T1/fvm/m/n/10 Algorithm~\ref{alg-globa
+l-search2-normal}\T1/pplj/m/n/10 . 
+ []
+
+
+Overfull \hbox (10.6102pt too wide) in paragraph at lines 22--33
+\T1/pplj/m/n/10 No-tably, we em-bed con-tents of al-go-rithm not only un-der []
+\T1/fvm/m/n/10 \algorithm\T1/pplj/m/n/10 , 
+ []
+
+
+Overfull \hbox (13.86725pt too wide) in paragraph at lines 49--53
+\T1/pplj/m/n/10 OPUS2.bib un-der xLa-tex:  []\T1/fvm/m/n/10 \bibliography{\deto
+kenize{../../OPUS},  
+ []
+
+) [14
+
+ <./Figures/fg-latex-conventions.png>] (./Ch-About-Tufte.tex
+
+LaTeX Warning: Marginpar on page 15 moved.
+
+
+LaTeX Warning: Marginpar on page 15 moved.
+
+
+Overfull \hbox (19.68355pt too wide) in paragraph at lines 47--49
+[]\T1/pplj/m/n/10 This style pro-vides \T1/pplj/m/sc/10/50ls a\T1/pplj/m/n/10 -
+ and \T1/pplj/m/sc/10/50ls b\T1/pplj/m/n/10 -heads (that is, [] and []), 
+ []
+
+
+Package natbib Warning: Citation `Bringhurst2005' undefined on input line 53.
+
+
+LaTeX Warning: Marginpar on page 15 moved.
+
+
+Package natbib Warning: Citation `Tufte2006' undefined on input line 60.
+
+
+LaTeX Warning: Marginpar on page 15 moved.
+
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 7.65005pt on input line 64.
+[15
+
+]
+
+LaTeX Warning: Marginpar on page 16 moved.
+
+
+LaTeX Warning: Marginpar on page 16 moved.
+
+
+LaTeX Warning: Marginpar on page 16 moved.
+
+[16]
+
+Package natbib Warning: Citation `Tufte2006' undefined on input line 130.
+
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Tufte200
+6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.130 ...ite[-3\baselineskip]{Tufte2006,Tufte1990}
+                                                   you can
+
+Package natbib Warning: Citation `Tufte1990' undefined on input line 130.
+
+
+LaTeX Warning: Marginpar on page 17 moved.
+
+) [17] (./Ch-About-Other.tex
+
+Package natbib Warning: Citation `Lib-OPUS2-labs-2015-arxiv-Boskovic' undefined
+ on input line 16.
+
+LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <8> not available
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 16.
+LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
+(Font)              scaled to size 6.80005pt on input line 16.
+
+LaTeX Warning: Marginpar on page 18 moved.
+
+LaTeX Font Info:    Font shape `T1/pplj/bx/n' in size <10> not available
+(Font)              Font shape `T1/pplj/b/n' tried instead on input line 35.
+
+Overfull \hbox (22.3732pt too wide) in paragraph at lines 38--38
+[][]\T1/fvm/m/n/10 \newcommand{\TOPIC}[1]{\vspace{1.3ex}\par\noindent\textbf{#1
+.}}  
+ []
+
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1977-IEEE_TIT-Golay' undefined 
+on input line 61.
+
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1982-IEEE_TIT-Golay' undefined 
+on input line 61.
+
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym' un
+defined on input line 61.
+
+
+LaTeX Warning: Marginpar on page 18 moved.
+
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1987-JourPhys-Bernasconi' undef
+ined on input line 70.
+
+
+LaTeX Warning: Marginpar on page 18 moved.
+
+
+LaTeX Warning: Marginpar on page 18 moved.
+
+[18
+
+]
+
+Package natbib Warning: Citation `Lib-OPUS-labs-2003-GECCO-Goldberg-periodic' u
+ndefined on input line 89.
+
+
+Package natbib Warning: Citation `Lib-OPUS-labs-2003-GECCO-Goldberg-periodic' u
+ndefined on input line 91.
+
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1996-JPhysA-Mertens-BB_solution
+s' undefined on input line 94.
+
+
+Package natbib Warning: Citation `Lib-OPUS2-labs-2014-homepage-Knauer' undefine
+d on input line 98.
+
+
+LaTeX Warning: Marginpar on page 19 moved.
+
+
+LaTeX Warning: Marginpar on page 19 moved.
+
+
+LaTeX Warning: Marginpar on page 19 moved.
+
+
+LaTeX Warning: Marginpar on page 19 moved.
+
+
+LaTeX Warning: Marginpar on page 19 moved.
+
+
+LaTeX Warning: Marginpar on page 19 moved.
+
+
+LaTeX Warning: Marginpar on page 19 moved.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-
+OPUS-labs-2003-GECCO-Goldberg-periodic}) has been already used, duplicate ignor
+ed
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.116 R
+       elationships between results reported]
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1982-IEEE_TIT-Golay' undefined 
+on input line 117.
+
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-OPUS
+-labs-1982-IEEE_TIT-Golay}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.117 ...olay,Lib-OPUS-labs-1985-Phillips-Beenker}
+                                                  
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1985-Phillips-Beenker' undefine
+d on input line 117.
+
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1987-JourPhys-Bernasconi' undef
+ined on input line 118.
+
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-OPUS
+-labs-1987-JourPhys-Bernasconi}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.118 ...ib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym}
+                                                  ,
+
+Package natbib Warning: Citation `Lib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym' un
+defined on input line 118.
+
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-OPUS
+-labs-1990-IEEE_TIT-Golay-skewsym}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.118 ...ib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym}
+                                                  ,
+
+Package natbib Warning: Citation `Lib-OPUS2-labs-2014-homepage' undefined on in
+put line 119.
+
+
+LaTeX Warning: Marginpar on page 20 moved.
+
+
+LaTeX Warning: Marginpar on page 20 moved.
+
+
+LaTeX Warning: Marginpar on page 20 moved.
+
+
+LaTeX Warning: Marginpar on page 20 moved.
+
+
+LaTeX Warning: Marginpar on page 20 moved.
+
+) [20] (./Ch-About-Algorithms.tex (./Algorithms/alg-newPivot-normal.tex
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 4.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+)
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 25.
+) [21
+
+]
+(./Figures/fg-tufte-wide-sine.tex
+<Figures/fg-tufte-wide-sine.pdf, id=338, 505.89pt x 51.04068pt>
+File: Figures/fg-tufte-wide-sine.pdf Graphic file (type pdf)
+
+<use Figures/fg-tufte-wide-sine.pdf>
+Package pdftex.def Info: Figures/fg-tufte-wide-sine.pdf used on input line 2.
+(pdftex.def)             Requested size: 480.0061pt x 48.42917pt.
+) (./Algorithms/alg-newPivot-wide.tex
+Overfull \hbox (171.60095pt too wide) in paragraph at lines 4--30
+ []$[]$ 
+ []
+
+) (./Algorithms/alg-global-search2-normal.tex
+LaTeX Font Info:    Font shape `T1/pplj/bx/n' in size <8> not available
+(Font)              Font shape `T1/pplj/b/n' tried instead on input line 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--55
+[] []\T1/pplj/b/n/8 procedure \T1/fvm/m/n/8 walk.saw($[][]  \OT1/zplm/m/n/8 :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--72
+[] []  $\OMS/zplm/m/n/8  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
+[] []\T1/pplj/b/n/8 procedure
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
+[] []$\OMS/zplm/m/n/8 N\OT1/zplm/m/n/8 ([][]) \OMS/zplm/m/n/8  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+[] []$[][]  \OT1/zplm/m/n/8 :  ^^B([][]) \OMS/zplm/m/n/8  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+[]\OT1/zplm/m/n/8 (\OMS/zplm/m/n/8 N[]\OT1/zplm/m/n/8 ([][]))$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
+[]\T1/pplj/b/n/10 Algorithm 3 \T1/pplj/m/n/10 A fully in-stru-mented ver-sion o
+f solver \T1/fvm/m/n/10 lssOrel \T1/pplj/m/n/10 -- nor-mal
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--109
+[]$[]$ $[]$ [][]
+ []
+
+) (./Algorithms/alg-global-search2-wide.tex
+Overfull \hbox (156.0pt too wide) in paragraph at lines 2--110
+ []$[]$ 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [22
+
+ <./Figures/fg-tufte-wide-sine.pdf>] [23] [24]
+(./Algorithms/alg-lssMAts-lssRRts-wide.tex
+Underfull \hbox (badness 10000) in paragraph at lines 44--58
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--58
+
+ []
+
+
+Overfull \hbox (21.052pt too wide) in paragraph at lines 4--76
+[]$[]$ $[]$
+ []
+
+
+Overfull \hbox (156.0pt too wide) in paragraph at lines 2--76
+ []$[]$ 
+ []
+
+) [25
+
+]
+Underfull \hbox (badness 4673) in paragraph at lines 92--92
+[] []\T1/pplj/b/n/8 while 
+ []
+
+
+LaTeX Warning: Marginpar on page 26 moved.
+
+)) (./Ch-Figures.tex [26]
+Chapter 2.
+(./Ch-Figures-Tufte.tex (./Figures/fg-tufte-margin-helix.tex
+<Figures/fg-tufte-margin-helix.pdf, id=583, 221.8689pt x 201.71361pt>
+File: Figures/fg-tufte-margin-helix.pdf Graphic file (type pdf)
+
+<use Figures/fg-tufte-margin-helix.pdf>
+Package pdftex.def Info: Figures/fg-tufte-margin-helix.pdf used on input line 3
+.
+(pdftex.def)             Requested size: 144.00317pt x 130.92145pt.
+)
+(./Figures/fg-tufte-normal-hilbertcurves.tex
+<Figures/fg-tufte-normal-hilbertcurves.pdf, id=585, 308.47346pt x 76.72565pt>
+File: Figures/fg-tufte-normal-hilbertcurves.pdf Graphic file (type pdf)
+
+<use Figures/fg-tufte-normal-hilbertcurves.pdf>
+Package pdftex.def Info: Figures/fg-tufte-normal-hilbertcurves.pdf used on inpu
+t line 3.
+(pdftex.def)             Requested size: 312.0029pt x 77.6035pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--8
+
+ []
+
+) [27
+
+ <./Figures/fg-tufte-margin-helix.pdf> <./Figures/fg-tufte-normal-hilbertcurves
+.pdf>] (./Figures/fg-tufte-wide-sine.tex
+File: Figures/fg-tufte-wide-sine.pdf Graphic file (type pdf)
+
+<use Figures/fg-tufte-wide-sine.pdf>
+Package pdftex.def Info: Figures/fg-tufte-wide-sine.pdf used on input line 2.
+(pdftex.def)             Requested size: 480.0061pt x 48.42917pt.
+)) (./Ch-Figures-Other.tex
+
+Package natbib Warning: Citation `Lib-OPUS2-labs-2015-arxiv-Boskovic' undefined
+ on input line 13.
+
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-OPUS
+2-labs-2015-arxiv-Boskovic}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.13 ...[27ex]{Lib-OPUS2-labs-2015-arxiv-Boskovic}
+                                                  .
+
+LaTeX Warning: Marginpar on page 28 moved.
+
+(./Figures/fg-R-labs-wide-4-figures.tex
+<Figures/fg-R-labs-wide-4-figures-a.pdf, id=620, 505.89pt x 505.89pt>
+File: Figures/fg-R-labs-wide-4-figures-a.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-a.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-a.pdf used on input l
+ine 14.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--16
+[][]
+ []
+
+<Figures/fg-R-labs-wide-4-figures-b.pdf, id=621, 505.89pt x 505.89pt>
+File: Figures/fg-R-labs-wide-4-figures-b.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-b.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-b.pdf used on input l
+ine 18.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
+[][]
+ []
+
+<Figures/fg-R-labs-wide-4-figures-c.pdf, id=622, 505.89pt x 505.89pt>
+File: Figures/fg-R-labs-wide-4-figures-c.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-c.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-c.pdf used on input l
+ine 23.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+<Figures/fg-R-labs-wide-4-figures-d.pdf, id=623, 505.89pt x 505.89pt>
+File: Figures/fg-R-labs-wide-4-figures-d.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-d.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-d.pdf used on input l
+ine 28.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+)
+(./Figures/fg-R-labs-wide-6-figures.tex
+File: Figures/fg-R-labs-wide-4-figures-b.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-b.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-b.pdf used on input l
+ine 14.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--16
+[][]
+ []
+
+File: Figures/fg-R-labs-wide-4-figures-b.pdf Graphic file (type pdf)
+<use Figures/fg-R-labs-wide-4-figures-b.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-b.pdf used on input l
+ine 18.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
+[][]
+ []
+
+File: Figures/fg-R-labs-wide-4-figures-c.pdf Graphic file (type pdf)
+<use Figures/fg-R-labs-wide-4-figures-c.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-c.pdf used on input l
+ine 23.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--25
+[][]
+ []
+
+File: Figures/fg-R-labs-wide-4-figures-c.pdf Graphic file (type pdf)
+<use Figures/fg-R-labs-wide-4-figures-c.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-c.pdf used on input l
+ine 28.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--30
+[][]
+ []
+
+File: Figures/fg-R-labs-wide-4-figures-d.pdf Graphic file (type pdf)
+<use Figures/fg-R-labs-wide-4-figures-d.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-d.pdf used on input l
+ine 33.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+File: Figures/fg-R-labs-wide-4-figures-d.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-d.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-d.pdf used on input l
+ine 38.
+(pdftex.def)             Requested size: 232.85117pt x 232.85117pt.
+
+
+LaTeX Warning: Float too large for page by 35.20369pt on input line 46.
+
+) [28] [29 <./Figures/fg-R-labs-wide-4-figures-a.pdf> <./Figures/fg-R-labs-wide
+-4-figures-b.pdf> <./Figures/fg-R-labs-wide-4-figures-c.pdf> <./Figures/fg-R-la
+bs-wide-4-figures-d.pdf>] [30] (./Figures/fg-R-labs-normal-3-figures.tex
+File: Figures/fg-R-labs-wide-4-figures-b.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-b.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-b.pdf used on input l
+ine 13.
+(pdftex.def)             Requested size: 246.48335pt x 246.48335pt.
+File: Figures/fg-R-labs-wide-4-figures-c.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-c.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-c.pdf used on input l
+ine 16.
+(pdftex.def)             Requested size: 246.48335pt x 246.48335pt.
+File: Figures/fg-R-labs-wide-4-figures-d.pdf Graphic file (type pdf)
+
+<use Figures/fg-R-labs-wide-4-figures-d.pdf>
+Package pdftex.def Info: Figures/fg-R-labs-wide-4-figures-d.pdf used on input l
+ine 19.
+(pdftex.def)             Requested size: 246.48335pt x 246.48335pt.
+
+
+LaTeX Warning: Float too large for page by 36.65031pt on input line 38.
+
+) (./Figures/fg-key-blackp-normal-3-figures.tex
+<Figures/fg-key-blackp-descr-a.png, id=663, 1127.21124pt x 806.01125pt>
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 1
+3.
+(pdftex.def)             Requested size: 308.87466pt x 220.8605pt.
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 1
+6.
+(pdftex.def)             Requested size: 308.87466pt x 220.8605pt.
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 1
+9.
+(pdftex.def)             Requested size: 308.87466pt x 220.8605pt.
+
+
+LaTeX Warning: Reference `fg-R-labs-portrait-3-figures' on page 31 undefined on
+ input line 39.
+
+
+Overfull \hbox (17.65149pt too wide) in paragraph at lines 39--39
+\T1/fvm/m/n/8 Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez\T1/pplj/m/n/8 . 
+ []
+
+
+LaTeX Warning: Float too large for page by 81.65147pt on input line 39.
+
+)
+
+Package natbib Warning: Citation `Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez' unde
+fined on input line 32.
+
+
+LaTeX Warning: Marginpar on page 31 moved.
+
+(./Figures/fg-key-blackp-normal-1-figure.tex
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 5
+.
+(pdftex.def)             Requested size: 265.20427pt x 189.63405pt.
+
+Overfull \hbox (17.65149pt too wide) in paragraph at lines 12--12
+\T1/fvm/m/n/8 Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez\T1/pplj/m/n/8 . 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./Figures/fg-key-blackp-normal-1-figure.tex
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 5
+.
+(pdftex.def)             Requested size: 265.20427pt x 189.63405pt.
+
+Overfull \hbox (17.65149pt too wide) in paragraph at lines 12--12
+\T1/fvm/m/n/8 Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez\T1/pplj/m/n/8 . 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./Figures/fg-key-blackp-normal-1-figure.tex
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 5
+.
+(pdftex.def)             Requested size: 265.20427pt x 189.63405pt.
+
+Overfull \hbox (17.65149pt too wide) in paragraph at lines 12--12
+\T1/fvm/m/n/8 Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez\T1/pplj/m/n/8 . 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) [31
+
+] [32] [33 <./Figures/fg-key-blackp-descr-a.png>] [34]
+(./Figures/fg-key-blackp-wide-1-figure.tex
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 5
+.
+(pdftex.def)             Requested size: 479.99583pt x 343.22052pt.
+
+Overfull \hbox (17.65149pt too wide) in paragraph at lines 11--11
+\T1/fvm/m/n/8 Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez\T1/pplj/m/n/8 .  
+ []
+
+) (./Figures/fg-key-blackp-wide-2-figures.tex
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 5
+.
+(pdftex.def)             Requested size: 431.99109pt x 308.89479pt.
+
+<Figures/fg-key-blackp-neighbors.png, id=689, 973.6375pt x 666.49pt>
+File: Figures/fg-key-blackp-neighbors.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-neighbors.png>
+Package pdftex.def Info: Figures/fg-key-blackp-neighbors.png used on input line
+ 7.
+(pdftex.def)             Requested size: 431.99709pt x 295.71759pt.
+
+Overfull \hbox (17.65149pt too wide) in paragraph at lines 13--13
+\T1/fvm/m/n/8 Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez\T1/pplj/m/n/8 .  
+ []
+
+
+LaTeX Warning: Float too large for page by 9.68234pt on input line 13.
+
+) [35
+
+] [36 <./Figures/fg-key-blackp-neighbors.png>]
+(./Figures/fg-key-blackp-wide-4-figures.tex
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 7
+.
+(pdftex.def)             Requested size: 223.42587pt x 159.76044pt.
+File: Figures/fg-key-blackp-neighbors.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-neighbors.png>
+Package pdftex.def Info: Figures/fg-key-blackp-neighbors.png used on input line
+ 11.
+(pdftex.def)             Requested size: 223.44165pt x 152.95387pt.
+File: Figures/fg-key-blackp-descr-a.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-descr-a.png>
+Package pdftex.def Info: Figures/fg-key-blackp-descr-a.png used on input line 1
+6.
+(pdftex.def)             Requested size: 223.42587pt x 159.76044pt.
+File: Figures/fg-key-blackp-neighbors.png Graphic file (type png)
+
+<use Figures/fg-key-blackp-neighbors.png>
+Package pdftex.def Info: Figures/fg-key-blackp-neighbors.png used on input line
+ 21.
+(pdftex.def)             Requested size: 223.44165pt x 152.95387pt.
+
+Overfull \hbox (17.65149pt too wide) in paragraph at lines 29--29
+\T1/fvm/m/n/8 Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez\T1/pplj/m/n/8 .  
+ []
+
+))) (./Ch-Tables.tex [37
+
+] [38
+
+]
+Chapter 3.
+(./Ch-Tables-Tufte.tex (./Tables/tb-tufte-normal-headings.tex
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./Tables/tb-tufte-normal-fontSizes.tex
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./Tables/tb-tufte-normal-environmentStyles.tex
+Overfull \hbox (8.62123pt too wide) in paragraph at lines 4--14
+ [] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./Tables/tb-tufte-normal-margins.tex
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 3.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/t1ppl.fd
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./Tables/tb-tufte-wide-extraColumn.tex
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+)) (./Ch-Tables-Other.tex [39] [40]
+
+Package natbib Warning: Citation `Lib-OPUS2-ebook-xBed-2015-Brglez' undefined o
+n input line 17.
+
+
+Package natbib Warning: Citation `Lib-OPUS2-labs-2015-arxiv-Boskovic' undefined
+ on input line 17.
+
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-OPUS
+2-labs-2015-arxiv-Boskovic}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.17 ...Brglez,Lib-OPUS2-labs-2015-arxiv-Boskovic}
+                                                  , and
+
+LaTeX Warning: Marginpar on page 41 moved.
+
+(./Tables/tb-labs-wide-notation-summary.tex
+Overfull \hbox (13.39873pt too wide) in paragraph at lines 7--73
+ [][] 
+ []
+
+) (./Tables/tb-cover-sideways-results.tex
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `!tbp') on input line 5.
+
+LaTeX Font Info:    Font shape `T1/pplj/bx/n' in size <7> not available
+(Font)              Font shape `T1/pplj/b/n' tried instead on input line 18.
+))) (./Ch-Algorithms2.tex [41
+
+] [42] [43] [44
+
+]
+Chapter 4.
+[45] (./Algorithms/alg-newPivot2-normal.tex)
+(./Algorithms/alg-newPivot2-wide.tex
+Overfull \hbox (171.60095pt too wide) in paragraph at lines 2--28
+ []$[]$ 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [46] (./Algorithms/fg-lssMAts-lssRRts.tex
+Underfull \hbox (badness 10000) in paragraph at lines 40--47
+[]\T1/pplj/m/n/9 The pro-ce-dure \T1/fvm/m/n/9 lssMAts \T1/pplj/m/n/9 on the le
+ft is an in-stru-mented
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--47
+\T1/pplj/m/n/9 ver-sions of the \T1/fvm/m/n/9 labs \T1/pplj/m/n/9 solver named 
+as $\OML/zplm/m/it/9 MA[]$ \T1/pplj/m/n/9 in  cite \T1/pplj/m/it/9 Lib-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--47
+\T1/pplj/m/it/9 OPUS-labs-2009-ASC-Gallardo-memetic\T1/pplj/m/n/9 . Set-tings o
+f all
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--47
+\T1/pplj/m/n/9 pa-ram-e-ters, used also in our ex-per-i-ments, are de-scribed
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--47
+\T1/pplj/m/n/9 in  cite \T1/pplj/m/it/9 Lib-OPUS-labs-2009-ASC-Gallardo-memetic
+\T1/pplj/m/n/9 . See a
+ []
+
+LaTeX Font Info:    Font shape `T1/pplj/bx/n' in size <9> not available
+(Font)              Font shape `T1/pplj/b/n' tried instead on input line 49.
+) (./Algorithms/fg-global-search2.tex
+Underfull \hbox (badness 10000) in paragraph at lines 56--116
+[][] []
+ []
+
+
+LaTeX Warning: Float too large for page by 38.39285pt on input line 116.
+
+)) [47
+
+
+] [48] (./A00-main-CSC499-Sp15.bblpdfTeX warning (ext4): destination with the s
+ame identifier (name{cite.Lib-OPUS2-gitPublic-Brglez}) has been already used, d
+uplicate ignored
+<to be read again> 
+                   \relax 
+l.3 \bibitem{Lib-OPUS2-gitPublic-Brglez}
+                                        pdfTeX warning (ext4): destination with
+ the same identifier (name{cite.Bringhurst2005}) has been already used, duplica
+te ignored
+<to be read again> 
+                   \relax 
+l.9 \bibitem{Bringhurst2005}
+                            pdfTeX warning (ext4): destination with the same id
+entifier (name{cite.Tufte2006}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.14 \bibitem{Tufte2006}
+                        pdfTeX warning (ext4): destination with the same identi
+fier (name{cite.Tufte1990}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.19 \bibitem{Tufte1990}
+                        pdfTeX warning (ext4): destination with the same identi
+fier (name{cite.Lib-OPUS2-labs-2015-arxiv-Boskovic}) has been already used, dup
+licate ignored
+<to be read again> 
+                   \relax 
+l.24 \bibitem{Lib-OPUS2-labs-2015-arxiv-Boskovic}
+                                                 
+LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <10> not available
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 28.
+LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
+(Font)              scaled to size 8.50006pt on input line 28.
+pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-OPUS
+-labs-1977-IEEE_TIT-Golay}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.30 \bibitem{Lib-OPUS-labs-1977-IEEE_TIT-Golay}
+                                                pdfTeX warning (ext4): destinat
+ion with the same identifier (name{cite.Lib-OPUS-labs-1982-IEEE_TIT-Golay}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.35 \bibitem{Lib-OPUS-labs-1982-IEEE_TIT-Golay}
+                                                pdfTeX warning (ext4): destinat
+ion with the same identifier (name{cite.Lib-OPUS-labs-1990-IEEE_TIT-Golay-skews
+ym}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.40 ...Lib-OPUS-labs-1990-IEEE_TIT-Golay-skewsym}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{cite.Lib-OPUS-labs-1987-JourPhys-Bernascon
+i}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.47 ...em{Lib-OPUS-labs-1987-JourPhys-Bernasconi}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{cite.Lib-OPUS-labs-2003-GECCO-Goldberg-per
+iodic}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.53 ...ib-OPUS-labs-2003-GECCO-Goldberg-periodic}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{cite.Lib-OPUS-labs-1996-JPhysA-Mertens-BB_
+solutions}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.60 ...PUS-labs-1996-JPhysA-Mertens-BB_solutions}
+                                                   [49
+
+
+]pdfTeX warning (ext4): destination with the same identifier (name{cite.Lib-OPU
+S2-labs-2014-homepage-Knauer}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.69 \bibitem{Lib-OPUS2-labs-2014-homepage-Knauer}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{cite.Lib-OPUS-labs-1985-Phillips-Beenker})
+ has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.75 \bibitem{Lib-OPUS-labs-1985-Phillips-Beenker}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{cite.Lib-OPUS2-labs-2014-homepage}) has be
+en already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.80 \bibitem{Lib-OPUS2-labs-2014-homepage}
+                                           pdfTeX warning (ext4): destination w
+ith the same identifier (name{cite.Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez}) ha
+s been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.88 ...m{Lib-OPUS2-ebook-CSC499-Sp15-2015-Brglez}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{cite.Lib-OPUS2-ebook-xBed-2015-Brglez}) ha
+s been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.96 \bibitem{Lib-OPUS2-ebook-xBed-2015-Brglez}
+                                               )
+No file A00-main-CSC499-Sp15.ind.
+
+Package natbib Warning: There were undefined citations.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 145.
+[50]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 145.
+ (./A00-main-CSC499-Sp15.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 145.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 145.
+
+
+Package rerunfilecheck Warning: File `A00-main-CSC499-Sp15.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `A00-main-CSC499-Sp15.out':
+(rerunfilecheck)             Before: AE47FAB40326F07A6579D4C96664BDFF;2316
+(rerunfilecheck)             After:  C1E1D4982D08F041E7D5F5FC4EF1FB36;2422.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 145.
+ ) 
+Here is how much of TeX's memory you used:
+ 14648 strings out of 493308
+ 210009 string characters out of 6137823
+ 427144 words of memory out of 5000000
+ 17126 multiletter control sequences out of 15000+600000
+ 141308 words of font info for 231 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 42i,19n,45p,415b,1025s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texl
+ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texliv
+e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/fpl/fplbj8a.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/local/texlive/2013/texmf-d
+ist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2013/texmf-dist/f
+onts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/fonts
+/type1/public/fpl/fplrc8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/p
+ublic/fpl/fplrij8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/b
+era/fvmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/bera/fvmr
+o8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols
+/msam10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a
+.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on A00-main-CSC499-Sp15.pdf (50 pages, 681644 bytes).
+PDF statistics:
+ 1099 PDF objects out of 1200 (max. 8388607)
+ 987 compressed objects within 10 object streams
+ 488 named destinations out of 1000 (max. 500000)
+ 3731 words of extra memory for PDF output out of 10000 (max. 10000000)
+

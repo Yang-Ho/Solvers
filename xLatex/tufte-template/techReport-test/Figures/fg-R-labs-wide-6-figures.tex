@@ -1,0 +1,48 @@
+\begin{figure*}[t!]\index{Figures in R!6 panes}
+% http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+% http://tex.stackexchange.com/questions/119984/subfigures-side-by-side-with-captions
+%\usepackage{caption}     %% loads OK, but not needed neither subfigure nor subcaption
+                          %% work under Tufte-book template
+%\usepackage{subfigure}   %% This package loads without errors, however 
+                          %% \begin{subfigure}[t]{0.49\textwidth} DOES NOT WORK!
+%\usepackage{subcaption}  %% ! Package caption Error: The `subcaption' package does not work 
+                          %%   correctly in compatibility mode.
+\centering
+\vspace*{-5ex}% removes white space at the top
+
+\begin{minipage}{0.49\textwidth}
+\includegraphics[width=0.99\textwidth]{fg-R-labs-wide-4-figures-b}
+\vspace*{-5ex}% removes white space for the next row of figures
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\includegraphics[width=0.99\textwidth]{fg-R-labs-wide-4-figures-b}
+\vspace*{-5ex}% removes white space for the next row of figures
+\end{minipage}
+~%
+\begin{minipage}{0.49\textwidth}
+\includegraphics[width=0.99\textwidth]{fg-R-labs-wide-4-figures-c}
+\vspace*{-5ex}% removes white space for the next row of figures
+\end{minipage}
+%
+\begin{minipage}{0.49\textwidth}
+\includegraphics[width=0.99\textwidth]{fg-R-labs-wide-4-figures-c}
+\vspace*{-5ex}% removes white space for the next row of figures
+\end{minipage}
+~%
+\begin{minipage}{0.49\textwidth}
+\includegraphics[width=0.99\textwidth]{fg-R-labs-wide-4-figures-d}
+%\vspace*{-1ex}
+\end{minipage}
+%
+\begin{minipage}{0.49\textwidth}
+\includegraphics[width=0.99\textwidth]{fg-R-labs-wide-4-figures-d}
+%\vspace*{-1ex}
+\end{minipage}
+%
+\caption[From the file fg-R-labs-wide-6-figures.tex]
+{From the file fg-R-labs-wide-6-figures.tex {\em borrowed from} {\tt Lib-OPUS2-labs-2015-arxiv-Boskovic}. 
+}
+\label{fg-R-labs-wide-6-figures}
+\end{figure*}
+
+

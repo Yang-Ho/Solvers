@@ -1,0 +1,28 @@
+
+\begin{algorithm-wide}[h]{1.55\textwidth}%  1.55\textwith expands to full width of figure above!!
+\begin{algorithmic}[1]
+\PROCEDURE{\CALL{newPivot.saw}{${\underline \varsigma}_{\omega_{s} -1},Walk_{\omega_{s} -1}$}}
+\STATE $\mathbb{Z} \gets i = 1,2, \ldots ,L $ 
+\STATE $\mathbb{Z}_p \gets permute(\mathbb{Z}) $ 
+\STATE ${\cal N} ({\underline \varsigma}_{\omega_{s} -1}) \gets  \{{\underline \varsigma}_{\omega_{s} -1}^i | d({\underline \varsigma}_{\omega_{s} -1}, {\underline \varsigma}_{\omega_{s} -1}^i ) = 1, i \in \mathbb{Z}_p\}$ 
+\STATE ${\cal N}_{saw} ({\underline \varsigma}_{\omega_{s} -1}) \gets  \{ {\cal N} ({\underline \varsigma}_{\omega -1}) |
+                      {\underline \varsigma}_{\omega_{s} -1}^i \not\in  Walk_{\omega_{s} -1}\}$
+   \IF {\strut  ${\cal N}_{saw}  ({\underline \varsigma}_{\omega_{s} -1}) \not= \emptyset$}  
+        \STATE ${\underline \varsigma}_{\omega_{s}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}}) \gets {\tt bestNeighbor}({\cal N}_{saw} ({\underline \varsigma}_{\omega_{s} -1}))$
+        \STATE $Walk_{\omega_{s}} \gets Walk_{\omega_{s}-1} \cup \{{\underline \varsigma}_{\omega_{s}}\}$
+        \STATE $\tau \gets \tau + |~{\cal N}_{saw} ({\underline \varsigma}_{\omega_{s} -1})~| $ 
+        \COMMENT{update $cntProbe$}
+   \ELSE[\textbf{deal with a trapped pivot}]
+        \STATE $\beta = \beta + 1$ 
+        \STATE ${\underline \varsigma}_{\omega_{s}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}}) \gets {\tt coordInit}()$ 
+        \COMMENT{re-initialize}
+        \STATE $Walk_{\omega_{s}} \gets \{ {\underline \varsigma}_{\omega_{s}} \}$
+        \STATE $\tau \gets \tau + 1 $ 
+        \COMMENT{update $cntProbe$}
+    \ENDIF
+\STATE \textbf{return} $Walk_{\omega_{s}}\!:\!{\underline \varsigma}_{\omega_{s}}\!:\!\Theta({\underline \varsigma}_{\omega_{s}})$ 
+\ENDPROCEDURE 
+\end{algorithmic}
+\caption[Algorithm file: alg-newPivot2-wide.tex]{Procedure newPivot2.saw -- using algorithm-wide environment.}
+\label{alg-newPivot2-wide}
+\end{algorithm-wide}
