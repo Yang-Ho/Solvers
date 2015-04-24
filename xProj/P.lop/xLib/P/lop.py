@@ -66,6 +66,11 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     global aValueBest 
     global aAdjacent
 
+    try:
+        aV["writeVar"] = int(aV["writeVar"])
+    except:
+        print "writeVar is not an int"
+
     coordBest = None
     coordBestList = []
     valueProbedList = []
@@ -81,14 +86,14 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     elm_i = coordPiv[0]
     for i in range(Lm1):
         ip1 = i + 1
-        swapL = coordPiv
+        swapL = coordPiv[:]
         elm_ip1 = coordPiv[ip1]
         swapL[i] = elm_ip1
         if ip1 <= Lm1:
             swapL[ip1] = elm_i
             coordAdj[ip1] = swapL
             elm_i = coordPiv[ip1]
-
+    
     if aV["writeVar"] == 3:
         rank = P.coord.distance(coordPiv, aV["coordRef"])
         rowLines = ("\nFROM: {}"
@@ -100,7 +105,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
 
     for i in range(Lm1):
         ip1 = i + 1
-        coordA = coordAdj[ip1]
+        coordA = tuple(coordAdj[ip1])
         if coordA not in aHashTmp:
             neighbSize += 1
             valueA = f(coordA)
@@ -120,7 +125,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
                 iP1 = coordA[ip1]
                 pair = (iP, iP1)
                 rank = P.coord.distance(coordA, aV["coordRef"])
-                rowLines += "\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(pair,
+                rowLines += "{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(pair,
                         coordA, valueA, valueBest, rank, neighbSize, aV["cntProbe"])
 
     if aV["writeVar"] == 3:
@@ -672,7 +677,7 @@ def init( instanceDef, args ):
     global aWalkBest
     global aValueBest
     global aAdjacent
-   
+ 
     argsOptions = args
 
     # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES

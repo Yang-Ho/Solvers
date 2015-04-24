@@ -70,7 +70,6 @@ def distance(coord0 = [2, 1, 4, 3, 6, 5, 8, 7, 9], coord1 = [9, 7, 8, 5, 6, 3, 4
             if a_i1 > a_i and b_j1 < b_j or a_i1 < a_i and b_j1 > b_j:
                 distance += 1
 
-    print(distance / 2)
     return distance / 2
     # the computed distance represents total number of edge crossings and
     # must be divided by 2
@@ -81,7 +80,6 @@ def neighborhood(coordP = ["a", "b", "c", "d", "e"]):
     (here of size L = 5) and returns a set of permutation_distance=1 neighborhood
     coordinates. The size of this set is L-1. See the example below.
     '''
-    print("coordAdj")
     coordAdj = []
     L = len(coordP)
     Lm1 = L - 1
@@ -99,9 +97,6 @@ def neighborhood(coordP = ["a", "b", "c", "d", "e"]):
             coordAdj.append(list(swapL))
             elm_i = coordP[ip1]
 
-        print(swapL)
-    
-    print "\n", coordAdj
     return coordAdj
 
 if __name__ == '__main__':
