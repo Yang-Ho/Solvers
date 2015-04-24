@@ -23,14 +23,13 @@ sandboxPath = os.path.dirname(thisDir)
 sandboxName = os.path.basename(sandboxPath)
 infoVariablesFile = sandboxName + ".info_variables.txt"
 infoVariablesFile = "/".join([sandboxPath,"xLib",infoVariablesFile])
-print sandboxPath
-print sandboxName
-print infoVariablesFile
 
 if os.path.isfile(infoVariablesFile):
+    """
     all_info["sandboxName"] = sandboxName
     all_info["sandboxPath"] = sandboxPath
     all_info["infoVariablesFile"] = infoVariablesFile
+    """
     print ".. registered infoVariablesFile as {}".format(infoVariablesFile)
 else:
     # Error

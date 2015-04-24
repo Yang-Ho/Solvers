@@ -1,11 +1,14 @@
 #! /usr/bin/env python2
 from itertools import imap
+import P.coord
 import time
 import sys
 import os
 import pwd
 import platform
 import random
+import util
+import core
 
 aLits = None
 aAdjacent = None
@@ -27,7 +30,8 @@ def saw_pivot_bee():
 def saw_pivot_ant():
     return
 
-def saw_pivot_simple(coordPiv=[5,3,2,1,4]):
+def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
+    thisProc = "P.lop.saw.pivot.simple"
     ABOUT = (
         "This procedure takes a pivot coordinate/value, probes the distance=1"
         " neighborhood of a 'lop' (a linear ordering problem), subject to the "
@@ -38,59 +42,93 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4]):
         "for each pivot coordinate of length L, there are up to L-1 explicit "
         "probes of the function P.lop.f"
         )
+    if coordPiv == "??":
+        print ABOUT
+        return
+    if coordPiv == "?":
+        #Error
+        print "Valid query is '{} ??'".format(thisProc)
+        return
 
-    thisProc = "P.lop.saw.pivot.simple"
-    
-    global aPI
+    #info global variables
+    global all_info
+    global all_valu
     global aV
-    global aWalkBest
-    global aWalk
-    global aWalkProbed
-    global aLits
+    #instance global variables
     global aStruc
-    global aCoordHash0
-    global aCoordHash1
-    global aValueBest
+    #solver globla variables
+    global aHashTmp
+    global aHashNeighb
+    global aWalk 
+    global aHashWalk 
+    global aWalkProbed 
+    global aWalkBest 
+    global aValueBest 
     global aAdjacent
 
     coordBest = None
     coordBestList = []
-    valueBest = 214783641
-    neighbSize = 0
     valueProbedList = []
     coordProbedList = []
+    valueBest = 2147483641
+    neighbSize = 0
 
-    L = aPI["nDim"]
-    Lm1 = L - 1
+    L = aV["nDim"]
+    Lm1 = L -1
     swapList = []
-    coordAdj = []
+    coordAdj = {}
 
-    valuePiv = f(coordPiv)
-    print valuePiv
     elm_i = coordPiv[0]
     for i in range(Lm1):
         ip1 = i + 1
-        swapL = coordPiv[:]
+        swapL = coordPiv
         elm_ip1 = coordPiv[ip1]
         swapL[i] = elm_ip1
         if ip1 <= Lm1:
             swapL[ip1] = elm_i
-            coordAdj = swapL[:]
+            coordAdj[ip1] = swapL
             elm_i = coordPiv[ip1]
 
-    if aPI["writeVar"] == 3:
-        rank = P_coord.distance(coordPiv, aPI["coordRef"])
-        rowLines = "\n".join([
-            "",
-            "FROM: {}".format(thisProc),
-            "Probing ALL distance=1 neighbors of the",
-            "initial pivot coordinate = {}".format(coordPiv),
-            "pair\tcoord\tfBest\trank\tcntNeighb\tcntProbe",
-            "--\t{}\t{}\t{}\t{}\t0\t{}".format(coordPiv, valuePiv, valuePiv,
-                rank, aV["cntProbe"])
-            ])
+    if aV["writeVar"] == 3:
+        rank = P.coord.distance(coordPiv, aV["coordRef"])
+        rowLines = ("\nFROM: {}"
+                "\nProbing ALL distance=1 neighbors of the\ninitial pivot"
+                " coordinate = {}"
+                "\npair\tcoord\tf\tfBest\trank\tcntNeighb\tcntProbe"
+                "\n--\t{}\t{}\t{}\t{}\t0\t{}\n".format(thisProc, coordPiv, 
+                    coordPiv, valuePiv, valuePiv, rank, aV["cntProbe"]))
 
-    return
+    for i in range(Lm1):
+        ip1 = i + 1
+        coordA = coordAdj[ip1]
+        if coordA not in aHashTmp:
+            neighbSize += 1
+            valueA = f(coordA)
+            aV["cntProbe"] += 1
+            if aV["writeVar"] == 6:
+                coordProbedList.append(coordA)
+                valueProbedList.append(valueA)
+            if valueA <= valueBest:
+                if valueA < valueBest:
+                    coordBestList = []
+                valueBest = valueA
+                coordBest = coordA
+                aAdjacent[valueA] = coordA
+                coordBestList.append(coordBest)
+            if aV['writeVar'] == 3:
+                iP = coordA[i]
+                iP1 = coordA[ip1]
+                pair = (iP, iP1)
+                rank = P.coord.distance(coordA, aV["coordRef"])
+                rowLines += "\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(pair,
+                        coordA, valueA, valueBest, rank, neighbSize, aV["cntProbe"])
+
+    if aV["writeVar"] == 3:
+        print rowLines
+
+    idx = int(len(coordBestList)*random.random())
+    coordBest = coordBestList[idx]
+    return (coordBest, valueBest, neighbSize, coordProbedList, valueProbedList)
 
 def saw():
     ABOUT = (
@@ -103,7 +141,7 @@ def saw():
 
 def pFile_read(fileName):
     thisProc = "pFile_read"
-    rList = file_read(fileName).split("\n")
+    rList = core.file_read(fileName).split("\n")
 
     nDim = int(rList[0])
     nItems = 0
@@ -637,10 +675,22 @@ def init( instanceDef, args ):
    
     argsOptions = args
 
-    print all_info
+    # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
+    thisDir = os.getcwd()
+    sandboxPath = os.path.dirname(thisDir) 
+    sandboxName = os.path.basename(sandboxPath)
+    infoVariablesFile = sandboxName + ".info_variables.txt"
+    infoVariablesFile = "/".join([sandboxPath,"xLib",infoVariablesFile])
+
+    all_info = {}
+    all_info["infoVariablesFile"] = infoVariablesFile
     rList = info(all_info["infoVariablesFile"], 0)
+
     all_info = rList[0]
     all_valu = rList[1]
+    all_info["sandboxName"] = sandboxName 
+    all_info["sandboxPath"] = sandboxPath 
+    all_info["infoVariablesFile"] = infoVariablesFile
 
     #@TODO dynamically set all these dictionaries (see line 147 - 149 in tcl)
     aV = {}
@@ -674,11 +724,17 @@ def init( instanceDef, args ):
             namesInternal.append(name)
         elif val == "FALSE":
             namesOptionalBool.append(name)
-            aV[name] = val
+            aV[name] = False 
+        elif val == "TRUE":
+            namesOptionalBool.append(name)
+            aV[name] = True
         else:
             namesOptional.append(name)
-            aV[name] = val
-    
+            try:
+                aV[name] = float(val)
+            except:
+                aV[name] = val
+   
     aV["instanceDef"] = instanceDef
     
     # Timing
@@ -689,14 +745,238 @@ def init( instanceDef, args ):
     aV["varList"] = rList[2]
     aV["density"] = rList[3]
     aV["coordRef"] = aV["varList"]
-    aV["instanceID"] = aV["instanceDef"] # @TODO: directory stuff, and need to do all_tcl stuff >.>
+    aV["instanceID"] = os.path.basename(aV["instanceDef"]).strip(".lop") 
 
-    infoSolutionsDir = os.path.dirname(os.path.realpath(aV["instanceDef"])) 
-    print infoSolutionsDir
+    infoSolutionsDir = os.path.dirname(os.path.realpath(aV["instanceDef"]))
+    infoSolutionsFile = all_info["sandboxName"] + ".info_solutions.txt"
+    infoSolutionsFile = "/".join([all_info["sandboxPath"], "xBenchm", "lop",
+        infoSolutionsFile])
+    aV["infoSolutionsFile"] = infoSolutionsFile
 
-
+    if not os.path.isfile(infoSolutionsFile):
+        #Error
+        print "\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile)
+    rList = core.file_read(infoSolutionsFile).split('\n')
+    rList.pop()
+    rListTmp = []
+    for line in rList:
+        firstChar = line[0]
+        if firstChar != "#" and len(line) > 0:
+            rListTmp.append(line)
+    isFound = 0
+    for line in rListTmp:
+        line = line.split()
+        varName = line[0]
+        if varName == aV["instanceID"]:
+            aV["valueTarget"] = int(line[1].strip('-'))
+            aV["isProven"] = line[2].strip('-')
+            isFound = 1
+        if isFound:
+            break
+    if not isFound:
+        #Error
+        print ("\nERROR from {}:"
+                "\n .. instance {} was not found in file"
+                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile))
     #end timing
     microSecs = time.time() - microSecs
+
+    aV["runtimeRead"] = microSecs
+    aV["infoSolutionsFile"] = infoSolutionsFile
+    aV["commandName"] = all_info["sandboxName"] + ".main"
+    aV["commandLine"] = "{} {} {}".format(aV["commandName"] , instanceDef , argsOptions)
+    aV["valueTarget"] = aV["valueTarget"] * (1 - aV["valueTol"])
+
+    if len(argsOptions) > 0:
+        tmpList = argsOptions
+        while len(tmpList) > 0:
+            name = tmpList[0].strip("-")
+            if name in namesOptional:
+                aV[name] = tmpList[1]
+                tmpList = tmpList[2:]
+            elif name in namesOptionalBool:
+                aV[name] = True
+                tmpList = tmpList[1:]
+            elif not name:
+                #Error
+                print ("\nERROR from {}:"
+                        "\n.. option name {} is not either of two lists below:"
+                        "\n{}"
+                        "\n\nor\n"
+                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool))
+                break
+
+    if aV["seedInit"] == "NA":
+        aV["seedInit" ] = 1e9 * random.random()
+        random.seed(aV["seedInit"])
+    elif isinstance(aV["seedInit"], (int,long)):
+        random.seed(aV["seedInit"])
+    else:
+        #Error
+        print ("ERROR from {}:"
+                ".. only -seedInit NA or -ssedInit <int> are valid assignments,"
+                "not -seedInit {}\n".format(thisProc, aV['seedInit']))
+    
+    if aV["coordInit"] == "NA":
+        aV['coordInit'] = P.coord.rand(aV["nDim"])
+        aV['rankInit'] = P.coord.rank(aV["coordInit"])
+    else:
+        aV["coordInit"] = [int(c) for c in aV["coordInit"].split(",")]
+        if len(aV["coordInit"]) != aV["nDim"]:
+            #Error
+            print ("\nERROR from {}:"
+                    "\nThe permutation coordinate is of length {},"
+                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"]))
+        aV["rankInit"] = P.coord.rank(aV["coordInit"])
+
+    if aV["walkIntervalLmt"] == "NA" and aV["walkIntervalCoef"] != "NA":
+        try:
+            walkIntervalCoef = float(aV["walkIntervalCoef"])
+            if walkIntevalCoef > 0.:
+                aV["walkIntervalLmt"] = int(walkIntervalCoef * aV["nDim"])
+                aV["walkIntervalCoef"] = walkIntervalCoef
+        except:
+            #Error
+            print ("\nERROR from {}:"
+                    "The walkIntervalCoef can only be assigned a value of NA"
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"]))
+    elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] == "NA":
+        try:
+            walkIntervalLmt = int(aV["walkIntervalLmt"])
+            if walkIntervalLmt > 0:
+                aV["walkIntervalLmt"] = walkIntervalLmt
+        except:
+            #Error
+            print ("\nERROR from {}:"
+                    "The walkIntervalLmt can only be assigned a value of NA"
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"]))
+    elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] != "NA":
+        #Error
+        print ("ERROR from {}:"
+                "The walkIntervalLmt and walkIntervalCoef can only be assigned"
+                "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
+                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"]))
+
+    if aV["walkSegmLmt"] == "NA" and aV["walkSegmCoef"] != "NA":
+        try:
+            walkSegmCoef = float(aV["walkSegmCoef"])
+            if walkIntevalCoef > 0.:
+                aV["walkSegmLmt"] = int(walkSegmCoef * aV["nDim"])
+                aV["walkSegmCoef"] = walkSegmCoef
+        except:
+            #Error
+            print ("\nERROR from {}:"
+                    "The walkSegmCoef can only be assigned a value of NA"
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"]))
+    elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] == "NA":
+        try:
+            walkSegmLmt = int(aV["walkSegmLmt"])
+            if walkSegmLmt > 0:
+                aV["walkSegmLmt"] = walkSegmLmt
+        except:
+            #Error
+            print ("\nERROR from {}:"
+                    "The walkSegmLmt can only be assigned a value of NA"
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"]))
+    elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] != "NA":
+        #Error
+        print ("ERROR from {}:"
+                "The walkSegmLmt and walkSegmCoef can only be assigned"
+                "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
+                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"]))
+
+    aV["coordType"] = "P"
+    aV["functionDomain"] = "P.lop"
+    aV["functionID"] = "lop"
+
+    if aV["solverMethod"] == "ant" and aV["isSimple"]:
+        aV["solverID"] = "ant_saw_simple"
+    elif aV["solverMethod"] == "ant":
+        aV["solverID"] = "ant_saw"
+    elif aV["solverMethod"] == "bee":
+        aV["solverID"] = "bee_saw"
+    elif aV["solverMethod"] == "rw" and not aV["notSAW"]:
+        aV["solverID"] = "rw_saw"
+    elif aV["solverMethod"] == "rw" and aV["notSAW"]:
+        aV["solverID"] = "rw"
+    elif aV["solverMethod"] == "sa" and not aV["notSAW"]:
+        aV["solverID"] = "sa_saw"
+    elif aV["solverMethod"] == "sa" and aV["notSAW"]:
+        aV["solverID"] = "sa"
+
+    aV["solverVersion"] = time.strftime("%Y %m %d %H %M %S")
+    aV["timeStamp"] =  time.strftime("%Y %m %d %H %M %S")
+    aV["dateLine"] = "@TODO: DATE LINE (line 582)"
+    #@TODO HostID stuff (lines 583-486)
+
+    # Timing
+    microSecs = time.time() 
+    aV["valueInit"] = f(aV["coordInit"])
+    #end timing
+    microSecs = time.time() - microSecs
+
+    aV["runtime"] = microSecs
+    aV["cntProbe"] = 1
+    aV["cntStep"] = 0
+    aV["coordPivot"] = aV["coordInit"]
+    aV["coordBest"] = aV["coordInit"]
+    aV["valuePivot"] = aV["valueInit"]
+    aV["valueBest"] = aV["valueInit"]
+    aHashTmp = {}
+    aHashTmp[tuple(aV["coordInit"])] = []
+
+    if aV["valueInit"] == aV["valueTarget"]:
+        aV["targetReached"] = 1
+    elif aV["valueInit"] < aV["valueTarget"]:
+        aV["targetReached"] = 2
+    else:
+        aV["targetReached"] = 0
+
+    aHashWalk[tuple(aV["coordInit"])] = []
+    aV["isCensored"] = 0
+    aV["cntRestart"] = 0
+    aV["walkLength"] = aV["cntStep"]
+    if aV["neighbDist"] == 1:
+        aV["neighbSize"] = aV["nDim"] - 1
+    else:
+        aV["neighbSize"] = "dynamic"
+
+    if aV["writeVar"] >= 4:
+        aV["isSimple"] = 1
+    aValueBest[aV["valueInit"]] = [0,0,aV["coordInit"]]
+    aWalkBest[aV["valueInit"]] = [0,0,aV["coordInit"],0,0]
+
+    aWalk[aV["cntStep"]] = "{} {} {} {} {} {}".format(aV["cntStep"], aV["cntRestart"],
+            aV["coordPivot"], aV["valuePivot"], aV["neighbSize"], aV["cntProbe"])
+
+    isPivot = 1
+    aV["rankPivot"] = P.coord.rank(aV["coordPivot"])
+    aWalkProbed[(aV["walkLength"],0)] = "{} {} {} {} {} {} {} {}".format(
+            aV["walkLength"], aV["cntRestart"], aV["coordPivot"],
+            aV["valuePivot"], aV["rankPivot"], isPivot, aV["neighbSize"], aV["cntProbe"])
+
+    errorItems = []
+    errorLines = []
+    for name in aV.keys():
+        if name not in all_valu:
+            errorLines.append( ("{} -- this variable is missing from the solver"
+                " domain table in the file {}\n".format(name, all_info["infoVariablesFile"])))
+            errorItems.append(name)
+
+    if len(errorItems) > 0:
+        print "\nWarning from {}\n{}".format(thisProc, errorLines)
+        print "Missing variables\n{}\n".format(errorItems)
+
+   
+    if aV["targetReached"] > 0:
+        print "# BINGO: valueTarget has been reached or exceeded with coordInit"
+        stdout(withWarning=1)
+        return
+
+    if aV["writeVar"] == 1:
+        print "@TODO: Lines 675-678"
+
+    return "{} {} {}".format(aV["targetReached"], aV["valueInit"], aV["coordInit"])
 
 def main( instanceDef, args ):
     thisProc = "P.lop.main"

@@ -1,6 +1,6 @@
 import random
 
-def inversion(coord = [4, 1, 2, 3]):
+def rank(coord = [4, 1, 2, 3]):
     """
     This proc takes a permutation coordinate as a list such as **4 1 2 3**
     and returns its inversion number, which can also be interpreted as the 
