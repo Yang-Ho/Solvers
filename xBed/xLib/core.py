@@ -14,20 +14,22 @@ def pwd():
     print file_dir
      
 def file_read(fileName):
-	data = ""
-	try:
-		f = file(fileName,'r')
-		data = f.read()
-		f.close()
-	except IOError as e:
-		print "Error: {}".format(e.strerror)
-	
-	return data
-	
+    data = ""
+    try:
+        f = file(fileName,'r')
+        data = f.read()
+        f.close()
+    except IOError as e:
+        sys.stderr.write("Error: {}\n".format(e.strerror))
+        sys.exit(1)
+    
+    return data
+    
 def file_write(fileName, data):
-	try:
-		f = file(fileName,'a')
-		f.write(data)
-		f.close()
-	except IOError as e:
-		print "Error: {}".format(e.strerror)
+    try:
+        f = file(fileName,'a')
+        f.write(data)
+        f.close()
+    except IOError as e:
+        sys.stderr.write("Error: {}\n".format(e.strerror))
+        sys.exit(1)

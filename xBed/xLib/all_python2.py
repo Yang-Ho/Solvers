@@ -2,6 +2,7 @@ thisDir = "../../../xBed/xLib"
 os.chdir(thisDir)
 thisDir = os.getcwd()
 sys.path.extend([thisDir])
+"""
 print ".. importing python files from the xBed directory \n{}".format(thisDir)
 moduleList = glob.glob("*.py")
 for module in moduleList:
@@ -11,3 +12,4 @@ for module in moduleList:
             core = importlib.import_module(module[:-3])
         if "util" in module:
             util = importlib.import_module(module[:-3])
+"""

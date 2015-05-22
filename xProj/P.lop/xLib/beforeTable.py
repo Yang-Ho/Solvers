@@ -1,3 +1,4 @@
+#! /usr/bin/env python2
 from itertools import imap
 import P.coord
 import time
@@ -17,7 +18,6 @@ aValueBest = {}
 aWalkBest = {}
 aWalk = {}
 aWalkProbed = {}
-aCoord0 = {}
 reqAry = {}
 optAry = {}
 optAryNames = []
@@ -46,8 +46,9 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
         print ABOUT
         return
     if coordPiv == "?":
-        sys.stderr.write("Valid query is '{} ??'\n".format(thisProc))
-        sys.exit(1)
+        #Error
+        print "Valid query is '{} ??'".format(thisProc)
+        return
 
     #info global variables
     global all_info
@@ -55,9 +56,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     global aV
     #instance global variables
     global aStruc
-    #solver global variables
-    global aCoord0
-    """
+    #solver globla variables
     global aHashTmp
     global aHashNeighb
     global aWalk 
@@ -66,7 +65,6 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     global aWalkBest 
     global aValueBest 
     global aAdjacent
-    """
 
     try:
         aV["writeVar"] = int(aV["writeVar"])
@@ -107,12 +105,12 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
 
     for i in range(Lm1):
         ip1 = i + 1
-        coordA = coordAdj[ip1]
-        if tuple(coordA) not in aCoord0:
+        coordA = tuple(coordAdj[ip1])
+        if coordA not in aHashTmp:
             neighbSize += 1
             valueA = f(coordA)
             aV["cntProbe"] += 1
-            if aV["isWalkTables"]:
+            if aV["writeVar"] == 6:
                 coordProbedList.append(coordA)
                 valueProbedList.append(valueA)
             if valueA <= valueBest:
@@ -120,7 +118,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
                     coordBestList = []
                 valueBest = valueA
                 coordBest = coordA
-                #aAdjacent[valueA] = coordA
+                aAdjacent[valueA] = coordA
                 coordBestList.append(coordBest)
             if aV['writeVar'] == 3:
                 iP = coordA[i]
@@ -134,262 +132,17 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
         print rowLines
 
     idx = int(len(coordBestList)*random.random())
-    if len(coordBestList) > 0:
-        coordBest = coordBestList[idx]
-    else:
-        coordBest = None
+    coordBest = coordBestList[idx]
     return (coordBest, valueBest, neighbSize, coordProbedList, valueProbedList)
 
-def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
-    thisProc = "P.lop.saw.pivot"
-    ABOUT = ( "This procedure takes a pivot coordinate/value, probes the "
-        "distance=1 neighborhood of a 'lop' (a linear ordering probelm), "
-        "subject to the constraints of a SAW (self-avoiding walk) -- i.e. "
-        "the best coord/value it returns has not been yet been selected as "
-        "the pivot for the next step. Neighborhood size of 0 signifies that "
-        "the next step of a SAW is blocked.\n This implementation is 'FAST', "
-        "i.e. for each pivot coordinate of length L, there are up to L-1 FAST "
-        "tableau-based probes of each pivot coordinate.")
-
-    if coordPiv == "??":
-        print ABOUT
-        return
-    if coordPiv == "?":
-        #need to figure out which method of raising errors is "better"
-        #raise ValueError("Valid query is '{} ??'".format(thisProc))
-        sys.stderr.write("Valid query is '{} ??'\n".format(thisProc))
-        sys.exit(1)
-
-    # info global variables
-    global all_info
-    global all_valu
-    global aV
-    # instance global variables
-    global aStruc
-    # Solver global variables
-    global aCoord0
-    global aWalkProbed
-
-    coordBest = None
-    valueBest = 2147483641 #@TODO: change to max int
-    valueProbedList = []
-    coordBestList = []
-    neighbSize = 0
-    coordProbedList = []
-
-    # PASS 1: given coordPiv, get sumP(i), valuePiv, coordAdj
-    L = aV["nDim"]
-    Lm1 = L - 1
-    swapList = []
-    coordAdj = {}
-
-    # needed for tableau probing
-    valuePiv = 0
-    # first elm_i to be swapped 
-    elm_i = coordPiv[0]
-
-    sumP = {}
-    for i in range(L):
-        #compute valPiv (pivot value)
-        ip1 = i + 1
-        iP = coordPiv[i]
-        sumP[iP] = 0 # needed for PASS 2
-        for j in range(ip1, L):
-            jP = coordPiv[j]
-            sumP[iP] -= aStruc[jP-1][iP-1]
-
-        valuePiv += sumP[iP]
-
-        # initialize for coordAdj for phase 2
-        swapL = coordPiv[:]
-        elm_ip1 = coordPiv[ip1-1]
-        swapL[i] = elm_ip1
-        if ip1 <= Lm1:
-            swapL[ip1] = elm_i
-            coordAdj[ip1] = swapL
-            elm_i = coordPiv[ip1]
-    aV["cntProbe"] += 1
-    
-    if aV["writeVar"] == 3:
-        rank = P.coord.distance(coordPiv, aV["coordRef"])
-        rowLines = ("\nFROM: {}"
-            "\nProbing ALL distance=1 neighbors of the"
-            "\ninitial pivot coordinate = {}"
-            "\npair\tcoord\tf\tfBest\trank\tcntNeighb\tcntprobe"
-            "\n--\t{}\t{}\t{}\t{}\0\t{}\n".format(thisProc, coordPiv, coordPiv,
-                valuePiv,valuePiv,rank,aV["cntProbe"]))
-
-    # PASS 2: get valueA for ea. admissible adjacent coordinate
-    # Find adjacent coordinates (all coordinates in the walk are excluded from
-    #       the neighborhood of the current pivot
-    for i in range(Lm1):
-        ip1 = i + 1
-        coordA = coordAdj[ip1]
-        if tuple(coordA) not in aCoord0:
-            neighbSize += 1
-            iP = coordA[i]
-            dif_ij = -sumP[iP]
-            iP1 = coordA[ip1]
-            dif_ji = -sumP[iP1]
-
-            for j in range(ip1, L):
-                ij = coordAdj[ip1][j-1]
-                dif_ij -= aStruc[iP][ij-1]
-                ji = coordAdj[ip1][j-1]
-                dif_ji -= aStruc[iP1][ji-1]
-
-            valueA = valuePiv + dif_ij + dif_ji
-            aV["cntProbe"] += 1
-
-            # aggregate coordBestList for random selection
-            if valueA <= valueBest:
-                if valueA < valueBest:
-                    coordBestList = []
-                valueBest = valueA
-                coordBest = coordA
-                coordBestList.append(coordBest)
-            if aV["writeVar"] == 3:
-                pair = "{},{}".format(iP,iP1)
-                print "coordA={}".format(coordA)
-                rank = P.coord.distance(coordA, aV["coordRef"])
-                rowLines += "{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(pair,coordA,
-                        valueA,valueBest,rank,neighbSize,aV["cntProbe"])
-
-    if aV["writeVar"] == 3:
-        print rowLines
-
-    idx = int(len(coordBestList)*random.random())
-    if len(coordBestList) > 0:
-        coordBest = coordBestList[idx]
-    else:
-        coordBest = None
-    return (coordBest, valueBest, neighbSize, coordProbedList, valueProbedList)
-
-def saw(arg=""):
-    thisProc = "P.lop.saw"
-    ABOUT = ( "Procedure {} takes global array values initialized under "
-        "P.lop.init and constructs a segment of a self-avoiding walk (SAW). "
-        "Either P.lop.saw.pivot.simple or the significantly more efficient "
-        "procedure P.lop.saw.pivot.ant is invoked. More to come .....".format(thisProc))
-     
-    if arg == "??":
-        print ABOUT
-        return
-    if arg == "?":
-        sys.stderr.write("Valid query is '{} ??'\n".format(thisProc))
-        sys.exit(1)
-
-    # info global variables
-    global all_info
-    global all_valu
-    global aV
-    # instance global variables
-    global aStruc
-    # solver global variables
-    global aCoord0
-    global aWalkProbed
-
-    # primary input variables
-    functionID = aV["functionID"]
-    runtimeLmt = aV["runtimeLmt"] 
-    cntProbeLmt = aV["cntProbeLmt"]
-    walkRepeatsLmt = aV["walkRepeatsLmt"]
-    walkIntervalLmt = aV["walkIntervalLmt"]
-    walkSegmLmt = aV["walkSegmLmt"]
-    valueTarget = aV["valueTarget"]
-
-    if aV["isSimple"]:
-        procPivotNext = saw_pivot_simple
-    else:
-        procPivotNext = saw_pivot
-    print "# FROM: {}, searching for pivotBest via {}".format(thisProc, 
-            procPivotNext.__name__)
-    # auxiliary variables
-    aV["coordPivot"] = aV["coordInit"][:]
-    aV["valuePivot"] = aV["valueInit"]
-    aV["coordBest"] = aV["coordPivot"][:]
-    aV["valueBest"] = aV["valuePivot"]
-    step = 0
-
-    while True:
-        # Timing
-        microSecs = time.time()
-
-        # UPDATE walkLength
-        step += 1
-        aV["walkLength"] += 1
-        # PROBE neighborhood of current pivot
-        bestNeighb = procPivotNext(aV["coordPivot"], aV["valuePivot"])
-
-        # SELECT next pivot
-        aV["coordPivot"] = bestNeighb[0]
-        aV["valuePivot"] = bestNeighb[1]
-        aV["neighbSize"] = bestNeighb[2]
-        if aV["isWalkTables"]:
-            aV["coordProbedList"] = bestNeighb[3]
-            aV["valueProbedList"] = bestNeighb[4]
-
-            walkLengthM1 = aV["walkLength"] - 1
-            neighbSize = 0
-            isPivot = 0
-            for coord, value in aV["coordProbedList"], aV["valueProbedList"]:
-                neighbSize += 1
-                rank = P.coord.rank(coord)
-                aWalkProbed[(walkLengthM1,neighbSize)] = ( walkLengthM1,
-                        aV["cntRestart"], coord, value, rank, isPivot, 
-                        neighbSize, None)
-            isPivot = 1
-            aV["rankPivot"] = P.coord.rank(aV["coordPivot"])
-            aWalkProbed[(aV["walkLength"],0)] = (aV["walkLength"], 
-                    aV["cntRestart"], aV["coordPivot"], aV["valuePivot"],
-                    aV["rankPivot"], isPivot, aV["neighbSize"], aV["cntProbe"])
-
-        if aV["coordPivot"] is not None:
-            aCoord0[tuple(aV["coordPivot"])] = []
-
-        # UPDATE valueBest, aValueBest, aWalkBest
-        if aV["valuePivot"] <= aV["valueBest"]:
-            aV["valueBest"] = aV["valuePivot"]
-            aV["coordBest"] = aV["coordPivot"]
-        # CHECK the nighboroodSize
-        if aV["neighbSize"] == 0:
-            aV["isBlocked"] = 1
-            aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print ("WARNING from {}: isBlocked=1, aV['neighbSize']={} ..."
-                    "no available neighborhood coordinates ...".format(thisProc,
-                        aV["neighbSize"]))
-            return
-        #end timing
-        microSecs = time.time() - microSecs
-
-        # Record runtime for step
-        aV["runtime"] += microSecs
-        aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-
-        if aV["valueBest"] <= valueTarget:
-            break
-
-        if aV["cntProbe"] > cntProbeLmt:
-            aV["isCensored"] = 1
-            aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print ("WARNING from {}: isCensored=1, cntProbe={} > cntProbeLmt"
-                    "={}\n".format(thisProc, aV["cntProbe"], aV["cntProbeLmt"]))
-            return
-        if aV["runtime"] > runtimeLmt:
-            aV["isCensored"] = 1
-            aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print ("WARNING from {}: isCensored=1, runtime={} > runtimeLmt"
-                    "={}\n".format(thisProc, aV["runtime"], aV["runtimeLmt"]))
-            return
-
-    if aV["valueBest"] == aV["valueTarget"]:
-        aV["targetReached"] = 1
-    elif aV["valueBest"] < aV["valueTarget"]:
-        aV["targetReached"] = 2
-    else:
-        aV["targetReached"] = 0
-
-    return aV["targetReached"]
+def saw():
+    ABOUT = (
+        "This procedure takes values initialized under 'global arrays:' by the"
+        " proedure P.lop.init and constructs a segment of a self-avoiding walk"
+        " (SAW). This procedure invokes either P.lop.saw.pivot.simple or the "
+        "significantly more efficient procedure P.lop.saw.pivot.ant" 
+        )
+    return
 
 def pFile_read(fileName):
     thisProc = "pFile_read"
@@ -449,14 +202,11 @@ def pFile_write(coordPerm = [5, 3, 4, 2, 1], fileName = "../xBenchm/lop/tiny/i-5
     file_write(filePerm, rowLines)
     print ".. created file " + filePerm
 
-def f(coord = (1, 2, 3, 4, 5)):
-    ABOUT = "This procedure returns a function value for an instance of 'lop'"
-    thisProc = "P.lop.f"
-
-    #instance global variables
+def f(coord = [5, 3, 4, 2, 1]):
     global aStruc
-
-    L = len(coord) 
+    thisProc = "f"
+    nDim = len(coord)
+    L = nDim
     Lm1 = L - 1
     sumTot = 0
     for i in range(Lm1):
@@ -489,7 +239,7 @@ def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
         if len(coord) > 0:
             coord = map(int, coord.split(","))
             value = f(coord, aStruc)
-            rank = P_coord.rank(coord)
+            rank = P_coord.inversion(coord)
             if not hasseAry.has_key(rank):
                 hasseAry[rank] = []
             hasseAry[rank].append(str(coord) + ":" + str(value))
@@ -514,7 +264,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     thisProc = "exhB"
 
     # Read the instance
-    print core.file_read(instanceFile)
+    print file_read(instanceFile)
     aInstance = pFile_read( instanceFile )
     aPI = { "nDim" : aInstance[0], "varList" : aInstance[2], "density" : aInstance[3] }
     aStruc = aInstance[1]
@@ -534,7 +284,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     sizeTot = 1
 
     # For each rank, create aCoordHash and aggregate coordList1, then probe
-    # P.lop.f for function value
+    # P_lop.f for function value
     aCoordHash = {}
     runtimeCoord = 0.0
     runtimeProbe = 0.0
@@ -560,7 +310,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
                     coordAdj = swapL[:]
                     elm_i = coord[ip1]
 
-                inversion = P.coord.rank( coordAdj )
+                inversion = P_coord.inversion( coordAdj )
                 if inversion == rank and not (",".join(imap(str,coordAdj)) in aCoordHash):
                     aCoordHash[",".join(imap(str,coordAdj))] = []
                     coordList1.append(coordAdj)
@@ -630,19 +380,295 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     for key in sorted(coordDistrib):
         print "coordDistrib({})".format(key)+" =",coordDistrib[key]
 
+def initOld( instanceDef, argsOptions ):
+    thisProc = "p_lop.{}".format("init")
+
+    global aPI
+    global reqAry
+    global optAry
+    global optAryNames
+    global optAryNamesBool
+    global optAryList
+   
+    aPI = {} 
+
+    #if len(argsoptions) == 1:
+        #argsoptions = argsoptions[0]
+    
+    aPI["coordType"] = "P"
+    aPI["functionBase"] = "lop"
+    aPI["commandName"] = aPI["coordType"]+"_"+aPI["functionBase"]+".main"
+    aPI["solverId"] = aPI["commandName"]
+
+    numAllConstants = 4
+
+    aPI["instanceDef"] = instanceDef
+    
+    for item in optAry:
+        name = item[0]
+        valDefault = item[1]
+        aPI[name] = valDefault
+
+    print argsOptions
+
+    if len(argsOptions) > 0:
+        tmpList = argsOptions
+        #print optAryNames
+        while len(tmpList) > 0:
+            name = tmpList[0].strip("-")
+            if name not in optAryNames:
+                #error
+                print "\n".join([
+                "\nERROR from {}:".format(thisProc),
+                ".. option name {} not in this list".format(name),
+                "\n.. {}".format(optAryNames.sort())])
+            if name not in optAryNamesBool:
+                aPI[name] = True
+                del tmpList[0]
+            else:
+                aPI[name] = tmpList[1]
+                del tmpList[0]
+                del tmpList[0]
+
+
+    nCheck = numAllConstants + len(reqAry) + len(optAry)
+    if len(aPI) != nCheck:
+        #Error
+        print "\n".join([
+        "\nERROR from {}:".format(thisProc),
+        "\nsize of reqAry+optAry ({}) is not matched to".format(nCheck),
+        "\nsize of aPI ({})".format(len(aPI))])
+
+    aPI["commandLine"] = "{} {} {}".format(aPI["commandName"], instanceDef, argsOptions)
+    aPI["commandLineOptionNames"] = optAryList
+    if abs(int(aPI["writeVar"])) == 1:
+        print "\n".join([
+        "\n** TRACE FROM {} **".format(thisProc),
+        "** ALL commandLine variable names ** with either default or \
+        user-assigned values"])
+        print aPI
+
+    microSecs = time.time()
+    aPI["instanceFile"] = aPI["instanceDef"]
+
+    aInstance = pFile_read(aPI["instanceFile"])
+    aPI["nDim"] = aInstance[0]
+    aStruc = aInstance[1]
+    aPI["varList"] = aInstance[2]
+    aPI["density"] = aInstance[3]
+    aPI["coordRef"] = aPI["varList"]
+    microSecs = time.time() - microSecs  
+    aV["runtimeRead"] = microSecs
+
+    if aPI["seedInit"] == "NA":
+        seedInit = 1e9 * random.random()
+        random.seed(seedInit)
+        init = random.random()
+        aPI["seedInit"] = seedInit
+    elif isinstance(aPI["seedInit"], (long, int)):
+        random.seed(seedInit)
+        init = random.random()
+    else:
+        #Error
+        print "\n".join([
+            "ERROR from {}:".format(thisProc),
+            ".. only -seedInit NA or -seedInit <int> are valid assignments, not \
+            -seedInit {}\ ".format(aPI["seedInit"])])
+
+    #ABOUT Coord Init
+    if aPI["coordInit"] == "NA":
+        aPI["coordInit"] = P_coord.rand(aPI["nDim"])
+        aPI["rankInit"] = P_coord.inversion(aPI["coordInit"])
+    else:
+        coordTmp = aPI["coordInit"]
+        coordTmp.sort()
+        if len(coordTmp) != aPI["nDim"]:
+            #Error
+            print "\n".join([
+                "\nERROR from {}:".format(thisProc),
+                "The permutation coordinate is of length {},".format(len(coordTmp)),
+                "not the expected length {}\n".format(aPI["nDim"])])
+        aPI["rankInit"] = P_coord.inversion(aPI["coordInit"])
+
+    # ABOUT walkSegmLmt and walkSegmCoef
+    aPIwalkSegmLmt = aPI["walkSegmLmt"]
+    aPIwalkSegmCoef = aPI["walkSegmLmt"]
+    if aPIwalkSegmLmt == "NA" and aPIwalkSegmLmt == "NA":
+        pass
+    elif aPIwalkSegmLmt == "NA":
+        try:
+            aPIwalkSegmCoef = float(aPIwalkSegmCoef)
+            if aPIwalkSegmCoef > 0:
+                aPI["walkSegmLmt"] = int(aPIwalkSegmCoef * aPI["nDim"])
+            else:
+                #Error
+                print "\n".join([
+                    "\nERROR from {}:".format(thisProc),
+                    "The walkSegmCoef can only be assigned a value of NA or a\
+                    positive number, not {}".format(aPI["walkSegmCeof"])])
+        except ValueError:
+            #Error
+            print "\n".join([
+                "\nERROR from {}:".format(thisProc),
+                "The walkSegmCoef can only be assigned a value of NA or a\
+                positive number, not {}".format(aPI["walkSegmCeof"])])
+    elif aPIwalkSegmCoef == "NA": 
+        try:
+            aPIwalkSegmLmt = float(aPIWalkSegmLmt)
+            if aPIwalkSegmLmt > 0:
+                aPI["walkSegmLmt"] = int(aPIWalkSegmLmt)
+            else:
+                #Error
+                print "\n".join([
+                    "\nERROR from {}:".format(thisProc),
+                    "The walkSegmLmt can only be assigned a value of NA or a\
+                    positive number, not {}".format(aPI["walkSegmLmt"])])
+        except ValueError:
+            #Error
+            print "\n".join([
+                "\nERROR from {}:".format(thisProc),
+                "The walkSegmLmt can only be assigned a value of NA or a\
+                positive number, not {}".format(aPI["walkSegmLmt"])])
+    else:
+        #Error
+        print "\n".join([
+            "\nERROR from {}:".format(thisProc),
+            "The walkSegmLmt and walkSegmCoef can only be assigned pairwise \
+            values of",
+            "(NA NA) (default), (NA double), or (integer, NA)"])
+
+    # ABOUT walkIntervalLmt and walkIntervalCoef
+    aPIwalkIntervalLmt = aPI["walkIntervalLmt"]
+    aPIwalkIntervalCoef = aPI["walkIntervalCoef"]
+    if aPIwalkIntervalLmt == "NA" and aPIwalkIntervalCoef == "NA":
+        pass
+    elif aPIwalkIntervalLmt == "NA": 
+        try:
+            aPIwalkIntervalCoef = float(aPIWalkIntervalCoef)
+            if aPIwalkIntervalCoef > 0:
+                aPI["walkIntervalLmt"] = int(aPI["walkIntervalCoef"] * aPI["nDim"])
+            else:
+                #Error
+                print "\n".join([
+                    "\nERROR from {}:".format(thisProc),
+                    "The walkIntervalCoef can only be assigned a value of NA or a\
+                    positive number > 0, not {}".format(aPIwalkIntervalCoef)])
+        except ValueError:
+            #Error
+            print "\n".join([
+                "\nERROR from {}:".format(thisProc),
+                "The walkIntervalCoef can only be assigned a value of NA or a\
+                positive number > 0, not {}".format(aPIwalkIntervalCoef)])
+    elif aPIwalkSegmCoef == "NA":
+        try:
+            aPIwalkIntervalLmt = float(aPIWalkIntervalLmt)
+            if aPIwalkIntervalLmt > 0:
+                aPI["walkIntervalLmt"] = int(aPIWalkIntervalLmt)
+            else:
+                #Error
+                print "\n".join([
+                    "\nERROR from {}:".format(thisProc),
+                    "The walkIntervalLmt can only be assigned a value of NA or a\
+                    positive number > 0, not {}".format(aPIwalkIntervalLmt)])
+        except ValueError:
+            #Error
+            print "\n".join([
+                "\nERROR from {}:".format(thisProc),
+                "The walkIntervalLmt can only be assigned a value of NA or a\
+                positive number > 0, not {}".format(aPIwalkIntervalLmt)])
+    else:
+        #Error
+        print "\n".join([
+            "ERROR from {}:".format(thisProc),
+            "The walkIntervalLmt and walkIntervalCoef can only be assigned pairwise values of",
+            "(NA NA) (default), (NA double), or (integer, NA)"])
+
+    aPI["valueMin"] = aPI["valueTarget"]
+    aPI["valueTarget"] = aPI["valueMin"] * ( 1 + aPI["valueTol"] )
+    aV["valueTarget"] = aPI["valueTarget"]
+    aPI["coordType"] = "P"
+    aPI["functionBase"] = "lop"
+    aPI["dateLine"] = time.strftime("%a %b %H:%M:%S %Z %Y")
+    aPI["timeStamp"] = time.strftime("%Y %m %d %H %M %S")
+    aPI["hostID"] = "{}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0], os.uname()[1], platform.system(), os.uname()[2])
+
+    if aPI["neighbDist"] == 1:
+        aPI["walkMethod"] = "ant"
+    else:
+        aPI["walkMethod"] = "bee"
+
+    microSecs = time.time()
+    rList = [f(aPI["coordInit"],aStruc)]
+    microSecs = time.time() - microSecs 
+    
+    aV["runtime"] = microSecs
+    aV["coordInit"] = aPI["coordInit"]
+    aV["valueInit"] = rList[0]
+    aV["coordPivot"] = aV["coordInit"]
+    aV["valuePivot"] = aV["valueInit"]
+    
+    if aV["valueInit"] == aV["valueTarget"]:
+        aV["targetReached"] = 1
+    elif aV["valueInit"] < aV["valueTarget"]:
+        aV["targetReached"] = 2
+    else:
+        aV["targetReached"] = 0
+    
+    if aV["targetReached"] > 0:
+        aV["coordInit"] = aV["coordInit"]
+        print "\n".join([
+            "\# BINGO, targetReached = {} for seed = {},".format(aV["targetReached"], aPI["seedInit"]),
+            "\# coordInit = {}, valueInit = {} ".format(aV["coordinit"], aV["valueInit"])])
+        aV["cntProbe"] = 1
+        aV["walkLength"] = 0
+        aV["isCensored"] = 0
+        aV["speed"] = "NA"
+        aV["restart"] = 0
+        aV["restartUniq"] = 0
+        return "{} {} {}".format(aV["coordInit"], aV["valueInit"], aV["targetReached"])
+    
+    aV["cntProbe"] = 1
+    aCoordHash0 = {",".join(imap(str,aV["coordInit"])):[]}
+    aCoordHash1 = {",".join(imap(str,aV["coordInit"])):[]}
+    aV["isCensored"] = 0
+    aV["isBlocked"] = 0
+    aV["walkLength"] = 0
+    aV["cntRestart"] = 0
+    aV["walkRepeats"] = 0
+    aV["walkInterval"] = 0
+    aValueBest[aV["valueInit"]] = (0,0,aV["coordInit"])
+    if aPI["neighbDist"] == 1:
+        aV["neighbSize"] = aPI["nDim"] - 1
+    else:
+        aV["neighbSize"] = "dynamic"
+    
+    aWalkBest[aV["valueInit"]] = (0,0,aV["coordInit"],0,0)
+    
+    aWalk[aV["walkLength"]] = "{} {} {} {} {} {} {}".format(aV["walkLength"], aV["cntRestart"],aV["coordPivot"], aV["valuePivot"], aV["neighbSize"], aV["cntProbe"], aV["targetReached"])
+
+    aWalkProbed[(aV["walkLength"],0)] = "{} {} {} {} {} {} {}".format(aV["walkLength"], aV["cntRestart"],aV["coordPivot"], aV["valuePivot"], aV["neighbSize"], aV["cntProbe"], 1)
+    
+    if aPI["writeVar"] == 1 or aPI["writeVar"] == -1:
+        print "\n".join([
+            "** Final values of initialized primary input variables (array aPI) **",
+            "{}".format(aPI),
+            "** Final values of initialized auxiliary variables (array aV) **",
+            "{}".format(aV),
+            "** as reported on {}, returning".format(aPI["dateLine"]),
+            "coordInit\tvalueInit\ttargetReached"])
+    
+    return (aV["coordInit"], aV["valueInit"], aV["targetReached"])
+
 def init( instanceDef, args ):
     thisProc = "P.lop.init"
 
-    # info global variables
+    #info global variables
     global all_info
     global all_valu
     global aV
-    # instance global variables 
+    #instance global variables 
     global aStruc
-    # solver global variables
-    global aCoord0
-    global aWalkProbed
-    """
+    #solver global variables
     global aHashTmp
     global aHashNeighb
     global aHashWalk
@@ -651,19 +677,29 @@ def init( instanceDef, args ):
     global aWalkBest
     global aValueBest
     global aAdjacent
-    """
  
     argsOptions = args
-    # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
-    tempInfoGlobals()
-    #@TODO dynamically set all these dictionaries (see line 147 - 149 in tcl)
 
-    # (0A) Phase 0A: initialize global variables
+    # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
+    thisDir = os.getcwd()
+    sandboxPath = os.path.dirname(thisDir) 
+    sandboxName = os.path.basename(sandboxPath)
+    infoVariablesFile = sandboxName + ".info_variables.txt"
+    infoVariablesFile = "/".join([sandboxPath,"xLib",infoVariablesFile])
+
+    all_info = {}
+    all_info["infoVariablesFile"] = infoVariablesFile
+    rList = info(all_info["infoVariablesFile"], 0)
+
+    all_info = rList[0]
+    all_valu = rList[1]
+    all_info["sandboxName"] = sandboxName 
+    all_info["sandboxPath"] = sandboxPath 
+    all_info["infoVariablesFile"] = infoVariablesFile
+
+    #@TODO dynamically set all these dictionaries (see line 147 - 149 in tcl)
     aV = {}
     aStruc = {}
-    aCoord0 = {}
-    aWalkProbed = {}
-    """
     aHashTmp = {}
     aHashNeighb = {}
     aHashWalk = {}
@@ -672,15 +708,13 @@ def init( instanceDef, args ):
     aWalkBest = {}
     aValueBest = {}
     aAdjacent = {}
-    """
 
     print "\n".join([
         "# ** from: {}:".format(thisProc),
         "# instanceDef={}".format(instanceDef),
         "# argsOptions={}".format(argsOptions)
         ])
-
-    # (0B) Phase 0B: extract variable groups from all_valu
+    
     namesRequired = []
     namesInternal = []
     namesOptionalBool = []
@@ -693,7 +727,6 @@ def init( instanceDef, args ):
             namesRequired.append(name)
         elif val == "internal":
             namesInternal.append(name)
-            aV[name] = None
         elif val == "FALSE":
             namesOptionalBool.append(name)
             aV[name] = False 
@@ -706,8 +739,7 @@ def init( instanceDef, args ):
                 aV[name] = float(val)
             except:
                 aV[name] = val
-  
-    # (1) Phase 1: initialize required commandline variables
+   
     aV["instanceDef"] = instanceDef
     
     # Timing
@@ -718,7 +750,7 @@ def init( instanceDef, args ):
     aV["varList"] = rList[2]
     aV["density"] = rList[3]
     aV["coordRef"] = aV["varList"]
-    aV["instanceID"] = os.path.basename(aV["instanceDef"])[:-4] 
+    aV["instanceID"] = os.path.basename(aV["instanceDef"]).strip(".lop") 
 
     infoSolutionsDir = os.path.dirname(os.path.realpath(aV["instanceDef"]))
     infoSolutionsFile = all_info["sandboxName"] + ".info_solutions.txt"
@@ -727,8 +759,8 @@ def init( instanceDef, args ):
     aV["infoSolutionsFile"] = infoSolutionsFile
 
     if not os.path.isfile(infoSolutionsFile):
-        sys.stderr.write("\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile))
-        sys.exit(1)
+        #Error
+        print "\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile)
     rList = core.file_read(infoSolutionsFile).split('\n')
     rList.pop()
     rListTmp = []
@@ -736,24 +768,21 @@ def init( instanceDef, args ):
         firstChar = line[0]
         if firstChar != "#" and len(line) > 0:
             rListTmp.append(line)
-    isFound = False 
+    isFound = 0
     for line in rListTmp:
         line = line.split()
         varName = line[0]
         if varName == aV["instanceID"]:
-            aV["valueTarget"] = int(line[1])
-            try:
-                aV["isProven"] = int(line[2].strip('-'))
-            except:
-                aV["isProven"] = False
-            isFound = True
+            aV["valueTarget"] = int(line[1].strip('-'))
+            aV["isProven"] = line[2].strip('-')
+            isFound = 1
         if isFound:
             break
     if not isFound:
-        sys.stderr.write(("\nERROR from {}:"
+        #Error
+        print ("\nERROR from {}:"
                 "\n .. instance {} was not found in file"
-                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile)))
-        sys.exit(1)
+                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile))
     #end timing
     microSecs = time.time() - microSecs
 
@@ -763,7 +792,6 @@ def init( instanceDef, args ):
     aV["commandLine"] = "{} {} {}".format(aV["commandName"] , instanceDef , argsOptions)
     aV["valueTarget"] = aV["valueTarget"] * (1 - aV["valueTol"])
 
-    # (2A) Phase 2A: initialize optional command line variables
     if len(argsOptions) > 0:
         tmpList = argsOptions
         while len(tmpList) > 0:
@@ -775,46 +803,35 @@ def init( instanceDef, args ):
                 aV[name] = True
                 tmpList = tmpList[1:]
             elif not name:
-                sys.stderr.write(("\nERROR from {}:"
+                #Error
+                print ("\nERROR from {}:"
                         "\n.. option name {} is not either of two lists below:"
                         "\n{}"
                         "\n\nor\n"
-                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool)))
-                sys.exit(1)
-            else:
-                aV[name] = int(tmpList[1])
-                tmpList = tmpList[2:]
+                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool))
+                break
 
-    # (2B) Phase 2B: continue to initialize the optional command line variables
-    # aV["seedInit"] needs to be initialized first
     if aV["seedInit"] == "NA":
-        # initialize RNG with random seed
         aV["seedInit" ] = 1e9 * random.random()
         random.seed(aV["seedInit"])
+    elif isinstance(aV["seedInit"], (int,long)):
+        random.seed(aV["seedInit"])
     else:
-        # initialize RNG with user provided seed
-        try:
-            aV["seedInit"] = int(aV["seedInit"])
-            random.seed(aV["seedInit"])
-        except:
-            sys.stderr.write(("ERROR from {}:"
-                    ".. only -seedInit NA or -ssedInit <int> are valid assignments,"
-                    "not -seedInit {}\n".format(thisProc, aV['seedInit'])))
-            sys.exit(1)
-   
-    # initialize permutation coordinate
+        #Error
+        print ("ERROR from {}:"
+                ".. only -seedInit NA or -ssedInit <int> are valid assignments,"
+                "not -seedInit {}\n".format(thisProc, aV['seedInit']))
+    
     if aV["coordInit"] == "NA":
-        # generate a random permutation coordinate
         aV['coordInit'] = P.coord.rand(aV["nDim"])
         aV['rankInit'] = P.coord.rank(aV["coordInit"])
     else:
-        # check if user provided coordInit is the valid length
         aV["coordInit"] = [int(c) for c in aV["coordInit"].split(",")]
         if len(aV["coordInit"]) != aV["nDim"]:
-            sys.stderr.write(("\nERROR from {}:"
+            #Error
+            print ("\nERROR from {}:"
                     "\nThe permutation coordinate is of length {},"
-                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"])))
-            sys.exit(1)
+                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"]))
         aV["rankInit"] = P.coord.rank(aV["coordInit"])
 
     if aV["walkIntervalLmt"] == "NA" and aV["walkIntervalCoef"] != "NA":
@@ -824,26 +841,26 @@ def init( instanceDef, args ):
                 aV["walkIntervalLmt"] = int(walkIntervalCoef * aV["nDim"])
                 aV["walkIntervalCoef"] = walkIntervalCoef
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            #Error
+            print ("\nERROR from {}:"
                     "The walkIntervalCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"]))
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] == "NA":
         try:
             walkIntervalLmt = int(aV["walkIntervalLmt"])
             if walkIntervalLmt > 0:
                 aV["walkIntervalLmt"] = walkIntervalLmt
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            #Error
+            print ("\nERROR from {}:"
                     "The walkIntervalLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"]))
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] != "NA":
-        sys.stderr.write(("ERROR from {}:"
+        #Error
+        print ("ERROR from {}:"
                 "The walkIntervalLmt and walkIntervalCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"])))
-        sys.exit(1)
+                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"]))
 
     if aV["walkSegmLmt"] == "NA" and aV["walkSegmCoef"] != "NA":
         try:
@@ -852,33 +869,31 @@ def init( instanceDef, args ):
                 aV["walkSegmLmt"] = int(walkSegmCoef * aV["nDim"])
                 aV["walkSegmCoef"] = walkSegmCoef
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            #Error
+            print ("\nERROR from {}:"
                     "The walkSegmCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"]))
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] == "NA":
         try:
             walkSegmLmt = int(aV["walkSegmLmt"])
             if walkSegmLmt > 0:
                 aV["walkSegmLmt"] = walkSegmLmt
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            #Error
+            print ("\nERROR from {}:"
                     "The walkSegmLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"]))
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] != "NA":
-        sys.stderr.write(("ERROR from {}:"
+        #Error
+        print ("ERROR from {}:"
                 "The walkSegmLmt and walkSegmCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"])))
-        sys.exit(1)
+                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"]))
 
-    # (3A) Phase 3A: directly initialize the remaining internal variables
     aV["coordType"] = "P"
     aV["functionDomain"] = "P.lop"
     aV["functionID"] = "lop"
 
-    # define solverID
     if aV["solverMethod"] == "ant" and aV["isSimple"]:
         aV["solverID"] = "ant_saw_simple"
     elif aV["solverMethod"] == "ant":
@@ -893,23 +908,18 @@ def init( instanceDef, args ):
         aV["solverID"] = "sa_saw"
     elif aV["solverMethod"] == "sa" and aV["notSAW"]:
         aV["solverID"] = "sa"
-    else:
-        aV["solverID"] = saw
 
-    # Time stamp (14-digit GMT formatting)
-    aV["solverVersion"] = time.strftime("%Y %m %d %H:%M:%S")
-    aV["timeStamp"] =  time.strftime("%Y%m%d%H%M%S")
-    aV["dateLine"] = time.strftime("%a %b %d %H:%M:%S %Z %Y") 
+    aV["solverVersion"] = time.strftime("%Y %m %d %H %M %S")
+    aV["timeStamp"] =  time.strftime("%Y %m %d %H %M %S")
+    aV["dateLine"] = "@TODO: DATE LINE (line 582)"
     #@TODO HostID stuff (lines 583-486)
 
-    # find aV["valueInit"] by doing the first probe for function value
     # Timing
     microSecs = time.time() 
     aV["valueInit"] = f(aV["coordInit"])
-    # end timing
+    #end timing
     microSecs = time.time() - microSecs
 
-    # initialize associated variables for initial probe
     aV["runtime"] = microSecs
     aV["cntProbe"] = 1
     aV["cntStep"] = 0
@@ -917,10 +927,9 @@ def init( instanceDef, args ):
     aV["coordBest"] = aV["coordInit"]
     aV["valuePivot"] = aV["valueInit"]
     aV["valueBest"] = aV["valueInit"]
-    aCoord0= {}
-    aCoord0[tuple(aV["coordInit"])] = []
+    aHashTmp = {}
+    aHashTmp[tuple(aV["coordInit"])] = []
 
-    # (4) Phase 4: check if valueTarget has been reached, return to main if > 0
     if aV["valueInit"] == aV["valueTarget"]:
         aV["targetReached"] = 1
     elif aV["valueInit"] < aV["valueTarget"]:
@@ -928,8 +937,7 @@ def init( instanceDef, args ):
     else:
         aV["targetReached"] = 0
 
-    # (5) Phase 5: complete initialization of aV before the first step
-    #aHashWalk[tuple(aV["coordInit"])] = []
+    aHashWalk[tuple(aV["coordInit"])] = []
     aV["isCensored"] = 0
     aV["cntRestart"] = 0
     aV["walkLength"] = aV["cntStep"]
@@ -938,8 +946,6 @@ def init( instanceDef, args ):
     else:
         aV["neighbSize"] = "dynamic"
 
-    # (6) Phase 6: initialize special arrays that can be selected w/ arguments
-    #       from command line
     if aV["writeVar"] >= 4:
         aV["isSimple"] = 1
     aValueBest[aV["valueInit"]] = [0,0,aV["coordInit"]]
@@ -950,12 +956,10 @@ def init( instanceDef, args ):
 
     isPivot = 1
     aV["rankPivot"] = P.coord.rank(aV["coordPivot"])
-    aWalkProbed[(aV["walkLength"],0)] = (aV["walkLength"], aV["cntRestart"], 
-            aV["coordPivot"], aV["valuePivot"], aV["rankPivot"], isPivot, 
-            aV["neighbSize"], aV["cntProbe"])
+    aWalkProbed[(aV["walkLength"],0)] = "{} {} {} {} {} {} {} {}".format(
+            aV["walkLength"], aV["cntRestart"], aV["coordPivot"],
+            aV["valuePivot"], aV["rankPivot"], isPivot, aV["neighbSize"], aV["cntProbe"])
 
-    # (7) Phase 7: verify that all variables under aV have been initialized in
-    #       solverDomain table all_info["infoVariablesFile"]
     errorItems = []
     errorLines = []
     for name in aV.keys():
@@ -963,30 +967,23 @@ def init( instanceDef, args ):
             errorLines.append( ("{} -- this variable is missing from the solver"
                 " domain table in the file {}\n".format(name, all_info["infoVariablesFile"])))
             errorItems.append(name)
+
     if len(errorItems) > 0:
         print "\nWarning from {}\n{}".format(thisProc, errorLines)
         print "Missing variables\n{}\n".format(errorItems)
 
-    # (8) Phase 8: check whether coordInit caused targetReached to be > 1
+   
     if aV["targetReached"] > 0:
         print "# BINGO: valueTarget has been reached or exceeded with coordInit"
         stdout(withWarning=1)
         return
 
-    # (9) Phase 9: write to stdout based on writeVar
     if aV["writeVar"] == 1:
-        print "\n** Final values of initialized variables (array aV) **"
-        print aV
-        print "\n** Values associated with instance array aStruc **"
-        print aStruc
-        print "\n** as reported on {}, returning".format("@TODO: TIME STAMP")
-        print "targetReached\tvalueInit\tcoordInit"
+        print "@TODO: Lines 675-678"
 
-    #result = "{} {} {}".format(aV["targetReached"], aV["valueInit"], aV["coordInit"])
-    result = (aV["targetReached"], aV["valueInit"], aV["coordInit"])
-    return result
+    return "{} {} {}".format(aV["targetReached"], aV["valueInit"], aV["coordInit"])
 
-def main( instanceDef, args=[] ):
+def main( instanceDef, args ):
     thisProc = "P.lop.main"
     ABOUT = ("Procedure {} takes a variable number of arguments: "
             "instanceDef as required argument and args (a reserved-name variable)."
@@ -1017,32 +1014,15 @@ def main( instanceDef, args=[] ):
     global aWalk
     global aWalkProbed
 
-    # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
-    """
-    thisDir = os.getcwd()
-    sandboxPath = os.path.dirname(thisDir) 
-    sandboxName = os.path.basename(sandboxPath)
-    infoVariablesFile = sandboxName + ".info_variables.txt"
-    infoVariablesFile = "/".join([sandboxPath,"xLib",infoVariablesFile])
-
-    all_info = {}
-    all_info["infoVariablesFile"] = infoVariablesFile
-    all_info["sandboxName"] = sandboxName 
-    all_info["sandboxPath"] = sandboxPath 
-    """
-    tempInfoGlobals()
-
-    # (1) Phase 1: query about the commandLine **OR** 
-    #       to initialize all variables
+    # (1) Phase 1: to query about the commandLine **OR** 
+    #   to initialize all variables
     if instanceDef == "?":
-        # read solver domain table and return query about commandline
-        info(1,all_info["infoVariablesFile"])
+        info(all_info["infoVariablesFile"],1)
         return
     else:
-        # variable initialization
         rList = init(instanceDef,args)
 
-    if rList is None:
+    if len(rList) == 0:
         return
     elif aV["isInitOnly"]:
         print ("\n{}"
@@ -1056,57 +1036,55 @@ def main( instanceDef, args=[] ):
             "\n{}\n".format("-"*78,aV["solverID"],"-"*78))
     
     # (2) Phase 2: proceed with the combinatorial search
-    if aV["solverMethod"] == "saw":
-        aV["solverID"] = saw
-    else:
-        sys.stderr.write("\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisProc, aV["solverMethod"]))
-        sys.exit(1)
-    print "#    Proceeding with the search under solverID = {}".format(aV["solverID"])
-    print "#"*78
-    aV["solverID"]()
+    cntRestart = 0
+    coordInitList = aV["coordInit"]
+    aV["cntRestartUniq"] = 0
+    aV["cntRestart"] = cntRestart
+    print ( "# FROM {}: initialized for restart={}"
+        "\n# coordInit={}, valueInit={}".format(thisProc, cntRestart,
+            aV["coordInit"], aV["valueInit"]))
 
-    stdout()
-    if aV["isWalkTables"]:
-        print "TODO: walk.tables method"
+    while cntRestart < aV["cntRestartLmt"]:
+        # invoke the self-avoiding walk and return aV["targetReached"] (global)
+        #@TODO Dynamic function calling? (P.lop.saw())
+        saw(cntRestart)
+        if aV["targetReached"] > 0:
+            break
+        else:
+            cntRestart += 1
+            aV["cntRestart"] = cntRestart
+            aV["coordInit"] = P.coord.rand(aV["nDim"])
+
+            #@TODO Dynamic function calling? (P.lop.f())
+            rList = f(aV["coordInit"])
+            aV["valueInit"] = rList[0]
+            coordInitList.append(aV["coordInit"])
+
+        aV["cntRestartUniq"] = len(coordInitList) - 1
+        if aV["valueInit"] == aV["valueTarget"]:
+            aV["targetReached"] = 1
+        elif aV["valueInit"] < aV["valueTarget"]:
+            aV["targetReached"] = 2
+        else:
+            aV["targetReached"] = 0
+
+        if aV["targetReached"] > 0:
+            break
+        elif aV["writeVar"] == 2:
+            print ("# FROM {}: initialized for restart={}"
+                "\n# coordInit={}, valueInit={}".format(thisProc, cntRestart,
+                    aV["coordInit"], aV["valueInit"]))
+
+        if aV["runtime"] > aV["runtimelmt"]:
+            break
+    
+    stdout(withWarning=1)
     return
     
 def stdout( withWarning = 1 ):
-    ABOUT = ("This procedure outputs results afer a successful completion of "
-            "a combinatorial solver. The output is directed to 'stdout' and "
-            "includes a solution (a coordinate-value pair) and the observed "
-            "performance values. The format consists of a few comment lines, "
-            "followed by a tabbed name-value pairs. The first piar is always\n"
-            "instanceDef <value>\n"
-            "This procedure is universal under any function coordType=P!")
-    thisProc = "P.lop.stdout"
-    
-    #info global vairables
-    global all_info
-    global all_value
-    global aV
+    return
 
-    print ("# \n# FROM {}: A SUMMARY OF NAME-VALUE PAIRS"
-            "\n# commandLine = {}"
-            "\n#    dateLine = {}"
-            "\n#   timeStamp = {}"
-            "\n#".format(thisProc, aV["commandLine"], aV["dateLine"], aV["timeStamp"]))
-
-    stdoutNames = ("instanceDef", "solverID", "coordInit", "coordBest", "nDim",
-            "walkLengthLmt", "walkLength", "cntRestartLmt", "cntRestart", 
-            "cntProbeLmt", "cntProbe", "runtimeLmt", "runtime", "runtimeRead", 
-            "speedProbe", "hostID", "isSimple", "neighbDist", "solverMethod",
-            "walkSegmLmt", "walkSegmCoef", "walkIntervalLmt", "walkIntervalCoef",
-            "walkRepeatsLmt", "seedInit", "valueInit", "valueBest", "valueTarget",
-            "valueTol", "targetReached", "isCensored")
-
-    for name in stdoutNames:
-        if name in aV:
-            print "{}\t\t{}".format(name, aV[name])
-        else:
-            if withWarning:
-                print "# WARNING: no value exist for {}".format(name)
-
-def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
+def info( infoVariablesFile="../xLib/P.lop.info_variables.txt", isQuery=0 ):
     thisProc = "P.lop.info"
     ABOUT = (
         "This proc reads contents of *info_variables.txt and generates a "
@@ -1124,7 +1102,6 @@ def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
     global all_valu
     global aV
 
-    # read *.info_variables.txt for this solver domain
     rList = util.table_info_variables(infoVariablesFile) 
     all_info = rList[0]
     all_valu = rList[1]
@@ -1132,7 +1109,6 @@ def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
     if not isQuery:
         return (all_info, all_valu)
 
-    # Preferred order of optional commandLine arguements
     optInfoList = [ "runtimeLmt", "cntProbeLmt", "cntRestartLmt", 
             "walkLengthLmt", "seedInit", "coordInit", "valueInit", 
             "valueTarget", "valueTol", "neighbDist", "walkSegmLmt",
@@ -1179,14 +1155,12 @@ def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
         "in-line descriptions:"
         ])
 
-    # create nameList and valuelist
     for name in optInfoList:
         value = all_valu[name]
         nameList = []
         valueList = []
         nameList.append(name)
         valueList.append(value)
-        # pad with blank spaces
         for i in range(len(all_info[name])):
             nameList.append(" "*len(name))
             valueList.append(" "*len(value))
@@ -1198,7 +1172,6 @@ def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
             cnt = 12 - len(val)
             space2 = " "*cnt
             if len(nam) > 0 and nam.strip():
-                # prefix with -
                 nam1 = "-"+nam
             else:
                 nam1 = " "+nam
@@ -1231,26 +1204,6 @@ def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
         ])
 
     return
-
-def tempInfoGlobals():
-    global all_info
-    global all_valu
-    # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
-    thisDir = os.getcwd()
-    sandboxPath = os.path.dirname(thisDir) 
-    sandboxName = os.path.basename(sandboxPath)
-    infoVariablesFile = sandboxName + ".info_variables.txt"
-    infoVariablesFile = "/".join([sandboxPath,"xLib",infoVariablesFile])
-
-    all_info = {}
-    all_info["infoVariablesFile"] = infoVariablesFile
-    rList = info(0, all_info["infoVariablesFile"])
-
-    all_info = rList[0]
-    all_valu = rList[1]
-    all_info["sandboxName"] = sandboxName 
-    all_info["sandboxPath"] = sandboxPath 
-    all_info["infoVariablesFile"] = infoVariablesFile
 
 if __name__ == "__main__":
     #pFile_write()

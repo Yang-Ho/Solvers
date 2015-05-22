@@ -39,12 +39,16 @@ else:
         ".. missing the infoVariablesFile as {}".format(infoVariablesFile)
         ])
 
-execfile("../../../xBed/xLib/all_python2.py")
-
+thisDir = "../../../xBed/xLib" 
+os.chdir(thisDir)
+thisDir = os.getcwd()
+sys.path.extend([thisDir])
 os.chdir(workDir)
 print ".. returning to directory \n{}".format(workDir)
 print time.strftime("%a %b %d %H:%M:%S %Z %Y")
 
 import P
+import core
+import util
 #import P.lop
 #import P.coord
