@@ -1,6 +1,10 @@
 import sys
 import os
 import time
+from subprocess import call
+
+def whoami():
+    print call("whoami")[0]
 
 def date():
     print time.strftime("%c")

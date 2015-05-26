@@ -901,6 +901,8 @@ def init( instanceDef, args ):
     aV["timeStamp"] =  time.strftime("%Y%m%d%H%M%S")
     aV["dateLine"] = time.strftime("%a %b %d %H:%M:%S %Z %Y") 
     #@TODO HostID stuff (lines 583-486)
+    aV["hostID"] = "TODO: Host ID Stuff"
+    aV["compiler"] = "TODO: complier/interpreter stuff"
 
     # find aV["valueInit"] by doing the first probe for function value
     # Timing
