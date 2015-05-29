@@ -1,0 +1,39 @@
+c file = i-7-12-skiena.cnfU (renamed on 20141011)
+c File: SetCover1.cnf
+c Franc Brglez, Aug 16, 2004
+c From: Set Cover Problem example in
+c       The Algorithm Design Manual The CDROM Steven S. Skiena
+c
+c tcl command line and solution
+c =============================
+c % B.cover.f.exh ../xBenchm/coverUnate/tiny/i-7-12-skiena.cnfU
+c # Output from B.cover.f.exh: 
+c # Exhaustive enumeration of instance ../xBenchm/coverUnate/tiny/i-7-12-skiena.cnfU 
+c # .. completed on Tue Oct 14 19:15:54 EDT 2014 
+c # table below can be read in R 
+c c rank	cntCoord	cntFeasible	probOfFeasible
+c 0	1	0 	   0
+c 1	7	0 	   0
+c 2	21	0 	   0
+c 3	35	2 	0.05714
+c 4	35	8 	0.2286
+c 5	21	11 	0.5238
+c 6	7	6 	0.8571
+c 7	1	1 	   1
+c # there are 2 valueBest solutions
+c # 1000101;3
+c # 1010001;3
+c  
+p cnfU 7 12
+1 2           0
+1 2       6   0
+1           7 0
+            7 0
+1   3         0
+    3   5     0
+        5   7 0
+          6 7 0
+1     4       0
+1     4 5     0
+1       5   7 0
+            7 0

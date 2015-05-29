@@ -45,9 +45,9 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     if coordPiv == "??":
         print ABOUT
         return
-    if coordPiv == "?":
-        sys.stderr.write("Valid query is '{} ??'\n".format(thisProc))
-        sys.exit(1)
+    elif coordPiv == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
 
     #info global variables
     global all_info
@@ -154,11 +154,12 @@ def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
     if coordPiv == "??":
         print ABOUT
         return
-    if coordPiv == "?":
-        #need to figure out which method of raising errors is "better"
-        #raise ValueError("Valid query is '{} ??'".format(thisProc))
-        sys.stderr.write("Valid query is '{} ??'\n".format(thisProc))
-        sys.exit(1)
+    elif coordPiv == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
+        #raise Exception("Valid query is '{} ??'".format(thisProc))
+        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
+        #sys.exit(1)
 
     # info global variables
     global all_info
@@ -267,17 +268,21 @@ def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
 
 def saw(arg=""):
     thisProc = "P.lop.saw"
-    ABOUT = ( "Procedure {} takes global array values initialized under "
-        "P.lop.init and constructs a segment of a self-avoiding walk (SAW). "
-        "Either P.lop.saw.pivot.simple or the significantly more efficient "
-        "procedure P.lop.saw.pivot.ant is invoked. More to come .....".format(thisProc))
-     
+    ABOUT = """
+Procedure $thisProc takes global array values initialized under P.lop.init
+and constructs a segment of a self-avoiding walk (SAW). Either P.lop.saw.pivot.simple 
+or the significantly more efficient procedure P.lop.saw.pivot.ant is invoked.
+More to come ....
+"""
     if arg == "??":
         print ABOUT
         return
-    if arg == "?":
-        sys.stderr.write("Valid query is '{} ??'\n".format(thisProc))
-        sys.exit(1)
+    elif arg == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
+        #raise Exception("Valid query is '{} ??'".format(thisProc))
+        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
+        #sys.exit(1)
 
     # info global variables
     global all_info
@@ -393,6 +398,20 @@ def saw(arg=""):
 
 def pFile_read(fileName):
     thisProc = "pFile_read"
+    ABOUT = """
+This proc takes the path of an instance file associated with the 
+sandbox P.lop, reads the file contents and returns parameter values and data 
+structures expected by the combinatorial solver under this sandbox.
+"""
+    if fileName == "??":
+        print ABOUT
+        return
+    elif fileName == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
+        #raise Exception("Valid query is '{} ??'".format(thisProc))
+        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
+        #sys.exit(1)
     rList = core.file_read(fileName).split("\n")
 
     nDim = int(rList[0])
@@ -418,7 +437,20 @@ def pFile_read(fileName):
 
 def pFile_write(coordPerm = [5, 3, 4, 2, 1], fileName = "../xBenchm/lop/tiny/i-5-book.lop"): 
     thisProc = "pFile_write"
-    rList = file_read(fileName).split("\n")
+    ABOUT = """
+This proc takes a permutation coordinate and the path of an instance file 
+associated with the sandbox P.lop, reads the file contents and returns 
+an isomorph instance file created by permuting rows and columns of the
+original instance file.
+"""
+    if coordPerm == "??":
+        print ABOUT
+        return
+    elif coordPerm == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
+
+    rList = core.file_read(fileName).split("\n")
 
     nDim = int(rList[0])
     Ary = [[0 for i in range(nDim + 1)] for j in range(nDim + 1)]
@@ -450,8 +482,19 @@ def pFile_write(coordPerm = [5, 3, 4, 2, 1], fileName = "../xBenchm/lop/tiny/i-5
     print ".. created file " + filePerm
 
 def f(coord = (1, 2, 3, 4, 5)):
-    ABOUT = "This procedure returns a function value for an instance of 'lop'"
     thisProc = "P.lop.f"
+    ABOUT = """
+This procedure takes a permutation coordinate (passed as an argument) and  
+the parameters from the instance file associated with the sandbox P.lop 
+(passed in a global array aStruc). It computes and returns the instance 
+function value, given this coordinate.
+"""
+    if coord == "??":
+        print ABOUT
+        return
+    elif coord == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
 
     #instance global variables
     global aStruc
@@ -471,15 +514,39 @@ def f(coord = (1, 2, 3, 4, 5)):
 
 def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
     thisProc = "exhA"
+    ABOUT = """
+This proc reads an instance file associated with the sandbox P.lop and a file 
+of all coordinates (here, permutations) induced by the dimension defined by 
+this instance. It then performs an exhaustive evaluation for function values 
+defined by the instance and returns the list of coordinate:value pairs as
+solutions with the function value minima. A rank value (in context of the 
+underlying Hasse graph) is also associated with each coordinate. For coordinate
+lengths of size <= 5, the procedure returns the exhaustive solution set
+and a data structure that can be passed on to a follow-up tcl procedure which
+creates a file of vertices and a file of edges annotated with x-y coordinates
+for plotting of Hasse graphs under R.
+"""
+    if instanceFile == "??":
+        print ABOUT
+        return
+    elif instanceFile == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
+
+    global all_info
+    global all_valu
+    global aV
+    global aStruc
+
     hasseAry = {}
-    print file_read(instanceFile)
+    print core.file_read(instanceFile)
     aInstance = pFile_read(instanceFile)
     aPI = {"nDim": aInstance[0], "varList": aInstance[2], "density": aInstance[3]}
     aStruc = aInstance[1]
     nDim = aPI["nDim"]
     coordRef = [i for i in range(nDim + 1)]
-    permFile = "..//xBenchm/perm/perm.0" + str(aPI["nDim"]) + ".txt"
-    coordList = file_read(permFile)
+    permFile = "../../../xBed/xBenchm/perm/perm.0" + str(aPI["nDim"]) + ".txt"
+    coordList = core.file_read(permFile)
     print ".. " + str(len(coordList.split("\n")) - 1) + " permutations read from file " + permFile + "\n"
     valueMin = int(1e30)
     list = coordList.split("\n")
@@ -488,8 +555,8 @@ def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
     for coord in list[:]:
         if len(coord) > 0:
             coord = map(int, coord.split(","))
-            value = f(coord, aStruc)
-            rank = P_coord.rank(coord)
+            value = f(coord)
+            rank = P.coord.rank(coord)
             if not hasseAry.has_key(rank):
                 hasseAry[rank] = []
             hasseAry[rank].append(str(coord) + ":" + str(value))
@@ -512,6 +579,29 @@ def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
 def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     global aStruc
     thisProc = "exhB"
+    ABOUT = """
+This proc takes an instance file (instanceDef) under the sanbox P.lop, 
+defined on the space of permutation coordinates of length L. The procedure 
+iteratively generates (L!) permutation coordinates to perform an exhaustive
+evaluation of the function specified by the instance. The principle behind 
+this coordinate generation is repeated re-use of the associative array 
+aCoordHash0. Given this array, the generation proceeds from all coordinates 
+at rank k to all coordinates at rank k+1. The value of k is in the range 
+[0, L*(L-1)/2]. The exhaustive evaluation includes comprehensive  
+instrumentation to measure the computational cost and the efficiency of 
+the procedure.
+
+For a stdout query, use one of these these commands:
+          P.lop.exhB  ??  (sourced under tclsh)
+  ../xBin/P.lop.exhBT     (executable under bash) 
+
+"""
+    if instanceFile == "??":
+        print ABOUT
+        return
+    elif instanceFile == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
 
     # Read the instance
     print core.file_read(instanceFile)
@@ -630,8 +720,27 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     for key in sorted(coordDistrib):
         print "coordDistrib({})".format(key)+" =",coordDistrib[key]
 
-def init( instanceDef, args ):
+def init( instanceDef, args = [] ):
     thisProc = "P.lop.init"
+    ABOUT = """
+Proc {} takes a variable number of arguments: 'instanceDef' as the
+required argument and a number of optional arguments (in any order).
+Proc $thisProc initializes all global data structures expected by the solver and 
+also explicitly returns values of these three variables:
+
+  targetReached coordInit valueInit  
+       
+Proc {} is invoked by P.lop.main, for command-line examples, querry
+
+  P.lop.main ?? and/or P.lop.info 1
+""".format(thisProc,thisProc)
+
+    if instanceDef == "??":
+        print ABOUT
+        return
+    elif instanceDef == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
 
     # info global variables
     global all_info
@@ -642,37 +751,16 @@ def init( instanceDef, args ):
     # solver global variables
     global aCoord0
     global aWalkProbed
-    """
-    global aHashTmp
-    global aHashNeighb
-    global aHashWalk
-    global aWalk
-    global aWalkProbed
-    global aWalkBest
-    global aValueBest
-    global aAdjacent
-    """
  
     argsOptions = args
     # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
     tempInfoGlobals()
-    #@TODO dynamically set all these dictionaries (see line 147 - 149 in tcl)
 
     # (0A) Phase 0A: initialize global variables
     aV = {}
     aStruc = {}
     aCoord0 = {}
     aWalkProbed = {}
-    """
-    aHashTmp = {}
-    aHashNeighb = {}
-    aHashWalk = {}
-    aWalk = {}
-    aWalkProbed = {}
-    aWalkBest = {}
-    aValueBest = {}
-    aAdjacent = {}
-    """
 
     print "\n".join([
         "# ** from: {}:".format(thisProc),
@@ -727,8 +815,8 @@ def init( instanceDef, args ):
     aV["infoSolutionsFile"] = infoSolutionsFile
 
     if not os.path.isfile(infoSolutionsFile):
-        sys.stderr.write("\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile))
-        sys.exit(1)
+        print "\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile)
+        return
     rList = core.file_read(infoSolutionsFile).split('\n')
     rList.pop()
     rListTmp = []
@@ -750,10 +838,10 @@ def init( instanceDef, args ):
         if isFound:
             break
     if not isFound:
-        sys.stderr.write(("\nERROR from {}:"
+        print ("\nERROR from {}:"
                 "\n .. instance {} was not found in file"
-                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile)))
-        sys.exit(1)
+                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile))
+        return
     #end timing
     microSecs = time.time() - microSecs
 
@@ -775,12 +863,12 @@ def init( instanceDef, args ):
                 aV[name] = True
                 tmpList = tmpList[1:]
             elif not name:
-                sys.stderr.write(("\nERROR from {}:"
+                print ("\nERROR from {}:"
                         "\n.. option name {} is not either of two lists below:"
                         "\n{}"
                         "\n\nor\n"
-                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool)))
-                sys.exit(1)
+                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool))
+                return
             else:
                 aV[name] = int(tmpList[1])
                 tmpList = tmpList[2:]
@@ -797,10 +885,10 @@ def init( instanceDef, args ):
             aV["seedInit"] = int(aV["seedInit"])
             random.seed(aV["seedInit"])
         except:
-            sys.stderr.write(("ERROR from {}:"
+            print ("ERROR from {}:"
                     ".. only -seedInit NA or -ssedInit <int> are valid assignments,"
-                    "not -seedInit {}\n".format(thisProc, aV['seedInit'])))
-            sys.exit(1)
+                    "not -seedInit {}\n".format(thisProc, aV['seedInit']))
+            return
    
     # initialize permutation coordinate
     if aV["coordInit"] == "NA":
@@ -811,12 +899,12 @@ def init( instanceDef, args ):
         # check if user provided coordInit is the valid length
         aV["coordInit"] = [int(c) for c in aV["coordInit"].split(",")]
         if len(aV["coordInit"]) != aV["nDim"]:
-            sys.stderr.write(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "\nThe permutation coordinate is of length {},"
-                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"])))
-            sys.exit(1)
+                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"]))
+            return
         aV["rankInit"] = P.coord.rank(aV["coordInit"])
-
+        """
     if aV["walkIntervalLmt"] == "NA" and aV["walkIntervalCoef"] != "NA":
         try:
             walkIntervalCoef = float(aV["walkIntervalCoef"])
@@ -824,26 +912,26 @@ def init( instanceDef, args ):
                 aV["walkIntervalLmt"] = int(walkIntervalCoef * aV["nDim"])
                 aV["walkIntervalCoef"] = walkIntervalCoef
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkIntervalCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"]))
+            return
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] == "NA":
         try:
             walkIntervalLmt = int(aV["walkIntervalLmt"])
             if walkIntervalLmt > 0:
                 aV["walkIntervalLmt"] = walkIntervalLmt
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkIntervalLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"]))
+            return
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] != "NA":
-        sys.stderr.write(("ERROR from {}:"
+        print ("ERROR from {}:"
                 "The walkIntervalLmt and walkIntervalCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"])))
-        sys.exit(1)
+                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"]))
+        return """
 
     if aV["walkSegmLmt"] == "NA" and aV["walkSegmCoef"] != "NA":
         try:
@@ -852,26 +940,26 @@ def init( instanceDef, args ):
                 aV["walkSegmLmt"] = int(walkSegmCoef * aV["nDim"])
                 aV["walkSegmCoef"] = walkSegmCoef
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkSegmCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"]))
+            return
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] == "NA":
         try:
             walkSegmLmt = int(aV["walkSegmLmt"])
             if walkSegmLmt > 0:
                 aV["walkSegmLmt"] = walkSegmLmt
         except:
-            sys.stderr.write(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkSegmLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"])))
-            sys.exit(1)
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"]))
+            return
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] != "NA":
-        sys.stderr.write(("ERROR from {}:"
+        print ("ERROR from {}:"
                 "The walkSegmLmt and walkSegmCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"])))
-        sys.exit(1)
+                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"]))
+        return
 
     # (3A) Phase 3A: directly initialize the remaining internal variables
     aV["coordType"] = "P"
@@ -935,10 +1023,12 @@ def init( instanceDef, args ):
     aV["isCensored"] = 0
     aV["cntRestart"] = 0
     aV["walkLength"] = aV["cntStep"]
+    """
     if aV["neighbDist"] == 1:
         aV["neighbSize"] = aV["nDim"] - 1
     else:
         aV["neighbSize"] = "dynamic"
+    """
 
     # (6) Phase 6: initialize special arrays that can be selected w/ arguments
     #       from command line
@@ -1004,6 +1094,9 @@ def main( instanceDef, args=[] ):
     if instanceDef == "??":
         print ABOUT
         return
+    elif instanceDef == "?":
+        print "Valid query is '{} ??'".format(thisProc)
+        return
     
     #info global variables
     global all_info
@@ -1061,8 +1154,8 @@ def main( instanceDef, args=[] ):
     if aV["solverMethod"] == "saw":
         aV["solverID"] = saw
     else:
-        sys.stderr.write("\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisProc, aV["solverMethod"]))
-        sys.exit(1)
+        print "\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisProc, aV["solverMethod"])
+        return
     print "#    Proceeding with the search under solverID = {}".format(aV["solverID"])
     print "#"*78
     aV["solverID"]()
@@ -1096,10 +1189,10 @@ def stdout( withWarning = 1 ):
     stdoutNames = ("instanceDef", "solverID", "coordInit", "coordBest", "nDim",
             "walkLengthLmt", "walkLength", "cntRestartLmt", "cntRestart", 
             "cntProbeLmt", "cntProbe", "runtimeLmt", "runtime", "runtimeRead", 
-            "speedProbe", "hostID", "isSimple", "neighbDist", "solverMethod",
-            "walkSegmLmt", "walkSegmCoef", "walkIntervalLmt", "walkIntervalCoef",
-            "walkRepeatsLmt", "seedInit", "valueInit", "valueBest", "valueTarget",
-            "valueTol", "targetReached", "isCensored")
+            "speedProbe", "hostID", "isSimple", "solverMethod", "compiler",
+            "walkSegmLmt", "walkSegmCoef", "seedInit", "valueInit", 
+            "valueBest", "valueTarget", "valueTol", "targetReached", 
+            "isCensored")
 
     for name in stdoutNames:
         if name in aV:
@@ -1110,15 +1203,33 @@ def stdout( withWarning = 1 ):
 
 def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
     thisProc = "P.lop.info"
-    ABOUT = (
-        "This proc reads contents of *info_variables.txt and generates a "
-        "stdout response to user's query such as\n"
-        "\tP.lop.main ? (under tclsh)\n"
-        "or\n"
-        "\t../xBin/P.lopT (under bash)"
-    )
+    ABOUT = """
+This proc takes a variable 'isQuery' and the hard-wired path to file
+infoVariablesFile *info_variables.txt.  
+
+  if isQuery == 0    then $thisProc ONLY reads infoVariablesFile and 
+                     initializes global arrays 'all_info' and 'all_valu'
+              
+  if isQuery == 1    then $thisProc initializes the global arrays
+                     'all_info' and 'all_valu' and then outputs to stdout  
+                     the complete information about the command line for 
+                     P.lop.main. The information about the command line 
+                     is auto-generated within $thisProc from the
+                     tabulated data which is read from infoVariablesFile 
+                     defined above.
+                   
+   if isQuery == ??  then $thisProc responds to stdout with information 
+                     about all three case of valid arguments. 
+
+            P.lop.main ??   (under tclsh)
+       or
+            ../xBin/P.lopT  (under bash)
+"""
     if isQuery == "??":
         print ABOUT
+        return
+    elif isQuery == "?":
+        print "Valid query is '{} ??'".format(thisProc)
         return
 
     #info global variables
@@ -1133,13 +1244,15 @@ def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
 
     if not isQuery:
         return (all_info, all_valu)
+    elif isQuery != 1:
+        print ("\nERROR from {}: incorrect arguement value!"
+                "\nFor more information, use the command P.lop.info ??\n")
 
     # Preferred order of optional commandLine arguements
     optInfoList = [ "runtimeLmt", "cntProbeLmt", "cntRestartLmt", 
             "walkLengthLmt", "seedInit", "coordInit", "valueInit", 
-            "valueTarget", "valueTol", "neighbDist", "walkSegmLmt",
-            "walkSegmCoef", "walkIntervalLmt", "walkIntervalCoef",
-            "walkRepeatsLmt", "isSimple", "writeVar" ]
+            "valueTarget", "valueTol", "walkSegmLmt",
+            "walkSegmCoef", "isSimple", "writeVar" ]
 
     print "\n".join([
         "USAGE:\n",

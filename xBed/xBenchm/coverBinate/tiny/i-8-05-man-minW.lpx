@@ -1,0 +1,38 @@
+\ file = i-08-05-man-minW.lpx (renamed on 20141011)
+\
+\ File: MAN_08_1p6_min.lpx  
+\ Created on Mon Aug 15 12:34:51 EDT 2005 
+\ This file is a Set Cover Problem instance in lpx format, 
+\ (a valid input to both lp_solve and cplex programs),  
+\ converted from the file MAN_08_1p6.wsf  
+\ with program wsf2lpx 
+\ 
+Min
+  obj: +0.6x1  +1.2x2  +1.0x3  +0.8x4  +0.5x5  +0.7x6  +0.3x7  +0.3x8   
+st
+  c1: +x1 +x2     +x4         +x7     >= 1
+  c2: +x1 +x2 +x3     +x5         +x8 >= 1
+  c3:     +x2 +x3 +x4     +x6         >= 1
+  c4:                         +x7     >= 1
+  c5:                             +x8 >= 1
+Binary 
+  x1  x2  x3  x4  x5  x6  x7  x8  
+End
+
+\ triangle: lp_solve_/ % ./lp_solve -time -rxli xli_CPLEX ../../../xBenchm/coverBinate/tiny/i-8-05-man-minW.lpx
+\ set_XLI: Successfully loaded 'xli_CPLEX'
+\ CPU Time for Parsing input: 0s (0s total since program start)
+\ CPU Time for solving: 0s (0s total since program start)
+\ 
+\ Value of objective function: 1.30000000
+\ 
+\ Actual values of the variables:
+\ x1                              0
+\ x2                              0
+\ x3                              0
+\ x4                              0
+\ x5                              0
+\ x6                              1
+\ x7                              1
+\ x8                              1
+\ triangle: lp_solve_/ % 

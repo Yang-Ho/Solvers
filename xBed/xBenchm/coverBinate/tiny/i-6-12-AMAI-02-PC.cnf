@@ -1,0 +1,47 @@
+c file = i-6-12-AMAI-02-PC.cnf 
+c file = 06-0012-004-PC_01.cnf ... nVar=6, nClause=12, nMaxima=4
+c                    PC_01 = instance 1 in isomorph class PC
+c
+c classDir= franc-OS9:CVSArchives:cbl:ticklish1.0:public:tclPROGS:
+c EDS_SATcnf:cnfFormula2Class:cnfFormula2Class_RUNS:aTutorialCNF_TEMP:
+c v06_s0004:v06_s0004_PC
+c classInstance= i0001.cnf 
+c functionID= v06_s0004_PC_0001 
+c created on Fri Aug 09 20:22:34 ADT 2002 
+c here, the instance is represented in `dimacs format'
+c see the results in 2005-AMAI-Brglez.pdf
+c
+c (xWork) 199 % B.cover.f.exh  ../xBenchm/coverBinate/tiny/i-6-12-AMAI-02-PC.cnf
+c # Output from B.cover.f.exh: 
+c # Exhaustive enumeration of instance ../xBenchm/coverBinate/tiny/i-6-12-AMAI-02-PC.cnf 
+c # .. completed on Sat Oct 18 13:26:59 EDT 2014 
+c # table below can be read in R 
+c rank	cntCoord	cntFeasible	probOfFeasible
+c 0	1	0 	   0
+c 1	6	0 	   0
+c 2	15	2 	0.1333
+c 3	20	0 	   0
+c 4	15	2 	0.1333
+c 5	6	0 	   0
+c 6	1	0 	   0
+c # there are 2 valueBest solutions
+c # 000011;2
+c # 100001;2
+c # 
+c #	nDim	cntCoordLmt	runtimeCoord	runtimeProbe	hostID 
+c #	6	64	0.0038389999999999995	0.005726	brglez@triangle-Darwin-13.4.0
+c 
+p cnf 6 12
+-2 6 0
+-1 6 0
+6 -5 0
+-2 -4 0
+1 -6 -5 -2 0
+-2 -5 0
+-2 -1 0
+5 1 2 0
+-4 3 0
+3 -2 0
+-1 -5 0
+4 -3 -6 0
+

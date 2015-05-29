@@ -1,0 +1,28 @@
+\ file = i-5-07-skiena-minU.lpx (created on 20141011)
+\ modified to 5 variables from i-5-12-skiena-min.lpx
+Min
+  obj: +x1 +x2 +x3 +x4 +x5
+st
+  c1:  +x1 +x2             >= 1
+  c2:  +x1 +x2 +x3         >= 1
+  c3:  +x1     +x3         >= 1
+  c4:          +x3     +x5 >= 1
+  c5:  +x1         +x4     >= 1
+  c6:  +x1         +x4 +x5 >= 1
+  c7:          +x3 +x4 +x5 >= 1
+Binary
+   x1 x2 x3 x4 x5  
+End
+
+\ triangle: lp_solve_/ % ./lp_solve  -rxli xli_CPLEX ../../../xBenchm/wsc/tiny/i-5-07-skiena-minU.lpx
+\ set_XLI: Successfully loaded 'xli_CPLEX'
+\ 
+\ Value of objective function: 2.00000000
+\ 
+\ Actual values of the variables:
+\ x1                              1
+\ x2                              0
+\ x3                              1
+\ x4                              0
+\ x5                              0
+\ triangle: lp_solve_/ % 

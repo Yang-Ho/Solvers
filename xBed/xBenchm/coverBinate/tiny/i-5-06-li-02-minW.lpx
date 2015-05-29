@@ -1,0 +1,34 @@
+\ file = i-5-06-li-minW.lpx (weighted binate cover example from Li's 2004 PhD thesis)
+\
+Min
+  obj: +5.1x1 +4.2x2 +6.3x3 +2x4 +3x5
+st
+  c1:      +x2     +x4     >= 1   
+  c2:  +x1     +x3         >= 1
+  c3:  +x1     +x3     +x5 >= 1
+  c4:          -x3 +x4     >= 0   
+  c4:          +x3 -x4     >= 0 
+  c6:  -x1         -x4     >= -1
+Binary
+   x1 x2 x3 x4 x5
+End
+
+\ command line and solution
+\ =========================
+\ triangle: lp_solve_/ % ./lp_solve  -time -rxli xli_CPLEX ../../../xBenchm/coverBinate/tiny/i-5-06-li-minW.lpx
+\ set_XLI: Successfully loaded 'xli_CPLEX'
+\ CPU Time for Parsing input: 0s (0s total since program start)
+\ CPU Time for solving: 0s (0s total since program start)
+\ 
+\ Value of objective function: 8.30000000
+\ 
+\ Actual values of the variables:
+\ x1                              0
+\ x2                              0
+\ x3                              1
+\ x4                              1
+\ x5                              0
+\ triangle: lp_solve_/ % 
+
+
+

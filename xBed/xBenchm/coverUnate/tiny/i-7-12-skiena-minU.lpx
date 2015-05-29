@@ -1,0 +1,41 @@
+\ file = i-7-12-skiena-minU.lpx (renamed on 20141011)
+\  File references/SetCover1.lpx, created Mon Aug 16 16:06:56 GMT 2004
+\   - created from covering/sat instance references/SetCover1.cnf
+\  File: SetCover1.cnf
+\  @ Franc Brglez, Aug 16, 2004
+\  From: Set Cover Problem example in
+\  The Algorithm Design Manual The CD-ROM Steven S. Skiena
+\  12 rows, 7 columns
+Min
+  obj: +x1 +x2 +x3 +x4 +x5 +x6 +x7
+st
+   c1: +x1 +x2                      >= 1
+   c2: +x1 +x2            +x6       >= 1
+   c3: +x1                     +x7  >= 1
+   c4:                         +x7  >= 1
+   c5: +x1     +x3                  >= 1
+   c6:         +x3     +x5          >= 1
+   c7:                 +x5     +x7  >= 1
+   c8:                     +x6 +x7  >= 1
+   c9: +x1         +x4              >= 1
+  c10: +x1         +x4 +x5          >= 1
+  c11: +x1             +x5     +x7  >= 1
+  c12:                         +x7  >= 1
+Binary
+   x1 x2 x3 x4 x5 x6 x7
+End
+
+\ triangle: lp_solve_/ % ./lp_solve  -rxli xli_CPLEX ../../../xBenchm/wsc/tiny/i-7-12-skiena-minU.lpx
+\ set_XLI: Successfully loaded 'xli_CPLEX'
+\ 
+\ Value of objective function: 3.00000000
+\ 
+\ Actual values of the variables:
+\ x1                              1
+\ x2                              0
+\ x3                              1
+\ x4                              0
+\ x5                              0
+\ x6                              0
+\ x7                              1
+\ triangle: lp_solve_/ % 

@@ -1,0 +1,60 @@
+c file = i-7-12-skiena.cnfU (translated from i-5-07-skiena-min.lpx on 20141011)
+c ....
+c lp_solve command line and solution
+c ==================================
+c \ file = i-5-07-skiena-min.lpx (created on 20141011)
+c \ modified to 5 variables from i-5-12-skiena-min.lpx
+c Min
+c   obj: +x1 +x2 +x3 +x4 +x5
+c st
+c   c1:  +x1 +x2             >= 1
+c   c2:  +x1 +x2 +x3         >= 1
+c   c3:  +x1     +x3         >= 1
+c   c4:          +x3     +x5 >= 1
+c   c5:  +x1         +x4     >= 1
+c   c6:  +x1         +x4 +x5 >= 1
+c   c7:          +x3 +x4 +x5 >= 1
+c Binary
+c    x1 x2 x3 x4 x5  
+c End
+c 
+c \ triangle: lp_solve_/ % ./lp_solve  -rxli xli_CPLEX ../../../xBenchm/wsf/tiny/i-5-07-skiena-minU.lpx
+c \ set_XLI: Successfully loaded 'xli_CPLEX'
+c \ 
+c \ Value of objective function: 2.00000000
+c \ 
+c \ Actual values of the variables:
+c \ x1                              1
+c \ x2                              0
+c \ x3                              1
+c \ x4                              0
+c \ x5                              0
+c \ triangle: lp_solve_/ % 
+c
+c tcl command line and solution
+c =============================
+c % B.cover.f.exh ../xBenchm/coverUnate/tiny/i-5-07-skiena.cnfU
+c # Output from B.cover.f.exh: 
+c # Exhaustive enumeration of instance ../xBenchm/coverUnate/tiny/i-5-07-skiena.cnfU 
+c # .. completed on Tue Oct 14 19:11:25 EDT 2014 
+c # table below can be read in R 
+c rank	cntCoord	cntFeasible	probOfFeasible
+c 0	1	0 	   0
+c 1	5	0 	   0
+c 2	10	2 	 0.2
+c 3	10	6 	 0.6
+c 4	5	5 	   1
+c 5	1	1 	   1
+c # there are 2 valueBest solutions
+c # 10001;2
+c # 10100;2
+c (xWork) 599 % 
+c
+p cnfU 5 7
+1 2           0
+1 2 3         0
+1   3         0
+    3   5     0
+1     4       0
+1     4 5     0
+    3 4 5     0

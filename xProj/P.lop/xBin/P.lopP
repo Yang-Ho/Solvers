@@ -1,0 +1,38 @@
+#! /usr/bin/env python 
+import os
+import sys
+
+thisVersion = 20150529
+
+currDir = os.path.dirname(os.path.realpath(__file__))
+thisDir = currDir 
+
+execfile(os.path.dirname(currDir) + "/xLib/all_python.py")
+
+thisScript = os.path.basename(currDir)
+def P_lopP_Main(argv = sys.argv[1:], argc = len(sys.argv[1:])):
+    thisProc = "P.lop_Main"
+    if argc == 0:
+        P.lop.info(1)
+        return
+
+    instanceDef = argv[0]
+    args = argv[1:]
+    print "args = {}".format(args)
+    P.lop.main(instanceDef, args)
+
+    print "\n**completing {}**".format(thisProc)
+    return
+
+progCommand = "{} {}".format(thisScript, sys.argv[1:])
+firstLine = "# {}\n# progName = {}\n# progArgs = {}\n# {} ".format("+"*78, 
+        thisScript, sys.argv[1:], time.strftime("%a %b %H:%M:%S %Z %Y"))
+
+print firstLine
+
+P_lopP_Main()
+
+lastLine = "# {} ..completed {}\n# {}\n".format(
+        time.strftime("%a %b %H:%M:%S %Z %Y"), thisScript, "+"*78)
+
+print lastLine

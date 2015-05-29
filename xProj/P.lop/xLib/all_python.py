@@ -12,8 +12,10 @@ global all_valu
 all_info = {}
 all_valu = {}
 
-workDir = os.getcwd()
-thisDir = os.getcwd() 
+workDir = os.path.dirname(os.path.realpath(__file__))
+thisDir = os.path.dirname(os.path.realpath(__file__))
+xLibDir = "../xLib"
+sys.path.extend([os.path.dirname(workDir) + "/xLib"])
 
 print ".. importing files from this SANDBOX directory \n{}".format(thisDir)
 
@@ -39,7 +41,7 @@ else:
         ".. missing the infoVariablesFile as {}".format(infoVariablesFile)
         ])
 
-thisDir = "../../../xBed/xLib" 
+thisDir = "../../../xBed/xLib"
 os.chdir(thisDir)
 thisDir = os.getcwd()
 sys.path.extend([thisDir])

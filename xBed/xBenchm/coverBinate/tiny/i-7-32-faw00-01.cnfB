@@ -1,0 +1,34 @@
+* Franco file real1y11.cnf problem
+-n | -p | v.
+-n | -p | s.
+-n | -p | -q.
+-n | -o | -p.
+-n | p | q | -v.
+-n | -o | q.
+-o | p | q.
+n | o | -p | q.
+p | q | r | -v.
+n | p | q | r.
+n | o | q | r.
+q | s.
+-p | q | v.
+-o | q | v.
+n | q | v.
+-n | -r.
+-o | -r.
+-p | -r.
+-q | -r.
+-r | s.
+-r | v.
+-n | p | -s | -v.
+-n | -o | -s.
+-o | p | -s.
+n | o | -p | -s.
+-q | -s.
+p | r | -s | -v.
+n | p | r | -s.
+n | o | r | -s.
+-p | -s | v.
+-o | -s | v.
+n | -s | v.
+ENDATA
