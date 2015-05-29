@@ -10,6 +10,7 @@ thisDir = currDir
 execfile(os.path.dirname(currDir) + "/xLib/all_python.py")
 
 thisScript = os.path.basename(currDir)
+
 def P_lopP_Main(argv = sys.argv[1:], argc = len(sys.argv[1:])):
     thisProc = "P.lop_Main"
     if argc == 0:

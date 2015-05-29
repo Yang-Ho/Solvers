@@ -17,7 +17,7 @@ aValueBest = {}
 aWalkBest = {}
 aWalk = {}
 aWalkProbed = {}
-aCoord0 = {}
+aCoordHash0 = {}
 reqAry = {}
 optAry = {}
 optAryNames = []
@@ -56,7 +56,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     #instance global variables
     global aStruc
     #solver global variables
-    global aCoord0
+    global aCoordHash0
     """
     global aHashTmp
     global aHashNeighb
@@ -108,7 +108,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     for i in range(Lm1):
         ip1 = i + 1
         coordA = coordAdj[ip1]
-        if tuple(coordA) not in aCoord0:
+        if tuple(coordA) not in aCoordHash0:
             neighbSize += 1
             valueA = f(coordA)
             aV["cntProbe"] += 1
@@ -168,7 +168,7 @@ def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
     # instance global variables
     global aStruc
     # Solver global variables
-    global aCoord0
+    global aCoordHash0
     global aWalkProbed
 
     coordBest = None
@@ -226,7 +226,7 @@ def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
     for i in range(Lm1):
         ip1 = i + 1
         coordA = coordAdj[ip1]
-        if tuple(coordA) not in aCoord0:
+        if tuple(coordA) not in aCoordHash0:
             neighbSize += 1
             iP = coordA[i]
             dif_ij = -sumP[iP]
@@ -235,9 +235,9 @@ def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
 
             for j in range(ip1, L):
                 ij = coordAdj[ip1][j-1]
-                dif_ij -= aStruc[iP][ij-1]
+                dif_ij -= aStruc[iP-1][ij-1]
                 ji = coordAdj[ip1][j-1]
-                dif_ji -= aStruc[iP1][ji-1]
+                dif_ji -= aStruc[iP1-1][ji-1]
 
             valueA = valuePiv + dif_ij + dif_ji
             aV["cntProbe"] += 1
@@ -291,15 +291,15 @@ More to come ....
     # instance global variables
     global aStruc
     # solver global variables
-    global aCoord0
+    global aCoordHash0
     global aWalkProbed
 
     # primary input variables
     functionID = aV["functionID"]
     runtimeLmt = aV["runtimeLmt"] 
     cntProbeLmt = aV["cntProbeLmt"]
-    walkRepeatsLmt = aV["walkRepeatsLmt"]
-    walkIntervalLmt = aV["walkIntervalLmt"]
+    #walkRepeatsLmt = aV["walkRepeatsLmt"]
+    #walkIntervalLmt = aV["walkIntervalLmt"]
     walkSegmLmt = aV["walkSegmLmt"]
     valueTarget = aV["valueTarget"]
 
@@ -350,7 +350,7 @@ More to come ....
                     aV["rankPivot"], isPivot, aV["neighbSize"], aV["cntProbe"])
 
         if aV["coordPivot"] is not None:
-            aCoord0[tuple(aV["coordPivot"])] = []
+            aCoordHash0[tuple(aV["coordPivot"])] = []
 
         # UPDATE valueBest, aValueBest, aWalkBest
         if aV["valuePivot"] <= aV["valueBest"]:
@@ -749,7 +749,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     # instance global variables 
     global aStruc
     # solver global variables
-    global aCoord0
+    global aCoordHash0
     global aWalkProbed
  
     argsOptions = args
@@ -759,7 +759,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     # (0A) Phase 0A: initialize global variables
     aV = {}
     aStruc = {}
-    aCoord0 = {}
+    aCoordHash0 = {}
     aWalkProbed = {}
 
     print "\n".join([
@@ -989,8 +989,9 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     aV["timeStamp"] =  time.strftime("%Y%m%d%H%M%S")
     aV["dateLine"] = time.strftime("%a %b %d %H:%M:%S %Z %Y") 
     #@TODO HostID stuff (lines 583-486)
-    aV["hostID"] = "TODO: Host ID Stuff"
-    aV["compiler"] = "TODO: complier/interpreter stuff"
+    aV["hostID"] = "{}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0],
+            os.uname()[1], platform.system(), os.uname()[2])
+    aV["compiler"] = "python-"+".".join(imap(str,sys.version_info[:3]))
 
     # find aV["valueInit"] by doing the first probe for function value
     # Timing
@@ -1007,8 +1008,8 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     aV["coordBest"] = aV["coordInit"]
     aV["valuePivot"] = aV["valueInit"]
     aV["valueBest"] = aV["valueInit"]
-    aCoord0= {}
-    aCoord0[tuple(aV["coordInit"])] = []
+    aCoordHash0= {}
+    aCoordHash0[tuple(aV["coordInit"])] = []
 
     # (4) Phase 4: check if valueTarget has been reached, return to main if > 0
     if aV["valueInit"] == aV["valueTarget"]:
@@ -1144,6 +1145,19 @@ def main( instanceDef, args=[] ):
             "\n.. completed initialization of all variables,"
             "\n   exiting the solver since option -{} has been asserted."
             "\n{}\n".format("-"*78,aV["isInitOnly"],"-"*78))
+        print "targetReached coordInit valueInit = {}\n".format(rList)
+        for key, value in aV.items():
+            print "aV({}) = {}".format(key,value)
+        print
+        for i in range(len(aStruc)):
+            print "aStruc[{}] = {}".format(i, aStruc[i])
+        print
+        for key, value in aCoordHash0.items():
+            print "aCoordHash0({}) = {}".format(key,value)
+        print
+        for key, value in aWalkProbed.items():
+            print "aWalkProbed({}) = {}".format(key,value)
+        return
     else:
         print ("\n{}"
             "\n.. completed initialization of all variables,"
