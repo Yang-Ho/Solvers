@@ -1,3 +1,8 @@
+# Copyright
+# Yang Ho
+# Wed Jan 21 2015
+# Combinatorial Optimizational Project for CSC 499
+# Under the tutelage of Dr. Franc Brglez
 from itertools import imap
 import P.coord
 import time
@@ -8,7 +13,9 @@ import platform
 import random
 import util
 import core
+from config import *
 
+"""
 aLits = None
 aAdjacent = None
 aPI = {}
@@ -23,6 +30,7 @@ optAry = {}
 optAryNames = []
 optAryNamesBool = []
 optAryList = []
+"""
 
 def saw_pivot_bee():
     return
@@ -32,16 +40,15 @@ def saw_pivot_ant():
 
 def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     thisProc = "P.lop.saw.pivot.simple"
-    ABOUT = (
-        "This procedure takes a pivot coordinate/value, probes the distance=1"
-        " neighborhood of a 'lop' (a linear ordering problem), subject to the "
-        "constraints of a SAW (self-avoiding walk) -- i.e. the best "
-        "coord/value it returns has not been yet been selected as the pivot "
-        "for the next step. Neighborhood size of 0 signifies that the next "
-        "step of a SAW is blocked.\n\tThis implementation is 'simple', i.e. "
-        "for each pivot coordinate of length L, there are up to L-1 explicit "
-        "probes of the function P.lop.f"
-        )
+    ABOUT = """
+This procedure takes a pivot coordinate/value, probes the distance=1 
+neighborhood of a 'lop' (a linear ordering problem), subject to the 
+constraints of a SAW (self-avoiding walk) -- i.e. the best coord/value it 
+returns has not been yet been selected as the pivot for the next step. 
+Neighborhood size of 0 signifies that the next step of a SAW is blocked.
+\n\tThis implementation is 'simple', i.e. for each pivot coordinate of 
+length L, there are up to L-1 explicit probes of the function P.lop.f
+"""
     if coordPiv == "??":
         print ABOUT
         return
@@ -57,16 +64,6 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     global aStruc
     #solver global variables
     global aCoordHash0
-    """
-    global aHashTmp
-    global aHashNeighb
-    global aWalk 
-    global aHashWalk 
-    global aWalkProbed 
-    global aWalkBest 
-    global aValueBest 
-    global aAdjacent
-    """
 
     try:
         aV["writeVar"] = int(aV["writeVar"])
@@ -142,15 +139,15 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
 
 def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
     thisProc = "P.lop.saw.pivot"
-    ABOUT = ( "This procedure takes a pivot coordinate/value, probes the "
-        "distance=1 neighborhood of a 'lop' (a linear ordering probelm), "
-        "subject to the constraints of a SAW (self-avoiding walk) -- i.e. "
-        "the best coord/value it returns has not been yet been selected as "
-        "the pivot for the next step. Neighborhood size of 0 signifies that "
-        "the next step of a SAW is blocked.\n This implementation is 'FAST', "
-        "i.e. for each pivot coordinate of length L, there are up to L-1 FAST "
-        "tableau-based probes of each pivot coordinate.")
-
+    ABOUT = """
+This procedure takes a pivot coordinate/value, probes the distance=1 
+neighborhood of a 'lop' (a linear ordering probelm), subject to the 
+constraints of a SAW (self-avoiding walk) -- i.e. the best coord/value it 
+returns has not been yet been selected as the pivot for the next step. 
+Neighborhood size of 0 signifies that the next step of a SAW is blocked.
+\n This implementation is 'FAST', i.e. for each pivot coordinate of length L, 
+there are up to L-1 FAST tableau-based probes of each pivot coordinate.
+"""
     if coordPiv == "??":
         print ABOUT
         return
@@ -412,7 +409,7 @@ structures expected by the combinatorial solver under this sandbox.
         #raise Exception("Valid query is '{} ??'".format(thisProc))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
         #sys.exit(1)
-    rList = core.file_read(fileName).split("\n")
+    rList = core.file_read(fileName).splitlines()
 
     nDim = int(rList[0])
     nItems = 0
@@ -450,7 +447,7 @@ original instance file.
         print "Valid query is '{} ??'".format(thisProc)
         return
 
-    rList = core.file_read(fileName).split("\n")
+    rList = core.file_read(fileName).splitlines()
 
     nDim = int(rList[0])
     Ary = [[0 for i in range(nDim + 1)] for j in range(nDim + 1)]
@@ -547,9 +544,9 @@ for plotting of Hasse graphs under R.
     coordRef = [i for i in range(nDim + 1)]
     permFile = "../../../xBed/xBenchm/perm/perm.0" + str(aPI["nDim"]) + ".txt"
     coordList = core.file_read(permFile)
-    print ".. " + str(len(coordList.split("\n")) - 1) + " permutations read from file " + permFile + "\n"
+    print ".. " + str(len(coordList.splitlines()) - 1) + " permutations read from file " + permFile + "\n"
     valueMin = int(1e30)
-    list = coordList.split("\n")
+    list = coordList.splitlines()
     bestAry = ""
     bestRank = 0
     for coord in list[:]:
@@ -753,8 +750,9 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     global aWalkProbed
  
     argsOptions = args
-    # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
-    tempInfoGlobals()
+    rList = info(0, all_info["infoVariablesFile"])
+    all_info = rList[0]
+    all_valu = rList[1]
 
     # (0A) Phase 0A: initialize global variables
     aV = {}
@@ -817,7 +815,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     if not os.path.isfile(infoSolutionsFile):
         print "\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile)
         return
-    rList = core.file_read(infoSolutionsFile).split('\n')
+    rList = core.file_read(infoSolutionsFile).splitlines()
     rList.pop()
     rListTmp = []
     for line in rList:
@@ -1081,16 +1079,17 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
 
 def main( instanceDef, args=[] ):
     thisProc = "P.lop.main"
-    ABOUT = ("Procedure {} takes a variable number of arguments: "
-            "instanceDef as required argument and args (a reserved-name variable)."
-            "It outputs either (1) a response to a command line query "
-            "(see below) or a summary of initialized variables only, and (2) "
-            "completes variable initialization and invokes the solver under "
-            "the default or user-specified argument values.\n"
-            "For a stdout of command line details, query with command shown "
-            "below:\n\t\tP.lop.main ?\t(under python interpreter)\n"
-            "\tor\n"
-            "\t\t../xBin/P.lopP (under bash)".format(thisProc))
+    ABOUT = """
+Procedure {} takes a variable number of arguments: instanceDef as required 
+argument and args (a reserved-name variable). It outputs either (1) a 
+response to a command line query (see below) or a summary of initialized 
+variables only, and (2) completes variable initialization and invokes the 
+solver under the default or user-specified argument values.
+\nFor a stdout of command line details, query with command shown below:
+\n\t\tP.lop.main ?\t(under python interpreter)
+\n\tor
+\n\t\t../xBin/P.lopP (under bash)
+""".format(thisProc)
 
     if instanceDef == "??":
         print ABOUT
@@ -1126,7 +1125,6 @@ def main( instanceDef, args=[] ):
     all_info["sandboxName"] = sandboxName 
     all_info["sandboxPath"] = sandboxPath 
     """
-    tempInfoGlobals()
 
     # (1) Phase 1: query about the commandLine **OR** 
     #       to initialize all variables
@@ -1180,14 +1178,16 @@ def main( instanceDef, args=[] ):
     return
     
 def stdout( withWarning = 1 ):
-    ABOUT = ("This procedure outputs results afer a successful completion of "
-            "a combinatorial solver. The output is directed to 'stdout' and "
-            "includes a solution (a coordinate-value pair) and the observed "
-            "performance values. The format consists of a few comment lines, "
-            "followed by a tabbed name-value pairs. The first piar is always\n"
-            "instanceDef <value>\n"
-            "This procedure is universal under any function coordType=P!")
     thisProc = "P.lop.stdout"
+    ABOUT = """
+This procedure outputs results afer a successful completion of a combinatorial 
+solver. The output is directed to 'stdout' and includes a solution 
+(a coordinate-value pair) and the observed performance values. The format 
+consists of a few comment lines, followed by a tabbed name-value pairs. The 
+first piar is always\n
+instanceDef <value>\n
+This procedure is universal under any function coordType=P!
+"""
     
     #info global vairables
     global all_info
@@ -1237,7 +1237,7 @@ infoVariablesFile *info_variables.txt.
 
             P.lop.main ??   (under tclsh)
        or
-            ../xBin/P.lopT  (under bash)
+            ../xBin/P.lopP  (under bash)
 """
     if isQuery == "??":
         print ABOUT
@@ -1253,8 +1253,13 @@ infoVariablesFile *info_variables.txt.
 
     # read *.info_variables.txt for this solver domain
     rList = util.table_info_variables(infoVariablesFile) 
+    sandboxName = all_info["sandboxName"]
+    sandboxPath = all_info["sandboxPath"]
     all_info = rList[0]
     all_valu = rList[1]
+    all_info["sandboxName"] = sandboxName 
+    all_info["sandboxPath"] = sandboxPath 
+    all_info["infoVariablesFile"] = infoVariablesFile
 
     if not isQuery:
         return (all_info, all_valu)

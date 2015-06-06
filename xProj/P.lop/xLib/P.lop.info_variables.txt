@@ -17,7 +17,7 @@ cntRestartLmt       2147483647          Stop if the solver reaches this value.
 cntStep             internal            Counts the number of pivot steps during the walk.
 commandLine         internal            Example: P.lop.main ../xBenchm/lop/tiny/i-5-book.lop  -seedInit 12
 commandName         internal            Example: P.lop.main
-compiler            internal            Example: tcl-8.5.6 or python-2.7.1
+compiler            internal            Example formats: tcl-8.5.6, python-2.7.1, etc
 coordBest           internal            A follow-up coordinate on coordInit, associated with valueBest.
 coordInit           NA                  If NA, a random permutation coordinate is generated internally
 coordInit           NA                  as a string of size nDim — unless initial coordinate is entered by the user.
@@ -54,7 +54,7 @@ rankBest            internal            The rank of coordBest with respect to co
 rankInit            internal            The rank of coordInit with respect to coordRef.
 rankPivot           internal            The rank of coordPivot with respect to coordRef.
 runtime             internal            Measures the solver runtime in seconds.
-runtimeLmt          30                  Stop if the solver runtime exceeds these many seconds.
+runtimeLmt          30                  Stop if the solver exceeds these many seconds.
 runtimeRead         internal            Runtime seconds of reading the instance file.
 seedInit            NA                  If NA, a random positive integer is created to initialize a
 seedInit            NA                  random number generator.
