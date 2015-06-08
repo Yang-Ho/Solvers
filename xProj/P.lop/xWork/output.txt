@@ -1,0 +1,659 @@
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/pal-19-107.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:25:13 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/pal-19-107.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:25:13 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/pal-19-107.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7f4cabfff398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7f4cabfff398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/pal-19-107.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:25:13 EDT 2015
+#   timeStamp = 20150608102513
+#
+instanceDef		../xBenchm/lop/tiny/pal-19-107.lop
+solverID		<function saw at 0x7f4cabfff398>
+coordInit		[10, 19, 6, 15, 12, 17, 8, 5, 3, 11, 13, 16, 7, 18, 2, 4, 14, 9, 1]
+coordBest		[4, 15, 5, 16, 2, 6, 13, 11, 3, 1, 8, 12, 10, 19, 17, 9, 7, 14, 18]
+nDim		19
+walkLengthLmt		2147483647.0
+walkLength		5925
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		98293
+runtimeLmt		30.0
+runtime		10.3623595238
+runtimeRead		0.000962018966675
+speedProbe		9485
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-84
+valueBest		-107
+valueTarget		-107.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:25:23 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/pal-13-55.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:26:03 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/pal-13-55.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:26:03 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/pal-13-55.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7fdebb178398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7fdebb178398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/pal-13-55.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:26:03 EDT 2015
+#   timeStamp = 20150608102603
+#
+instanceDef		../xBenchm/lop/tiny/pal-13-55.lop
+solverID		<function saw at 0x7fdebb178398>
+coordInit		[5, 8, 13, 10, 7, 11, 4, 12, 2, 3, 9, 6, 1]
+coordBest		[9, 10, 3, 4, 13, 7, 8, 1, 2, 11, 12, 5, 6]
+nDim		13
+walkLengthLmt		2147483647.0
+walkLength		387
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		4083
+runtimeLmt		30.0
+runtime		0.237894535065
+runtimeRead		0.370558023453
+speedProbe		17163
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-36
+valueBest		-55
+valueTarget		-55.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:26:03 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/pal-11-35.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:28:19 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/pal-11-35.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:28:19 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/pal-11-35.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7f2b90b15398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7f2b90b15398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/pal-11-35.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:28:19 EDT 2015
+#   timeStamp = 20150608102819
+#
+instanceDef		../xBenchm/lop/tiny/pal-11-35.lop
+solverID		<function saw at 0x7f2b90b15398>
+coordInit		[7, 10, 6, 9, 3, 4, 11, 2, 8, 5, 1]
+coordBest		[6, 7, 10, 11, 3, 4, 8, 9, 1, 2, 5]
+nDim		11
+walkLengthLmt		2147483647.0
+walkLength		13
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		119
+runtimeLmt		30.0
+runtime		0.00547528266907
+runtimeRead		0.35840010643
+speedProbe		21734
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-26
+valueBest		-35
+valueTarget		-35.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:28:19 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/i-10-test1-67.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:32:25 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/i-10-test1-67.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:32:25 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/i-10-test1-67.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7f48caf2e398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7f48caf2e398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/i-10-test1-67.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:32:25 EDT 2015
+#   timeStamp = 20150608103225
+#
+instanceDef		../xBenchm/lop/tiny/i-10-test1-67.lop
+solverID		<function saw at 0x7f48caf2e398>
+coordInit		[9, 8, 6, 3, 4, 10, 2, 7, 5, 1]
+coordBest		[8, 7, 9, 3, 10, 2, 1, 4, 5, 6]
+nDim		10
+walkLengthLmt		2147483647.0
+walkLength		81
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		604
+runtimeLmt		30.0
+runtime		0.0248556137085
+runtimeRead		0.000535011291504
+speedProbe		24300
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-55
+valueBest		-67
+valueTarget		-67.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:32:25 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/i-9-test1-48.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:33:35 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/i-9-test1-48.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:33:35 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/i-9-test1-48.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7fb180c28398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7fb180c28398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/i-9-test1-48.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:33:35 EDT 2015
+#   timeStamp = 20150608103335
+#
+instanceDef		../xBenchm/lop/tiny/i-9-test1-48.lop
+solverID		<function saw at 0x7fb180c28398>
+coordInit		[8, 5, 7, 3, 9, 2, 6, 4, 1]
+coordBest		[8, 7, 9, 3, 4, 5, 2, 6, 1]
+nDim		9
+walkLengthLmt		2147483647.0
+walkLength		19
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		130
+runtimeLmt		30.0
+runtime		0.00454521179199
+runtimeRead		0.000493049621582
+speedProbe		28601
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-45
+valueBest		-48
+valueTarget		-48.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:33:35 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/i-8-test1-36.lop -seedInit 1902 -isSimple
+
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:34:46 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/i-8-test1-36.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:34:46 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/i-8-test1-36.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7f046742d398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7f046742d398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/i-8-test1-36.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:34:46 EDT 2015
+#   timeStamp = 20150608103446
+#
+instanceDef		../xBenchm/lop/tiny/i-8-test1-36.lop
+solverID		<function saw at 0x7f046742d398>
+coordInit		[7, 3, 6, 8, 2, 5, 4, 1]
+coordBest		[7, 4, 5, 6, 8, 3, 2, 1]
+nDim		8
+walkLengthLmt		2147483647.0
+walkLength		25
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		138
+runtimeLmt		30.0
+runtime		0.00460124015808
+runtimeRead		0.000459909439087
+speedProbe		29991
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-31
+valueBest		-36
+valueTarget		-36.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:34:46 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/i-7-test1-28.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:35:20 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/i-7-test1-28.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:35:20 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/i-7-test1-28.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7f204e46a398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7f204e46a398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/i-7-test1-28.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:35:20 EDT 2015
+#   timeStamp = 20150608103520
+#
+instanceDef		../xBenchm/lop/tiny/i-7-test1-28.lop
+solverID		<function saw at 0x7f204e46a398>
+coordInit		[6, 2, 5, 7, 4, 3, 1]
+coordBest		[7, 3, 2, 1, 4, 5, 6]
+nDim		7
+walkLengthLmt		2147483647.0
+walkLength		24
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		120
+runtimeLmt		30.0
+runtime		0.00352549552917
+runtimeRead		0.000431060791016
+speedProbe		34037
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-18
+valueBest		-28
+valueTarget		-28.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:35:20 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/i-5-book2-51.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:36:01 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/i-5-book2-51.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:36:01 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/i-5-book2-51.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7ff3da14b398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7ff3da14b398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/i-5-book2-51.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:36:01 EDT 2015
+#   timeStamp = 20150608103601
+#
+instanceDef		../xBenchm/lop/tiny/i-5-book2-51.lop
+solverID		<function saw at 0x7ff3da14b398>
+coordInit		[4, 5, 3, 2, 1]
+coordBest		[5, 3, 1, 2, 4]
+nDim		5
+walkLengthLmt		2147483647.0
+walkLength		5
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		17
+runtimeLmt		30.0
+runtime		0.000438928604126
+runtimeRead		0.000394105911255
+speedProbe		38730
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-34
+valueBest		-51
+valueTarget		-51.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:36:01 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/i-4-test-18.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:39:14 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/i-4-test-18.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:39:15 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/i-4-test-18.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7efee9bb9398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7efee9bb9398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/i-4-test-18.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:39:15 EDT 2015
+#   timeStamp = 20150608103915
+#
+instanceDef		../xBenchm/lop/tiny/i-4-test-18.lop
+solverID		<function saw at 0x7efee9bb9398>
+coordInit		[4, 3, 2, 1]
+coordBest		[3, 2, 4, 1]
+nDim		4
+walkLengthLmt		2147483647.0
+walkLength		4
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		9
+runtimeLmt		30.0
+runtime		0.000236749649048
+runtimeRead		0.000380992889404
+speedProbe		38014
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-17
+valueBest		-18
+valueTarget		-18.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:39:15 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[]$ ../xBin/P.lopP ../xBenchm/lop/tiny/i-4-test-13.lop -seedInit 1902 -isSimple
+.. importing files from this SANDBOX directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+.. importing files from xBed/xLib directory 
+/home/yangaskhan/CSC499/Solvers/xBed/xLib
+.. returning to directory 
+/home/yangaskhan/CSC499/Solvers/xProj/P.lop/xBin
+Mon Jun 08 10:39:30 EDT 2015
+.. registered infoVariablesFile as /home/yangaskhan/CSC499/Solvers/xProj/P.lop/xLib/P.lop.info_variables.txt
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# progName = xBin
+# progArgs = ['../xBenchm/lop/tiny/i-4-test-13.lop', '-seedInit', '1902', '-isSimple']
+# Mon Jun 10:39:30 EDT 2015 
+args = ['-seedInit', '1902', '-isSimple']
+# ** from: P.lop.init:
+# instanceDef=../xBenchm/lop/tiny/i-4-test-13.lop
+# argsOptions=['-seedInit', '1902', '-isSimple']
+
+------------------------------------------------------------------------------
+.. completed initialization of all variables,
+   proceeding with the search under solverID = <function saw at 0x7fd080972398>
+------------------------------------------------------------------------------
+
+#    Proceeding with the search under solverID = <function saw at 0x7fd080972398>
+##############################################################################
+# FROM: P.lop.saw, searching for pivotBest via saw_pivot_simple
+# 
+# FROM P.lop.stdout: A SUMMARY OF NAME-VALUE PAIRS
+# commandLine = P.lop.main ../xBenchm/lop/tiny/i-4-test-13.lop ['-seedInit', '1902', '-isSimple']
+#    dateLine = Mon Jun 08 10:39:30 EDT 2015
+#   timeStamp = 20150608103930
+#
+instanceDef		../xBenchm/lop/tiny/i-4-test-13.lop
+solverID		<function saw at 0x7fd080972398>
+coordInit		[4, 3, 2, 1]
+coordBest		[4, 2, 3, 1]
+nDim		4
+walkLengthLmt		2147483647.0
+walkLength		1
+cntRestartLmt		2147483647.0
+cntRestart		0
+cntProbeLmt		2147483647.0
+cntProbe		4
+runtimeLmt		30.0
+runtime		0.000123023986816
+runtimeRead		0.000355005264282
+speedProbe		32513
+hostID		yangaskhan@manjaro-Linux-3.14.40-1-MANJARO
+isSimple		True
+solverMethod		saw
+compiler		python-2.7.9
+walkSegmLmt		NA
+walkSegmCoef		NA
+seedInit		1902
+valueInit		-12
+valueBest		-13
+valueTarget		-13.0
+valueTol		0.0
+targetReached		1
+isCensored		0
+
+**completing P.lop_Main**
+# Mon Jun 10:39:30 EDT 2015 ..completed xBin
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
