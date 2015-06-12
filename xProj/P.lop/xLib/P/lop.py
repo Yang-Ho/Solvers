@@ -38,8 +38,8 @@ def saw_pivot_bee():
 def saw_pivot_ant():
     return
 
-def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
-    thisProc = "P.lop.saw.pivot.simple"
+def saw_pivot_simple( coordPiv=[5, 3, 2, 1, 4], valuePiv=-46 ):
+    thisCmd = "P.lop.saw.pivot.simple"
     ABOUT = """
 This procedure takes a pivot coordinate/value, probes the distance=1 
 neighborhood of a 'lop' (a linear ordering problem), subject to the 
@@ -53,7 +53,7 @@ length L, there are up to L-1 explicit probes of the function P.lop.f
         print ABOUT
         return
     elif coordPiv == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     #info global variables
@@ -99,7 +99,7 @@ length L, there are up to L-1 explicit probes of the function P.lop.f
                 "\nProbing ALL distance=1 neighbors of the\ninitial pivot"
                 " coordinate = {}"
                 "\npair\tcoord\tf\tfBest\trank\tcntNeighb\tcntProbe"
-                "\n--\t{}\t{}\t{}\t{}\t0\t{}\n".format(thisProc, coordPiv, 
+                "\n--\t{}\t{}\t{}\t{}\t0\t{}\n".format(thisCmd, coordPiv, 
                     coordPiv, valuePiv, valuePiv, rank, aV["cntProbe"]))
 
     for i in range(Lm1):
@@ -137,8 +137,8 @@ length L, there are up to L-1 explicit probes of the function P.lop.f
         coordBest = None
     return (coordBest, valueBest, neighbSize, coordProbedList, valueProbedList)
 
-def saw_pivot(coordPiv=[5,3,2,1,4], valuePiv=-46):
-    thisProc = "P.lop.saw.pivot"
+def saw_pivot( coordPiv=[5, 3, 2, 1, 4], valuePiv=-46 ):
+    thisCmd = "P.lop.saw.pivot"
     ABOUT = """
 This procedure takes a pivot coordinate/value, probes the distance=1 
 neighborhood of a 'lop' (a linear ordering probelm), subject to the 
@@ -152,10 +152,10 @@ there are up to L-1 FAST tableau-based probes of each pivot coordinate.
         print ABOUT
         return
     elif coordPiv == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
-        #raise Exception("Valid query is '{} ??'".format(thisProc))
-        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
+        #raise Exception("Valid query is '{} ??'".format(thisCmd))
+        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisCmd))
         #sys.exit(1)
 
     # info global variables
@@ -175,110 +175,55 @@ there are up to L-1 FAST tableau-based probes of each pivot coordinate.
     neighbSize = 0
     coordProbedList = []
 
-    # PASS 1: given coordPiv, get sumP(i), valuePiv, coordAdj
-    L = aV["nDim"]
-    Lm1 = L - 1
-    swapList = []
-    coordAdj = {}
-
-    # needed for tableau probing
-    valuePiv = 0
-    # first elm_i to be swapped 
-    elm_i = coordPiv[0]
-
-    sumP = {}
-    for i in range(L):
-        #compute valPiv (pivot value)
-        ip1 = i + 1
-        iP = coordPiv[i]
-        sumP[iP] = 0 # needed for PASS 2
-        for j in range(ip1, L):
-            jP = coordPiv[j]
-            sumP[iP] -= aStruc[jP-1][iP-1]
-
-        valuePiv += sumP[iP]
-
-        # initialize for coordAdj for phase 2
-        swapL = coordPiv[:]
-        elm_ip1 = coordPiv[ip1-1]
-        swapL[i] = elm_ip1
-        if ip1 <= Lm1:
-            swapL[ip1] = elm_i
-            coordAdj[ip1] = swapL
-            elm_i = coordPiv[ip1]
-    aV["cntProbe"] += 1
-    
+    rList = fAdj( coordPiv )
+    valuePiv = rList[0]
+    aValueAdj = rList[1]
     if aV["writeVar"] == 3:
-        rank = P.coord.distance(coordPiv, aV["coordRef"])
-        rowLines = ("\nFROM: {}"
-            "\nProbing ALL distance=1 neighbors of the"
-            "\ninitial pivot coordinate = {}"
-            "\npair\tcoord\tf\tfBest\trank\tcntNeighb\tcntprobe"
-            "\n--\t{}\t{}\t{}\t{}\0\t{}\n".format(thisProc, coordPiv, coordPiv,
-                valuePiv,valuePiv,rank,aV["cntProbe"]))
+        print "pivotPair = {}:{}".format(coordPiv, valuePiv)
+        print aValueAdj
+        print aCoordHash0
 
-    # PASS 2: get valueA for ea. admissible adjacent coordinate
-    # Find adjacent coordinates (all coordinates in the walk are excluded from
-    #       the neighborhood of the current pivot
-    for i in range(Lm1):
-        ip1 = i + 1
-        coordA = coordAdj[ip1]
-        if tuple(coordA) not in aCoordHash0:
-            neighbSize += 1
-            iP = coordA[i]
-            dif_ij = -sumP[iP]
-            iP1 = coordA[ip1]
-            dif_ji = -sumP[iP1]
+    valueOrderedList = aValueAdj.keys() 
+    valueOrderedList.sort()
 
-            for j in range(ip1, L):
-                ij = coordAdj[ip1][j-1]
-                dif_ij -= aStruc[iP-1][ij-1]
-                ji = coordAdj[ip1][j-1]
-                dif_ji -= aStruc[iP1-1][ji-1]
+    isBestFound = False 
+    neighbSize = aV["neighbSize"]
+    for  value in valueOrderedList:
+        for coord in aValueAdj[value]:
+            if tuple(coord) not in aCoordHash0:
+                coordBest = coord[:]
+                valueBest = value
+                isBestFound = True 
+            if isBestFound:
+                break
+            else:
+                neighbSize -= 1
+        if isBestFound:
+            break
 
-            valueA = valuePiv + dif_ij + dif_ji
-            aV["cntProbe"] += 1
+    return (coordBest, valueBest, neighbSize)
 
-            # aggregate coordBestList for random selection
-            if valueA <= valueBest:
-                if valueA < valueBest:
-                    coordBestList = []
-                valueBest = valueA
-                coordBest = coordA
-                coordBestList.append(coordBest)
-            if aV["writeVar"] == 3:
-                pair = "{},{}".format(iP,iP1)
-                print "coordA={}".format(coordA)
-                rank = P.coord.distance(coordA, aV["coordRef"])
-                rowLines += "{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(pair,coordA,
-                        valueA,valueBest,rank,neighbSize,aV["cntProbe"])
+def saw( Query="" ):
+    thisCmd = "P.lop.saw"
+    sandbox = "P.lop"
+    initProc = "P.lop.init"
+    pivotProcSimple = "P.lop.saw_pivot_simple"
+    pivotProc = "P.lop.saw_pivot"
 
-    if aV["writeVar"] == 3:
-        print rowLines
-
-    idx = int(len(coordBestList)*random.random())
-    if len(coordBestList) > 0:
-        coordBest = coordBestList[idx]
-    else:
-        coordBest = None
-    return (coordBest, valueBest, neighbSize, coordProbedList, valueProbedList)
-
-def saw(arg=""):
-    thisProc = "P.lop.saw"
     ABOUT = """
-Procedure $thisProc takes global array values initialized under P.lop.init
+Procedure $thisCmd takes global array values initialized under P.lop.init
 and constructs a segment of a self-avoiding walk (SAW). Either P.lop.saw.pivot.simple 
 or the significantly more efficient procedure P.lop.saw.pivot.ant is invoked.
 More to come ....
 """
-    if arg == "??":
+    if Query == "??":
         print ABOUT
         return
-    elif arg == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+    elif Query == "?":
+        print "Valid query is '{} ??'".format(thisCmd)
         return
-        #raise Exception("Valid query is '{} ??'".format(thisProc))
-        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
+        #raise Exception("Valid query is '{} ??'".format(thisCmd))
+        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisCmd))
         #sys.exit(1)
 
     # info global variables
@@ -295,8 +240,7 @@ More to come ....
     functionID = aV["functionID"]
     runtimeLmt = aV["runtimeLmt"] 
     cntProbeLmt = aV["cntProbeLmt"]
-    #walkRepeatsLmt = aV["walkRepeatsLmt"]
-    #walkIntervalLmt = aV["walkIntervalLmt"]
+    walkLengthLmt = aV["walkLengthLmt"]
     walkSegmLmt = aV["walkSegmLmt"]
     valueTarget = aV["valueTarget"]
 
@@ -304,89 +248,105 @@ More to come ....
         procPivotNext = saw_pivot_simple
     else:
         procPivotNext = saw_pivot
-    print "# FROM: {}, searching for pivotBest via {}".format(thisProc, 
+    print "# FROM: {}, searching for pivotBest via {}".format(thisCmd, 
             procPivotNext.__name__)
     # auxiliary variables
-    aV["coordPivot"] = aV["coordInit"][:]
-    aV["valuePivot"] = aV["valueInit"]
-    aV["coordBest"] = aV["coordPivot"][:]
-    aV["valueBest"] = aV["valuePivot"]
+    aV["coordBest"] = aV["coordInit"][:]
+    aV["valueBest"] = aV["valueInit"]
+    coord = aV["coordInit"][:]
+    value = aV["valueInit"]
+
     step = 0
 
     while True:
         # Timing
         microSecs = time.time()
 
-        # UPDATE walkLength
-        step += 1
-        aV["walkLength"] += 1
         # PROBE neighborhood of current pivot
-        bestNeighb = procPivotNext(aV["coordPivot"], aV["valuePivot"])
+        bestNeighb = procPivotNext(coord, value)
 
         # SELECT next pivot
-        aV["coordPivot"] = bestNeighb[0]
-        aV["valuePivot"] = bestNeighb[1]
-        aV["neighbSize"] = bestNeighb[2]
-        if aV["isWalkTables"]:
-            aV["coordProbedList"] = bestNeighb[3]
-            aV["valueProbedList"] = bestNeighb[4]
+        coordNext = bestNeighb[0]
+        valueNext = bestNeighb[1]
+        neighbSize = bestNeighb[2]
 
-            walkLengthM1 = aV["walkLength"] - 1
-            neighbSize = 0
-            isPivot = 0
-            for coord, value in aV["coordProbedList"], aV["valueProbedList"]:
-                neighbSize += 1
-                rank = P.coord.rank(coord)
-                aWalkProbed[(walkLengthM1,neighbSize)] = ( walkLengthM1,
-                        aV["cntRestart"], coord, value, rank, isPivot, 
-                        neighbSize, None)
-            isPivot = 1
-            aV["rankPivot"] = P.coord.rank(aV["coordPivot"])
-            aWalkProbed[(aV["walkLength"],0)] = (aV["walkLength"], 
-                    aV["cntRestart"], aV["coordPivot"], aV["valuePivot"],
-                    aV["rankPivot"], isPivot, aV["neighbSize"], aV["cntProbe"])
-
-        if aV["coordPivot"] is not None:
-            aCoordHash0[tuple(aV["coordPivot"])] = []
-
-        # UPDATE valueBest, aValueBest, aWalkBest
-        if aV["valuePivot"] <= aV["valueBest"]:
-            aV["valueBest"] = aV["valuePivot"]
-            aV["coordBest"] = aV["coordPivot"]
-        # CHECK the nighboroodSize
-        if aV["neighbSize"] == 0:
-            aV["isBlocked"] = 1
-            aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print ("WARNING from {}: isBlocked=1, aV['neighbSize']={} ..."
-                    "no available neighborhood coordinates ...".format(thisProc,
-                        aV["neighbSize"]))
-            return
+        aCoordHash0[tuple(coordNext)] = [] 
         #end timing
         microSecs = time.time() - microSecs
 
         # Record runtime for step
         aV["runtime"] += microSecs
         aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
+        
+        # UPDATE valueBest, aValueBest
+        if valueNext <= aV["valueBest"]:
+            aV["valueBest"] = valueNext 
+            aV["coordBest"] = coordNext[:]
+        if aV["isWalkTables"]:
+            aV["coordProbedList"] = bestNeighb[3]
+            aV["valueProbedList"] = bestNeighb[4]
+
+            cntNeighb = 0
+            isPivot = 0
+            for coordPr, valuePr in aV["coordProbedList"], aV["valueProbedList"]:
+                cntNeightb += 1
+                rankPr = P.coord.rank(coord)
+                aWalkProbed[(step,cntNeighb)] = (step, aV["cntRestart"], 
+                        coordPr, valuePr, rankPr, isPivot, cntNeighb, None)
+            isPivot = 1
+            neighbSize = cntNeighb
+            aV["rankPivot"] = P.coord.rank(coord)
+            aWalkProbed[(step,0)] = (step, aV["cntRestart"], coord, value,
+                    rank, isPivot, cntNeighb, aV["cntProbe"])
+
+        # CHECK the nighboroodSize
+        if aV["neighbSize"] == 0:
+            aV["isTrapped"] = 1
+            aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
+            print ("WARNING from {}: isTrapped=1, neighbSize={} ..."
+                    "no free adjacent coordinates...".format(thisCmd, neighbSize))
+            break
 
         if aV["valueBest"] <= valueTarget:
+            step += 1
+            aV["walkLength"] = step
+            if aV["isWalkTables"]:
+                isPivot = 1
+                neighbSize = cntNeighb
+                rank = P.coord.rank(aV["coordBest"])
+                aWalkProbed[(step,0)] = (step, aV["cntRestart"], 
+                        aV["coordBest"][:], aV["valueBest"], rank, isPivot,
+                        cntNeighb, aV["cntProbe"])
             break
+        else:
+            # UPDATE coord, value, walkLength
+            step += 1
+            aV["walkLength"] = step
+            coord = coordNext[:]
+            value = valueNext
 
         if aV["cntProbe"] > cntProbeLmt:
             aV["isCensored"] = 1
             aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
             print ("WARNING from {}: isCensored=1, cntProbe={} > cntProbeLmt"
-                    "={}\n".format(thisProc, aV["cntProbe"], aV["cntProbeLmt"]))
-            return
+                    "={}\n".format(thisCmd, aV["cntProbe"], aV["cntProbeLmt"]))
+            break 
+        if step >= walkLengthLmt:
+            aV["isCensored"] = 1
+            aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
+            print ("WARNING from {}: isCensored=1, step={} > walkLengthLmt"
+                    "={}\n".format(thisCmd, step, walkLengthLmt))
+            break 
         if aV["runtime"] > runtimeLmt:
             aV["isCensored"] = 1
             aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
             print ("WARNING from {}: isCensored=1, runtime={} > runtimeLmt"
-                    "={}\n".format(thisProc, aV["runtime"], aV["runtimeLmt"]))
-            return
+                    "={}\n".format(thisCmd, aV["runtime"], aV["runtimeLmt"]))
+            break 
 
-    if aV["valueBest"] == aV["valueTarget"]:
+    if aV["valueBest"] == valueTarget:
         aV["targetReached"] = 1
-    elif aV["valueBest"] < aV["valueTarget"]:
+    elif aV["valueBest"] < valueTarget:
         aV["targetReached"] = 2
     else:
         aV["targetReached"] = 0
@@ -394,7 +354,7 @@ More to come ....
     return aV["targetReached"]
 
 def pFile_read(fileName):
-    thisProc = "pFile_read"
+    thisCmd = "pFile_read"
     ABOUT = """
 This proc takes the path of an instance file associated with the 
 sandbox P.lop, reads the file contents and returns parameter values and data 
@@ -404,10 +364,10 @@ structures expected by the combinatorial solver under this sandbox.
         print ABOUT
         return
     elif fileName == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
-        #raise Exception("Valid query is '{} ??'".format(thisProc))
-        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
+        #raise Exception("Valid query is '{} ??'".format(thisCmd))
+        #sys.stderr.write("Valid query is '{}' ??'\n".format(thisCmd))
         #sys.exit(1)
     rList = core.file_read(fileName).splitlines()
 
@@ -433,7 +393,7 @@ structures expected by the combinatorial solver under this sandbox.
     return (nDim, Ary, varList, density)
 
 def pFile_write(coordPerm = [5, 3, 4, 2, 1], fileName = "../xBenchm/lop/tiny/i-5-book.lop"): 
-    thisProc = "pFile_write"
+    thisCmd = "pFile_write"
     ABOUT = """
 This proc takes a permutation coordinate and the path of an instance file 
 associated with the sandbox P.lop, reads the file contents and returns 
@@ -444,7 +404,7 @@ original instance file.
         print ABOUT
         return
     elif coordPerm == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     rList = core.file_read(fileName).splitlines()
@@ -478,8 +438,101 @@ original instance file.
     file_write(filePerm, rowLines)
     print ".. created file " + filePerm
 
+def fAdj( coordPiv = [5, 4, 2, 1, 4] ):
+    thisCmd = "P.lop.fAdj"
+    ABOUT = """
+This procedure takes a pivot coordinate and returns **a COMPLETE set of  
+adjacent function values**  for the 'linear ordering problem' (lop).
+We use a tableau formulation to **efficiently** probe the function not only
+with the pivot coordinate but also with **all** of L-1 adjacent coordinates.
+Values associated with adjacent coordinates are returned in an associated 
+array aValueAdj; it can be searched efficiently for coordBest and valueBest 
+before deciding on the pivotBest for the next step under the rules of 
+the self-avoiding walk.
+"""
+    if coordPiv == "??":
+        print ABOUT
+        return
+    elif coordPiv == "?":
+        print "Valid query is '{} ??'".format(thisCmd)
+        return
+
+    # info global variables
+    global all_info
+    global all_valu
+    global aV
+    # instance global variables
+    global aStruc
+    
+    # PASS 1: given coordinate 'coordPiv', get sumP(i), valuePiv, coordAdj
+    L = aV["nDim"]
+    Lm1 = L - 1
+
+    aPerm = {}
+    for i in range(L):
+        aPerm[i+1] = coordPiv[i]
+    
+    valuePiv = 0
+    sumP = {}
+    for i in range(1, L):
+        iP = aPerm[i]
+        ip1 = i + 1
+        sum1 = 0
+        for j in range(ip1, L+1):
+            jP = aPerm[j]
+            sum1 += aStruc[iP-1][jP-1]
+        sumP[iP] = sum1
+        valuePiv += sum1
+    valuePiv *= -1
+    sumP[aPerm[L]] = 0
+    aV['cntProbe'] += 1
+
+    # PASS 2: get valueAdj for each adjacent coordinate 
+    aCoordAdj = {}
+    aValueAdj = {}
+
+    elm_i = aPerm[1]
+    jP = elm_i
+    for i in range(1, L):
+        ip1 = i + 1
+        elm_ip1 = aPerm[ip1]
+        iP = elm_ip1
+        jP = elm_i
+        swapL = coordPiv[:]
+        swapL[i - 1]= elm_ip1
+        if ip1 <= L:
+            swapL[ip1 - 1] = elm_i
+            coordAdj = swapL
+            elm_i = aPerm[ip1]
+
+        dif1 = sumP[iP]
+        for k in coordAdj[i:]:
+            dif1 -= aStruc[iP-1][k-1]
+        dif2 = sumP[jP]
+        for k in coordAdj[i:]:
+            dif2 -= aStruc[jP-1][k-1]
+        valueAdj = valuePiv + dif1 + dif2
+        aCoordAdj[tuple(coordAdj)] = valueAdj
+        if valueAdj not in aValueAdj:
+            aValueAdj[valueAdj] = []
+        aValueAdj[valueAdj].append(coordAdj)
+    
+    aV["cntProbe"] += 1
+    if aV["writeVar"] == 3:
+        print ( "FROM: {}"
+            "\nreturning the pivot coordinate:value pair AND ALL ADJACENT"
+            "\ncoordinate:value pairs, computed via the tableau method,"
+            " cntProbe={}"
+            "\n-----\tcoord\tvalue\t-adj-value-from-P.lop.f"
+            "\npivot\t{}\t{}\t{}".format(thisCmd, aV["cntProbe"], coordPiv,
+                valuePiv, f(coordPiv)))
+        for coord in aCoordAdj:
+            print "-adj-\t{}\t{}\t{}".format(coord, aCoordAdj[coord], f(coord))
+
+    return (valuePiv, aValueAdj)
+    
 def f(coord = (1, 2, 3, 4, 5)):
-    thisProc = "P.lop.f"
+    thisCmd = "P.lop.f"
     ABOUT = """
 This procedure takes a permutation coordinate (passed as an argument) and  
 the parameters from the instance file associated with the sandbox P.lop 
@@ -490,7 +543,7 @@ function value, given this coordinate.
         print ABOUT
         return
     elif coord == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     #instance global variables
@@ -510,7 +563,7 @@ function value, given this coordinate.
     return sumTot
 
 def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
-    thisProc = "exhA"
+    thisCmd = "exhA"
     ABOUT = """
 This proc reads an instance file associated with the sandbox P.lop and a file 
 of all coordinates (here, permutations) induced by the dimension defined by 
@@ -527,7 +580,7 @@ for plotting of Hasse graphs under R.
         print ABOUT
         return
     elif instanceFile == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     global all_info
@@ -575,7 +628,7 @@ for plotting of Hasse graphs under R.
 
 def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     global aStruc
-    thisProc = "exhB"
+    thisCmd = "exhB"
     ABOUT = """
 This proc takes an instance file (instanceDef) under the sanbox P.lop, 
 defined on the space of permutation coordinates of length L. The procedure 
@@ -597,7 +650,7 @@ For a stdout query, use one of these these commands:
         print ABOUT
         return
     elif instanceFile == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     # Read the instance
@@ -712,17 +765,17 @@ For a stdout query, use one of these these commands:
         "hostID = {}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0],
             os.uname()[1], platform.system(), os.uname()[2]),
         "dateLine = {}".format(time.strftime("%a %b %H:%M:%S %Z %Y")),
-        "thisProc = {}\n".format(thisProc)])
+        "thisCmd = {}\n".format(thisCmd)])
 
     for key in sorted(coordDistrib):
         print "coordDistrib({})".format(key)+" =",coordDistrib[key]
 
 def init( instanceDef, args = [] ):
-    thisProc = "P.lop.init"
+    thisCmd = "P.lop.init"
     ABOUT = """
 Proc {} takes a variable number of arguments: 'instanceDef' as the
 required argument and a number of optional arguments (in any order).
-Proc $thisProc initializes all global data structures expected by the solver and 
+Proc $thisCmd initializes all global data structures expected by the solver and 
 also explicitly returns values of these three variables:
 
   targetReached coordInit valueInit  
@@ -730,13 +783,13 @@ also explicitly returns values of these three variables:
 Proc {} is invoked by P.lop.main, for command-line examples, querry
 
   P.lop.main ?? and/or P.lop.info 1
-""".format(thisProc,thisProc)
+""".format(thisCmd,thisCmd)
 
     if instanceDef == "??":
         print ABOUT
         return
     elif instanceDef == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     # info global variables
@@ -750,6 +803,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     global aWalkProbed
  
     argsOptions = args
+
     rList = info(0, all_info["infoVariablesFile"])
     all_info = rList[0]
     all_valu = rList[1]
@@ -761,7 +815,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     aWalkProbed = {}
 
     print "\n".join([
-        "# ** from: {}:".format(thisProc),
+        "# ** from: {}:".format(thisCmd),
         "# instanceDef={}".format(instanceDef),
         "# argsOptions={}".format(argsOptions)
         ])
@@ -813,7 +867,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     aV["infoSolutionsFile"] = infoSolutionsFile
 
     if not os.path.isfile(infoSolutionsFile):
-        print "\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile)
+        print "\nERROR from {}:\nfile {} is missing!\n".format(thisCmd, infoSolutionsFile)
         return
     rList = core.file_read(infoSolutionsFile).splitlines()
     rList.pop()
@@ -838,7 +892,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     if not isFound:
         print ("\nERROR from {}:"
                 "\n .. instance {} was not found in file"
-                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile))
+                "\n     {}\n".format(thisCmd, aV["instanceID"], infoSolutionsFile))
         return
     #end timing
     microSecs = time.time() - microSecs
@@ -855,7 +909,10 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
         while len(tmpList) > 0:
             name = tmpList[0].strip("-")
             if name in namesOptional:
-                aV[name] = tmpList[1]
+                try:
+                    aV[name] = float(tmpList[1])
+                except:
+                    aV[name] = tmpList[1]
                 tmpList = tmpList[2:]
             elif name in namesOptionalBool:
                 aV[name] = True
@@ -865,7 +922,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
                         "\n.. option name {} is not either of two lists below:"
                         "\n{}"
                         "\n\nor\n"
-                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool))
+                        "\n{}".format(thisCmd, name, namesOptional, namesOptionalBool))
                 return
             else:
                 aV[name] = int(tmpList[1])
@@ -885,7 +942,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
         except:
             print ("ERROR from {}:"
                     ".. only -seedInit NA or -ssedInit <int> are valid assignments,"
-                    "not -seedInit {}\n".format(thisProc, aV['seedInit']))
+                    "not -seedInit {}\n".format(thisCmd, aV['seedInit']))
             return
    
     # initialize permutation coordinate
@@ -899,7 +956,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
         if len(aV["coordInit"]) != aV["nDim"]:
             print ("\nERROR from {}:"
                     "\nThe permutation coordinate is of length {},"
-                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"]))
+                    "not the expected length {}\n".format(thisCmd, aV["coordinit"], aV["nDim"]))
             return
         aV["rankInit"] = P.coord.rank(aV["coordInit"])
         """
@@ -912,7 +969,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
         except:
             print ("\nERROR from {}:"
                     "The walkIntervalCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"]))
+                    "or a positive number, not {} \n".format(thisCmd, aV["walkIntervalCoef"]))
             return
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] == "NA":
         try:
@@ -922,13 +979,13 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
         except:
             print ("\nERROR from {}:"
                     "The walkIntervalLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"]))
+                    "or a positive number, not {} \n".format(thisCmd, aV["walkIntervalLmt"]))
             return
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] != "NA":
         print ("ERROR from {}:"
                 "The walkIntervalLmt and walkIntervalCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"]))
+                "not ({} {})\n".format(thisCmd, aV["walkIntervalLmt"], aV["walkIntervalCoef"]))
         return """
 
     if aV["walkSegmLmt"] == "NA" and aV["walkSegmCoef"] != "NA":
@@ -940,7 +997,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
         except:
             print ("\nERROR from {}:"
                     "The walkSegmCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"]))
+                    "or a positive number, not {} \n".format(thisCmd, aV["walkSegmCoef"]))
             return
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] == "NA":
         try:
@@ -950,13 +1007,13 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
         except:
             print ("\nERROR from {}:"
                     "The walkSegmLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"]))
+                    "or a positive number, not {} \n".format(thisCmd, aV["walkSegmLmt"]))
             return
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] != "NA":
         print ("ERROR from {}:"
                 "The walkSegmLmt and walkSegmCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"]))
+                "not ({} {})\n".format(thisCmd, aV["walkSegmLmt"], aV["walkSegmCoef"]))
         return
 
     # (3A) Phase 3A: directly initialize the remaining internal variables
@@ -1001,6 +1058,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     # initialize associated variables for initial probe
     aV["runtime"] = microSecs
     aV["cntProbe"] = 1
+    aV["neighbSize"] = aV["nDim"]
     aV["cntStep"] = 0
     aV["coordPivot"] = aV["coordInit"]
     aV["coordBest"] = aV["coordInit"]
@@ -1022,12 +1080,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     aV["isCensored"] = 0
     aV["cntRestart"] = 0
     aV["walkLength"] = aV["cntStep"]
-    """
-    if aV["neighbDist"] == 1:
-        aV["neighbSize"] = aV["nDim"] - 1
-    else:
-        aV["neighbSize"] = "dynamic"
-    """
+    aV["neighbSize"] = aV["nDim"] - 1
 
     # (6) Phase 6: initialize special arrays that can be selected w/ arguments
     #       from command line
@@ -1055,7 +1108,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
                 " domain table in the file {}\n".format(name, all_info["infoVariablesFile"])))
             errorItems.append(name)
     if len(errorItems) > 0:
-        print "\nWarning from {}\n{}".format(thisProc, errorLines)
+        print "\nWarning from {}\n{}".format(thisCmd, errorLines)
         print "Missing variables\n{}\n".format(errorItems)
 
     # (8) Phase 8: check whether coordInit caused targetReached to be > 1
@@ -1078,7 +1131,7 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     return result
 
 def main( instanceDef, args=[] ):
-    thisProc = "P.lop.main"
+    thisCmd = "P.lop.main"
     ABOUT = """
 Procedure {} takes a variable number of arguments: instanceDef as required 
 argument and args (a reserved-name variable). It outputs either (1) a 
@@ -1089,13 +1142,13 @@ solver under the default or user-specified argument values.
 \n\t\tP.lop.main ?\t(under python interpreter)
 \n\tor
 \n\t\t../xBin/P.lopP (under bash)
-""".format(thisProc)
+""".format(thisCmd)
 
     if instanceDef == "??":
         print ABOUT
         return
     elif instanceDef == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
     
     #info global variables
@@ -1166,7 +1219,7 @@ solver under the default or user-specified argument values.
     if aV["solverMethod"] == "saw":
         aV["solverID"] = saw
     else:
-        print "\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisProc, aV["solverMethod"])
+        print "\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisCmd, aV["solverMethod"])
         return
     print "#    Proceeding with the search under solverID = {}".format(aV["solverID"])
     print "#"*78
@@ -1178,7 +1231,7 @@ solver under the default or user-specified argument values.
     return
     
 def stdout( withWarning = 1 ):
-    thisProc = "P.lop.stdout"
+    thisCmd = "P.lop.stdout"
     ABOUT = """
 This procedure outputs results afer a successful completion of a combinatorial 
 solver. The output is directed to 'stdout' and includes a solution 
@@ -1198,7 +1251,7 @@ This procedure is universal under any function coordType=P!
             "\n# commandLine = {}"
             "\n#    dateLine = {}"
             "\n#   timeStamp = {}"
-            "\n#".format(thisProc, aV["commandLine"], aV["dateLine"], aV["timeStamp"]))
+            "\n#".format(thisCmd, aV["commandLine"], aV["dateLine"], aV["timeStamp"]))
 
     stdoutNames = ("instanceDef", "solverID", "coordInit", "coordBest", "nDim",
             "walkLengthLmt", "walkLength", "cntRestartLmt", "cntRestart", 
@@ -1216,23 +1269,23 @@ This procedure is universal under any function coordType=P!
                 print "# WARNING: no value exist for {}".format(name)
 
 def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
-    thisProc = "P.lop.info"
+    thisCmd = "P.lop.info"
     ABOUT = """
 This proc takes a variable 'isQuery' and the hard-wired path to file
 infoVariablesFile *info_variables.txt.  
 
-  if isQuery == 0    then $thisProc ONLY reads infoVariablesFile and 
+  if isQuery == 0    then $thisCmd ONLY reads infoVariablesFile and 
                      initializes global arrays 'all_info' and 'all_valu'
               
-  if isQuery == 1    then $thisProc initializes the global arrays
+  if isQuery == 1    then $thisCmd initializes the global arrays
                      'all_info' and 'all_valu' and then outputs to stdout  
                      the complete information about the command line for 
                      P.lop.main. The information about the command line 
-                     is auto-generated within $thisProc from the
+                     is auto-generated within $thisCmd from the
                      tabulated data which is read from infoVariablesFile 
                      defined above.
                    
-   if isQuery == ??  then $thisProc responds to stdout with information 
+   if isQuery == ??  then $thisCmd responds to stdout with information 
                      about all three case of valid arguments. 
 
             P.lop.main ??   (under tclsh)
@@ -1243,7 +1296,7 @@ infoVariablesFile *info_variables.txt.
         print ABOUT
         return
     elif isQuery == "?":
-        print "Valid query is '{} ??'".format(thisProc)
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     #info global variables

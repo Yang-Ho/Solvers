@@ -1,0 +1,5 @@
+execfile("all_python.py")
+P.lop.init('../xBenchm/lop/tiny/i-10-test1-67.lop',['-coordInit','1,2,3,4,5,6,7,8,9,10','-writeVar','3','-isSimple'])
+print P.lop.fAdj([1,2,3,4,5,6,7,8,9,10])
+#P.lop.init('../xBenchm/lop/tiny/i-5-book2-51.lop',['-coordInit','5,3,2,1,4','-writeVar','3'])
+#print P.lop.fAdj([5,3,2,1,4])
