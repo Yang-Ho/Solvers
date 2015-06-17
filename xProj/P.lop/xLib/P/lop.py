@@ -15,23 +15,6 @@ import util
 import core
 from config import *
 
-"""
-aLits = None
-aAdjacent = None
-aPI = {}
-aV = {}
-aValueBest = {}
-aWalkBest = {}
-aWalk = {}
-aWalkProbed = {}
-aCoordHash0 = {}
-reqAry = {}
-optAry = {}
-optAryNames = []
-optAryNamesBool = []
-optAryList = []
-"""
-
 def saw_pivot_bee():
     return
 
@@ -41,13 +24,14 @@ def saw_pivot_ant():
 def saw_pivot_simple( coordPiv=[5, 3, 2, 1, 4], valuePiv=-46 ):
     thisCmd = "P.lop.saw.pivot.simple"
     ABOUT = """
-This procedure takes a pivot coordinate/value, probes the distance=1 
-neighborhood of a 'lop' (a linear ordering problem), subject to the 
-constraints of a SAW (self-avoiding walk) -- i.e. the best coord/value it 
-returns has not been yet been selected as the pivot for the next step. 
-Neighborhood size of 0 signifies that the next step of a SAW is blocked.
-\n\tThis implementation is 'simple', i.e. for each pivot coordinate of 
-length L, there are up to L-1 explicit probes of the function P.lop.f
+This procedure takes a pivot coordinate/value,  probes
+the distance=1 neighborhood of a 'lop' (a linear ordering problem),
+subject to the constraints of a SAW (self-avoiding walk) -- i.e. 
+the best coord/value it returns has not been yet been selected
+as the pivot for the next step. Neighborhood size of 0 signifies that 
+the next step of a SAW is blocked. 
+  This implementation is 'simple', i.e. for each pivot coordinate 
+of length L, there are up to L-1 explicit probes of the function P.lop.f."
 """
     if coordPiv == "??":
         print ABOUT
@@ -140,13 +124,13 @@ length L, there are up to L-1 explicit probes of the function P.lop.f
 def saw_pivot( coordPiv=[5, 3, 2, 1, 4], valuePiv=-46 ):
     thisCmd = "P.lop.saw.pivot"
     ABOUT = """
-This procedure takes a pivot coordinate/value, probes the distance=1 
-neighborhood of a 'lop' (a linear ordering probelm), subject to the 
-constraints of a SAW (self-avoiding walk) -- i.e. the best coord/value it 
-returns has not been yet been selected as the pivot for the next step. 
-Neighborhood size of 0 signifies that the next step of a SAW is blocked.
-\n This implementation is 'FAST', i.e. for each pivot coordinate of length L, 
-there are up to L-1 FAST tableau-based probes of each pivot coordinate.
+This procedure takes a pivot coordinate and first invokes the procedure 
+P.lop.fAdj -- an efficient and effective tableau-based procedure that returns 
+ALL pairs of the adjacent coordinates with their values. Next, the procedure
+selects the best pivot coordinate for the next step, subject to the
+constraints of a SAW (self-avoiding walk) which effectively reduces the size
+of the adjacent coordinates that are free as candiates. A neighborhood size 
+of 0 signifies that the procedure is returning a 'trapped pivot'.
 """
     if coordPiv == "??":
         print ABOUT
@@ -211,11 +195,16 @@ def saw( Query="" ):
     pivotProc = "P.lop.saw_pivot"
 
     ABOUT = """
-Procedure $thisCmd takes global array values initialized under P.lop.init
-and constructs a segment of a self-avoiding walk (SAW). Either P.lop.saw.pivot.simple 
-or the significantly more efficient procedure P.lop.saw.pivot.ant is invoked.
-More to come ....
-"""
+Procedure {} takes, as global dictionaries, data structures 
+initialized by {} under the sandbox $sandbox. It then constructs  
+a segment of a self-avoiding walk (SAW). Under the command-line option 
+-isSimple, the walk proceeds under the control of {}, 
+while by default the walk is controlled by a significantly more efficient 
+procedure {}. Under various termination conditions, the walk 
+stops and updates the global dictionaries; it also explicitly
+returns tuple of values, including the 0|1|2 status of targetReached: 
+      (targetReached coordBest valueBest)
+""".format(thisCmd, initProc, pivotProcSimple, pivotProc)
     if Query == "??":
         print ABOUT
         return
@@ -355,11 +344,12 @@ More to come ....
 
 def pFile_read(fileName):
     thisCmd = "pFile_read"
+    sandbox = "P.lop"
     ABOUT = """
-This proc takes the path of an instance file associated with the 
-sandbox P.lop, reads the file contents and returns parameter values and data 
-structures expected by the combinatorial solver under this sandbox.
-"""
+Procedure {} takes the path of an instance file compatible with  
+the sandbox {}, reads the file contents and returns parameter values   
+and data structures expected by the combinatorial solver under this sandbox."
+""".format(thisCmd, sandbox)
     if fileName == "??":
         print ABOUT
         return
@@ -628,22 +618,29 @@ for plotting of Hasse graphs under R.
 
 def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     global aStruc
-    thisCmd = "exhB"
+    thisCmd = "P.lop.exhB"
+    sandbox = "P.lop"
     ABOUT = """
-This proc takes an instance file (instanceDef) under the sanbox P.lop, 
-defined on the space of permutation coordinates of length L. The procedure 
-iteratively generates (L!) permutation coordinates to perform an exhaustive
-evaluation of the function specified by the instance. The principle behind 
-this coordinate generation is repeated re-use of the associative array 
-aCoordHash0. Given this array, the generation proceeds from all coordinates 
-at rank k to all coordinates at rank k+1. The value of k is in the range 
-[0, L*(L-1)/2]. The exhaustive evaluation includes comprehensive  
+Example:         P.lop.exhB  ../xBenchm/lop/tiny/i-4-test-18.lop (under python)
+         ../xBin/P.lop.exhBP ../xBenchm/lop/tiny/i-4-test-18.lop (under bash)
+         
+The command $thisCmd takes an instance file (instanceDef) compatible with   
+the sandbox $sandbox. The sandbox is defined by (1), permutation coordinates 
+of length L (class P) and (2), the objective function associated with the 
+instance (subclass lop). A total of (L!) permutation coordinates are generated 
+iteratively, by repeated re-use of the associative array aCoordHash0, 
+proceeding from all coordinates at rank k to all coordinates at rank k+1. 
+The value of k is in the range  [0, L*(L-1)/2], where L*(L-1)/2 is the
+height of the labeled Hasse graph. The label of each vertex in this graph is 
+the pair 'coordinate:value', where 'value' is returned by the objective 
+function evaluating the instance. The exhaustive evaluation provides insights 
+about the min/max landscape of the instance and also features comprehensive 
 instrumentation to measure the computational cost and the efficiency of 
-the procedure.
+the methods.
 
 For a stdout query, use one of these these commands:
-          P.lop.exhB  ??  (sourced under tclsh)
-  ../xBin/P.lop.exhBT     (executable under bash) 
+          P.lop.exhB  ??  (after running the file all_tcl under python)
+  ../xBin/P.lop.exhBB     (immediately executable under bash) 
 
 """
     if instanceFile == "??":
@@ -738,7 +735,7 @@ For a stdout query, use one of these these commands:
 
     print   
     if L <= 5:
-        for key in hasseVerticies:
+        for key in sorted(hasseVerticies):
             print "hasseVerticies" + str(key) + " =", hasseVerticies[key]
     
     valueMin = min(bestAry)
@@ -764,7 +761,8 @@ For a stdout query, use one of these these commands:
         "runtimeRatio = {:6.5}".format(runtimeCoord/runtimeProbe),
         "hostID = {}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0],
             os.uname()[1], platform.system(), os.uname()[2]),
-        "dateLine = {}".format(time.strftime("%a %b %H:%M:%S %Z %Y")),
+        "compiler = python-"+".".join(imap(str,sys.version_info[:3])),
+        "dateLine = {}".format(time.strftime("%a %b %d %H:%M:%S %Z %Y")),
         "thisCmd = {}\n".format(thisCmd)])
 
     for key in sorted(coordDistrib):
@@ -772,18 +770,19 @@ For a stdout query, use one of these these commands:
 
 def init( instanceDef, args = [] ):
     thisCmd = "P.lop.init"
+    mainProc = "P.lop.main"
     ABOUT = """
-Proc {} takes a variable number of arguments: 'instanceDef' as the
-required argument and a number of optional arguments (in any order).
-Proc $thisCmd initializes all global data structures expected by the solver and 
-also explicitly returns values of these three variables:
+Procedure {} takes a variable number of arguments: 
+'instanceDef' as the required argument and optional arguments in any order. 
+It then  decodes values of optional arguments  and initializes all variables 
+under global arrays. {} is invoked by {}; for details about 
+the command-line structure, query '{} ??'. 
 
-  targetReached coordInit valueInit  
-       
-Proc {} is invoked by P.lop.main, for command-line examples, querry
+Procedure {} implicitly returns initialized global variables as well as 
+explicit values of 
 
-  P.lop.main ?? and/or P.lop.info 1
-""".format(thisCmd,thisCmd)
+    'targetReached  coordInit valueInit'.
+""".format(thisCmd, thisCmd, mainProc, mainProc, thisCmd)
 
     if instanceDef == "??":
         print ABOUT
@@ -1043,7 +1042,6 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
     aV["solverVersion"] = time.strftime("%Y %m %d %H:%M:%S")
     aV["timeStamp"] =  time.strftime("%Y%m%d%H%M%S")
     aV["dateLine"] = time.strftime("%a %b %d %H:%M:%S %Z %Y") 
-    #@TODO HostID stuff (lines 583-486)
     aV["hostID"] = "{}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0],
             os.uname()[1], platform.system(), os.uname()[2])
     aV["compiler"] = "python-"+".".join(imap(str,sys.version_info[:3]))
@@ -1133,17 +1131,27 @@ Proc {} is invoked by P.lop.main, for command-line examples, querry
 def main( instanceDef, args=[] ):
     thisCmd = "P.lop.main"
     ABOUT = """
-Procedure {} takes a variable number of arguments: instanceDef as required 
-argument and args (a reserved-name variable). It outputs either (1) a 
-response to a command line query (see below) or a summary of initialized 
-variables only, and (2) completes variable initialization and invokes the 
-solver under the default or user-specified argument values.
-\nFor a stdout of command line details, query with command shown below:
-\n\t\tP.lop.main ?\t(under python interpreter)
-\n\tor
-\n\t\t../xBin/P.lopP (under bash)
-""".format(thisCmd)
+Proc {} takes a variable number of arguments: 'instanceDef' as the
+required argument and a number of optional arguments (in any order).
+To output the command line description of {}, invoke the command
 
+  P.lop.info(1)
+
+To read the instance and output the initialized data structures **only**, 
+invoke the command
+
+  P.lop.main("<instanceDef>",["-isInitOnly","[none-or-any-other-options]"]
+  
+To read the instance and output results returned by the solver,
+invoke the command
+
+  P.lop.main("<instanceDef>", otherArgs)
+
+To output the command line documentation of the encapsulated/executable 
+version of {} 
+
+  ../xBin/P.lopP
+""".format(thisCmd, thisCmd, thisCmd)
     if instanceDef == "??":
         print ABOUT
         return
@@ -1212,8 +1220,8 @@ solver under the default or user-specified argument values.
     else:
         print ("\n{}"
             "\n.. completed initialization of all variables,"
-            "\n   proceeding with the search under solverID = {}"
-            "\n{}\n".format("-"*78,aV["solverID"],"-"*78))
+            "\n   proceeding with the search under solverID = P.lop.{}"
+            "\n{}\n".format("-"*78,aV["solverID"].__name__,"-"*78))
     
     # (2) Phase 2: proceed with the combinatorial search
     if aV["solverMethod"] == "saw":
@@ -1221,7 +1229,7 @@ solver under the default or user-specified argument values.
     else:
         print "\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisCmd, aV["solverMethod"])
         return
-    print "#    Proceeding with the search under solverID = {}".format(aV["solverID"])
+    print "#    Proceeding with the search under solverID = P.lop.{}".format(aV["solverID"].__name__)
     print "#"*78
     aV["solverID"]()
 
@@ -1263,7 +1271,10 @@ This procedure is universal under any function coordType=P!
 
     for name in stdoutNames:
         if name in aV:
-            print "{}\t\t{}".format(name, aV[name])
+            if name != "solverID":
+                print "{}\t\t{}".format(name, aV[name])
+            else:
+                print "{}\t\tP.lop.{}".format(name, aV[name].__name__)
         else:
             if withWarning:
                 print "# WARNING: no value exist for {}".format(name)
@@ -1274,24 +1285,24 @@ def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
 This proc takes a variable 'isQuery' and the hard-wired path to file
 infoVariablesFile *info_variables.txt.  
 
-  if isQuery == 0    then $thisCmd ONLY reads infoVariablesFile and 
+  if isQuery == 0    then {} ONLY reads infoVariablesFile and 
                      initializes global arrays 'all_info' and 'all_valu'
               
   if isQuery == 1    then $thisCmd initializes the global arrays
                      'all_info' and 'all_valu' and then outputs to stdout  
                      the complete information about the command line for 
                      P.lop.main. The information about the command line 
-                     is auto-generated within $thisCmd from the
+                     is auto-generated within {} from the
                      tabulated data which is read from infoVariablesFile 
                      defined above.
                    
-   if isQuery == ??  then $thisCmd responds to stdout with information 
+   if isQuery == ??  then {} responds to stdout with information 
                      about all three case of valid arguments. 
 
-            P.lop.main ??   (under tclsh)
+            P.lop.main ??   (under python)
        or
             ../xBin/P.lopP  (under bash)
-"""
+""".format( thisCmd, thisCmd, thisCmd )
     if isQuery == "??":
         print ABOUT
         return
@@ -1418,26 +1429,6 @@ infoVariablesFile *info_variables.txt.
         ])
 
     return
-
-def tempInfoGlobals():
-    global all_info
-    global all_valu
-    # TEMPORARY UNTIL I FIGURE OUT GLOBAL ISSUES
-    thisDir = os.getcwd()
-    sandboxPath = os.path.dirname(thisDir) 
-    sandboxName = os.path.basename(sandboxPath)
-    infoVariablesFile = sandboxName + ".info_variables.txt"
-    infoVariablesFile = "/".join([sandboxPath,"xLib",infoVariablesFile])
-
-    all_info = {}
-    all_info["infoVariablesFile"] = infoVariablesFile
-    rList = info(0, all_info["infoVariablesFile"])
-
-    all_info = rList[0]
-    all_valu = rList[1]
-    all_info["sandboxName"] = sandboxName 
-    all_info["sandboxPath"] = sandboxPath 
-    all_info["infoVariablesFile"] = infoVariablesFile
 
 if __name__ == "__main__":
     #pFile_write()
