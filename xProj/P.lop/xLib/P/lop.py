@@ -167,12 +167,13 @@ of 0 signifies that the procedure is returning a 'trapped pivot'.
         print aValueAdj
         print aCoordHash0
 
-    valueOrderedList = aValueAdj.keys() 
-    valueOrderedList.sort()
+    valueOrderedList = sorted(aValueAdj.keys())
+    #valueOrderedList.sort()
 
     isBestFound = False 
     neighbSize = aV["neighbSize"]
     for  value in valueOrderedList:
+        random.shuffle(aValueAdj[value])
         for coord in aValueAdj[value]:
             if tuple(coord) not in aCoordHash0:
                 coordBest = coord[:]
@@ -266,6 +267,7 @@ returns tuple of values, including the 0|1|2 status of targetReached:
         # Record runtime for step
         aV["runtime"] += microSecs
         aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
+        print bestNeighb
         
         # UPDATE valueBest, aValueBest
         if valueNext <= aV["valueBest"]:
