@@ -267,7 +267,6 @@ returns tuple of values, including the 0|1|2 status of targetReached:
         # Record runtime for step
         aV["runtime"] += microSecs
         aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-        print bestNeighb
         
         # UPDATE valueBest, aValueBest
         if valueNext <= aV["valueBest"]:
@@ -299,8 +298,8 @@ returns tuple of values, including the 0|1|2 status of targetReached:
             break
 
         if aV["valueBest"] <= valueTarget:
-            step += 1
             aV["walkLength"] = step
+            step += 1
             if aV["isWalkTables"]:
                 isPivot = 1
                 neighbSize = cntNeighb
@@ -311,8 +310,8 @@ returns tuple of values, including the 0|1|2 status of targetReached:
             break
         else:
             # UPDATE coord, value, walkLength
-            step += 1
             aV["walkLength"] = step
+            step += 1
             coord = coordNext[:]
             value = valueNext
 
@@ -515,11 +514,13 @@ the self-avoiding walk.
             "\nreturning the pivot coordinate:value pair AND ALL ADJACENT"
             "\ncoordinate:value pairs, computed via the tableau method,"
             " cntProbe={}"
-            "\n-----\tcoord\tvalue\t-adj-value-from-P.lop.f"
-            "\npivot\t{}\t{}\t{}".format(thisCmd, aV["cntProbe"], coordPiv,
-                valuePiv, f(coordPiv)))
+            "\nstep\tcoord\t\tvalue\trank"
+            "\n0\t{}\t{}\t{}".format(thisCmd, aV["cntProbe"], ",".join(map(str,coordPiv)),
+                valuePiv, P.coord.rank(coordPiv)))
+        index = 1
         for coord in aCoordAdj:
-            print "-adj-\t{}\t{}\t{}".format(coord, aCoordAdj[coord], f(coord))
+            print "{}\t{}\t{}\t{}".format(index,",".join(map(str,coord)), aCoordAdj[coord], P.coord.rank(coord))
+            index += 1
 
     return (valuePiv, aValueAdj)
     
@@ -1090,7 +1091,7 @@ explicit values of
     aWalkBest[aV["valueInit"]] = [0,0,aV["coordInit"],0,0]
 
     aWalk[aV["cntStep"]] = "{} {} {} {} {} {}".format(aV["cntStep"], aV["cntRestart"],
-            aV["coordPivot"], aV["valuePivot"], aV["neighbSize"], aV["cntProbe"])
+            ",".join(map(str,aV["coordPivot"])), aV["valuePivot"], aV["neighbSize"], aV["cntProbe"])
 
     isPivot = 1
     aV["rankPivot"] = P.coord.rank(aV["coordPivot"])
@@ -1271,10 +1272,15 @@ This procedure is universal under any function coordType=P!
             "valueBest", "valueTarget", "valueTol", "targetReached", 
             "isCensored")
 
+    lists = ['coordInit', 'coordBest']
+
     for name in stdoutNames:
         if name in aV:
             if name != "solverID":
-                print "{}\t\t{}".format(name, aV[name])
+                if name not in lists:
+                    print "{}\t\t{}".format(name, aV[name])
+                else:
+                    print "{}\t\t{}".format(name, ",".join(map(str,aV[name])))
             else:
                 print "{}\t\tP.lop.{}".format(name, aV[name].__name__)
         else:
