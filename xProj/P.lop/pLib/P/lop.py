@@ -1182,7 +1182,7 @@ version of {}
     sandboxPath = os.path.dirname(thisDir) 
     sandboxName = os.path.basename(sandboxPath)
     infoVariablesFile = sandboxName + ".info_variables.txt"
-    infoVariablesFile = "/".join([sandboxPath,"xLib",infoVariablesFile])
+    infoVariablesFile = "/".join([sandboxPath,"pLib",infoVariablesFile])
 
     all_info = {}
     all_info["infoVariablesFile"] = infoVariablesFile
@@ -1287,7 +1287,7 @@ This procedure is universal under any function coordType=P!
             if withWarning:
                 print "# WARNING: no value exist for {}".format(name)
 
-def info( isQuery=0, infoVariablesFile="../xLib/P.lop.info_variables.txt"):
+def info( isQuery=0, infoVariablesFile="../pLib/P.lop.info_variables.txt"):
     thisCmd = "P.lop.info"
     ABOUT = """
 This proc takes a variable 'isQuery' and the hard-wired path to file
@@ -1347,7 +1347,7 @@ infoVariablesFile *info_variables.txt.
 
     print "\n".join([
         "USAGE:\n",
-        "under TkCon shell (which has sourced ../xLib/all_python.py",
+        "under TkCon shell (which has sourced ../pLib/all_python.py",
         "\tP.lop.main instanceFile [optional_arguments]",
         "",
         "under bash, invoking the 'tcl executable P.lopT' which sources" + 

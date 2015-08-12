@@ -1,4 +1,4 @@
-def table_info_variables( fileName="../../../xBed/xLib/util_data/P.lop.info_variables.txt" ):
+def table_info_variables( fileName="../../../xBed/pLib/util_data/P.lop.info_variables.txt" ):
     ABOUT = (
         "This proc takes a file *info_variables.txt and returns two "
         "dictionaries: all_info and all_valu. Both are indexed with the same "

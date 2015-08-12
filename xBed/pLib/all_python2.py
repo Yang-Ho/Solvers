@@ -1,4 +1,4 @@
-thisDir = "../../../xBed/xLib" 
+thisDir = "../../../xBed/pLib" 
 os.chdir(thisDir)
 thisDir = os.getcwd()
 sys.path.extend([thisDir])

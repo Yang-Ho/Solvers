@@ -25,7 +25,7 @@ print ".. returning to directory \n{}".format(workDir)
 print time.strftime("%a %b %d %H:%M:%S %Z %Y")
 
 from config import *
-#sys.path.extend(["./pLib","../../../xBed/xLib"])
+#sys.path.extend(["./pLib","../../../xBed/pLib"])
 
 thisDir = workDir
 sandboxPath = os.path.dirname(thisDir) 
