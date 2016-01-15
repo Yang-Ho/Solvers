@@ -10,10 +10,10 @@ from [1, 2, 3, 4] or also as 'the rank' of the coordinate in the Hasse graph
 with respect to its coordinate in natural order, here [1, 2, 3, 4].
 """
     if coord == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coord == "?":
-        print("Valid query is '{} ??'".format(thisProc))
+        print "Valid query is '{} ??'".format(thisProc)
         return
         #raise Exception("Valid query is '{} ??'".format(thisProc))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
@@ -24,9 +24,9 @@ with respect to its coordinate in natural order, here [1, 2, 3, 4].
     # an inversion is a pair (b_i, b_j) where i < j and b_i > b_j.
     size = len(coord)
     inversion = 0
-    for i in range(size):
+    for i in xrange(size):
         b_i = coord[i]
-        for j in range(i+1, size):
+        for j in xrange(i+1, size):
             b_j = coord[j]
             if (i < j and b_i > b_j):
                 inversion += 1
@@ -40,10 +40,10 @@ This proc takes a permutation coordinate as a list such as **4 1 2 3** and
 returns 1 if coordinate is a valid permutation and returns 0 otherwise.
 """
     if coordP == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coordP == "?":
-        print("Valid query is '{} ??'".format(thisProc))
+        print "Valid query is '{} ??'".format(thisProc)
         return
         #raise Exception("Valid query is '{} ??'".format(thisProc))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
@@ -66,10 +66,10 @@ This proc take the length of the permutation coordinate (nDim) and returns
 a random permutation of coordinate (coordType = P) of specified length.
 """
     if nDim == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif nDim == "?":
-        print("Valid query is '{} ??'".format(thisProc))
+        print "Valid query is '{} ??'".format(thisProc)
         return
         #raise Exception("Valid query is '{} ??'".format(thisProc))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
@@ -92,10 +92,10 @@ IEEE TRANSACTIONS ON SYSTEMS, MAN, AND CYBERNETICS,
 VOL. SMC-6, NO. 7, JuLY 1977, pp. 505--524"""
 
     if coord0 == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coord0 == "?":
-        print("Valid query is '{} ??'".format(thisProc))
+        print "Valid query is '{} ??'".format(thisProc)
         return
         #raise Exception("Valid query is '{} ??'".format(thisProc))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
@@ -106,15 +106,15 @@ VOL. SMC-6, NO. 7, JuLY 1977, pp. 505--524"""
     # parray pos ;# positions array 
     pos = [None] * (size + 1)
 
-    for i in range(size):
+    for i in xrange(size):
         pos[coord0[i]] = i
 
-    for i in range(size):
+    for i in xrange(size):
         a_i = pos[coord0[i]]
         b_j = pos[coord1[i]]
         #puts i,j...a_i,b_j=$i,$j...$a_i,$b_j
 
-        for j in range(size):
+        for j in xrange(size):
             a_i1 = pos[coord0[j]]
             b_j1 = pos[coord1[j]]
             #puts i,j...a_i,b_j=$i,$j...$a_i1,$b_j1
@@ -134,10 +134,10 @@ L = 5) and returns the complete set of adjacent coordinates (i.e. coordinates
 with the permutation distance of 1 from the reference permutation. The size 
 of this set of adjacent (or neighborhood coordinates) is L-1."""
     if coordP == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coordP == "?":
-        print("Valid query is '{} ??'".format(thisProc))
+        print "Valid query is '{} ??'".format(thisProc)
         return
         #raise Exception("Valid query is '{} ??'".format(thisProc))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisProc))
@@ -148,7 +148,7 @@ of this set of adjacent (or neighborhood coordinates) is L-1."""
     Lm1 = L - 1
     elm_i = coordP[0]
 
-    for i in range(Lm1):
+    for i in xrange(Lm1):
         ip1 = i + 1
         swapL = list(coordP)
         # swap elements at i & ip1
@@ -160,10 +160,10 @@ of this set of adjacent (or neighborhood coordinates) is L-1."""
             coordAdj.append(list(swapL))
             elm_i = coordP[ip1]
 
-    print("coordAdj")
+    print "coordAdj"
     for coord in coordAdj:
-        print(coord)
-    print()
+        print coord
+    print
 
     return coordAdj
 

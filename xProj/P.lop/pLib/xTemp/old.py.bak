@@ -27,7 +27,7 @@ def initOld( instanceDef, argsOptions ):
         valDefault = item[1]
         aPI[name] = valDefault
 
-    print(argsOptions)
+    print argsOptions
 
     if len(argsOptions) > 0:
         tmpList = argsOptions
@@ -36,10 +36,10 @@ def initOld( instanceDef, argsOptions ):
             name = tmpList[0].strip("-")
             if name not in optAryNames:
                 #error
-                print("\n".join([
+                print "\n".join([
                 "\nERROR from {}:".format(thisProc),
                 ".. option name {} not in this list".format(name),
-                "\n.. {}".format(optAryNames.sort())]))
+                "\n.. {}".format(optAryNames.sort())])
             if name not in optAryNamesBool:
                 aPI[name] = True
                 del tmpList[0]
@@ -60,11 +60,11 @@ def initOld( instanceDef, argsOptions ):
     aPI["commandLine"] = "{} {} {}".format(aPI["commandName"], instanceDef, argsOptions)
     aPI["commandLineOptionNames"] = optAryList
     if abs(int(aPI["writeVar"])) == 1:
-        print("\n".join([
+        print "\n".join([
         "\n** TRACE FROM {} **".format(thisProc),
         "** ALL commandLine variable names ** with either default or \
-        user-assigned values"]))
-        print(aPI)
+        user-assigned values"])
+        print aPI
 
     microSecs = time.time()
     aPI["instanceFile"] = aPI["instanceDef"]
@@ -83,7 +83,7 @@ def initOld( instanceDef, argsOptions ):
         random.seed(seedInit)
         init = random.random()
         aPI["seedInit"] = seedInit
-    elif isinstance(aPI["seedInit"], int):
+    elif isinstance(aPI["seedInit"], (long, int)):
         random.seed(seedInit)
         init = random.random()
     else:
@@ -234,9 +234,9 @@ def initOld( instanceDef, argsOptions ):
     
     if aV["targetReached"] > 0:
         aV["coordInit"] = aV["coordInit"]
-        print("\n".join([
+        print "\n".join([
             "\# BINGO, targetReached = {} for seed = {},".format(aV["targetReached"], aPI["seedInit"]),
-            "\# coordInit = {}, valueInit = {} ".format(aV["coordinit"], aV["valueInit"])]))
+            "\# coordInit = {}, valueInit = {} ".format(aV["coordinit"], aV["valueInit"])])
         aV["cntProbe"] = 1
         aV["walkLength"] = 0
         aV["isCensored"] = 0
@@ -246,8 +246,8 @@ def initOld( instanceDef, argsOptions ):
         return "{} {} {}".format(aV["coordInit"], aV["valueInit"], aV["targetReached"])
     
     aV["cntProbe"] = 1
-    aCoordHash0 = {",".join(map(str,aV["coordInit"])):[]}
-    aCoordHash1 = {",".join(map(str,aV["coordInit"])):[]}
+    aCoordHash0 = {",".join(imap(str,aV["coordInit"])):[]}
+    aCoordHash1 = {",".join(imap(str,aV["coordInit"])):[]}
     aV["isCensored"] = 0
     aV["isBlocked"] = 0
     aV["walkLength"] = 0
@@ -267,12 +267,12 @@ def initOld( instanceDef, argsOptions ):
     aWalkProbed[(aV["walkLength"],0)] = "{} {} {} {} {} {} {}".format(aV["walkLength"], aV["cntRestart"],aV["coordPivot"], aV["valuePivot"], aV["neighbSize"], aV["cntProbe"], 1)
     
     if aPI["writeVar"] == 1 or aPI["writeVar"] == -1:
-        print("\n".join([
+        print "\n".join([
             "** Final values of initialized primary input variables (array aPI) **",
             "{}".format(aPI),
             "** Final values of initialized auxiliary variables (array aV) **",
             "{}".format(aV),
             "** as reported on {}, returning".format(aPI["dateLine"]),
-            "coordInit\tvalueInit\ttargetReached"]))
+            "coordInit\tvalueInit\ttargetReached"])
     
     return (aV["coordInit"], aV["valueInit"], aV["targetReached"])

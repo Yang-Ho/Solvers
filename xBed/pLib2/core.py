@@ -4,10 +4,10 @@ import time
 from subprocess import call
 
 def whoami():
-    print(call("whoami"))
+    print call("whoami")
 
 def date():
-    print(time.strftime("%c"))
+    print time.strftime("%c")
     
 def cd(path):
     os.chdir(path)
@@ -15,12 +15,12 @@ def cd(path):
 def pwd():
     full_path = os.path.realpath(__file__)
     file_dir = os.path.dirname(full_path)
-    print(file_dir)
+    print file_dir
      
 def file_read(fileName):
     data = ""
     try:
-        f = open(fileName,'r')
+        f = file(fileName,'r')
         data = f.read()
         f.close()
     except IOError as e:
@@ -31,7 +31,7 @@ def file_read(fileName):
     
 def file_write(fileName, data):
     try:
-        f = open(fileName,'a')
+        f = file(fileName,'a')
         f.write(data)
         f.close()
     except IOError as e:

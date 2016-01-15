@@ -1,5 +1,5 @@
 #! /usr/bin/env python2
-
+from itertools import imap
 import P.coord
 import time
 import sys
@@ -43,11 +43,11 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
         "probes of the function P.lop.f"
         )
     if coordPiv == "??":
-        print(ABOUT)
+        print ABOUT
         return
     if coordPiv == "?":
         #Error
-        print("Valid query is '{} ??'".format(thisProc))
+        print "Valid query is '{} ??'".format(thisProc)
         return
 
     #info global variables
@@ -69,7 +69,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
     try:
         aV["writeVar"] = int(aV["writeVar"])
     except:
-        print("writeVar is not an int")
+        print "writeVar is not an int"
 
     coordBest = None
     coordBestList = []
@@ -129,7 +129,7 @@ def saw_pivot_simple(coordPiv=[5,3,2,1,4], valuePiv=-46):
                         coordA, valueA, valueBest, rank, neighbSize, aV["cntProbe"])
 
     if aV["writeVar"] == 3:
-        print(rowLines)
+        print rowLines
 
     idx = int(len(coordBestList)*random.random())
     coordBest = coordBestList[idx]
@@ -200,7 +200,7 @@ def pFile_write(coordPerm = [5, 3, 4, 2, 1], fileName = "../xBenchm/lop/tiny/i-5
         rowLines += " " + str(row).translate(None, "[,\']") + "\n"
     filePerm = fileName.split(".lop")[0] + "-" + str(coordPerm).translate(None, "[ ]") + ".lop"
     file_write(filePerm, rowLines)
-    print(".. created file " + filePerm)
+    print ".. created file " + filePerm
 
 def f(coord = [5, 3, 4, 2, 1]):
     global aStruc
@@ -222,7 +222,7 @@ def f(coord = [5, 3, 4, 2, 1]):
 def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
     thisProc = "exhA"
     hasseAry = {}
-    print(file_read(instanceFile))
+    print file_read(instanceFile)
     aInstance = pFile_read(instanceFile)
     aPI = {"nDim": aInstance[0], "varList": aInstance[2], "density": aInstance[3]}
     aStruc = aInstance[1]
@@ -230,17 +230,17 @@ def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
     coordRef = [i for i in range(nDim + 1)]
     permFile = "..//xBenchm/perm/perm.0" + str(aPI["nDim"]) + ".txt"
     coordList = file_read(permFile)
-    print(".. " + str(len(coordList.split("\n")) - 1) + " permutations read from file " + permFile + "\n")
+    print ".. " + str(len(coordList.split("\n")) - 1) + " permutations read from file " + permFile + "\n"
     valueMin = int(1e30)
     list = coordList.split("\n")
     bestAry = ""
     bestRank = 0
     for coord in list[:]:
         if len(coord) > 0:
-            coord = list(map(int, coord.split(",")))
+            coord = map(int, coord.split(","))
             value = f(coord, aStruc)
             rank = P_coord.inversion(coord)
-            if rank not in hasseAry:
+            if not hasseAry.has_key(rank):
                 hasseAry[rank] = []
             hasseAry[rank].append(str(coord) + ":" + str(value))
             if value < valueMin:
@@ -248,14 +248,14 @@ def exhA(instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop"):
                 bestAry = str(coord) +  ":" + str(value)
                 bestRank = rank
     rankMax = len(hasseAry) - 1
-    print("rank\tsize\tcoord_value_pairs")
+    print "rank\tsize\tcoord_value_pairs"
     widthMax = 0
     for i in range(rankMax):
         hasseAry[i].sort()
-        print(str(i) + "\t" + str(len(hasseAry[i])) + "\t" + str(hasseAry[i]))
-    print("\nvalueBest=-" + str(valueMin))
+        print str(i) + "\t" + str(len(hasseAry[i])) + "\t" + str(hasseAry[i])
+    print "\nvalueBest=-" + str(valueMin)
     if len(bestAry) > 0:
-        print("bestAry(" + str(bestRank) + ")\t= " + str(bestAry))
+        print "bestAry(" + str(bestRank) + ")\t= " + str(bestAry)
 
     return [aPI["nDim"], rankMax, widthMax, coordList, bestAry, hasseAry]
 
@@ -264,7 +264,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     thisProc = "exhB"
 
     # Read the instance
-    print(file_read(instanceFile))
+    print file_read(instanceFile)
     aInstance = pFile_read( instanceFile )
     aPI = { "nDim" : aInstance[0], "varList" : aInstance[2], "density" : aInstance[3] }
     aStruc = aInstance[1]
@@ -279,7 +279,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     coordList0 = [coordRef]
     value = f(coordRef)
     valueBest = 1e30
-    bestAry = {value: ["000_"+",".join(map(str,coordRef))+":"+str(value)]}
+    bestAry = {value: ["000_"+",".join(imap(str,coordRef))+":"+str(value)]}
     coordDistrib = {"000":1}
     sizeTot = 1
 
@@ -289,11 +289,11 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     runtimeCoord = 0.0
     runtimeProbe = 0.0
     if ( L <= 5 ):
-        hasseVerticies = {(0,1): [",".join(map(str,coordRef)) + ":" + str(value)] }
+        hasseVerticies = {(0,1): [",".join(imap(str,coordRef)) + ":" + str(value)] }
 
     sizeRank = 0
 
-    Lm1Range = range(Lm1)
+    Lm1Range = xrange(Lm1)
     for rank in range(1, rankMax+1):
         coordList1 = []
         # Timing
@@ -311,8 +311,8 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
                     elm_i = coord[ip1]
 
                 inversion = P_coord.inversion( coordAdj )
-                if inversion == rank and not (",".join(map(str,coordAdj)) in aCoordHash):
-                    aCoordHash[",".join(map(str,coordAdj))] = []
+                if inversion == rank and not (",".join(imap(str,coordAdj)) in aCoordHash):
+                    aCoordHash[",".join(imap(str,coordAdj))] = []
                     coordList1.append(coordAdj)
                     sizeTot += 1
                     sizeRank += 1
@@ -324,7 +324,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
         microSecs = time.time() 
         for coord in coordList1:
             value = f( coord )
-            solutionString = ",".join(map(str,coord))+":"+str(value)
+            solutionString = ",".join(imap(str,coord))+":"+str(value)
             if L <= 5:
                 if (rank,sizeRank) in hasseVerticies:
                     hasseVerticies[(rank,sizeRank)].append(solutionString)
@@ -332,7 +332,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
                     hasseVerticies[(rank,sizeRank)] = [solutionString]
             if value < valueBest:
                 coordString = "{:03}_".format(rank)+solutionString
-                if value in bestAry:
+                if bestAry.has_key(value):
                     bestAry[value].append(coordString)
                 else:
                     bestAry[value] = [coordString]
@@ -346,22 +346,22 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
         coordList1 = []
         sizeRank = 0
 
-    print()   
+    print   
     if L <= 5:
         for key in hasseVerticies:
-            print("hasseVerticies" + str(key) + " =", hasseVerticies[key])
+            print "hasseVerticies" + str(key) + " =", hasseVerticies[key]
     
     valueMin = min(bestAry)
-    print("\nThere are {} valueBest = {} solutions:\nrank\tsolution".format(len(bestAry[valueMin]), valueMin))
+    print "\nThere are {} valueBest = {} solutions:\nrank\tsolution".format(len(bestAry[valueMin]), valueMin)
 
     for item in bestAry[valueMin]:
         item = item.split("_")
         rank = item[0]
         solution = item[1]
-        print(rank+"\t"+solution)
+        print rank+"\t"+solution
 
     # Out put file stuff
-    print("\n".join([
+    print "\n".join([
         "\n",
         "instanceFile = {}".format(instanceFile),
         "There are {} valueBest = {} solutions".format(len(bestAry[valueMin]),
@@ -375,10 +375,10 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
         "hostID = {}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0],
             os.uname()[1], platform.system(), os.uname()[2]),
         "dateLine = {}".format(time.strftime("%a %b %H:%M:%S %Z %Y")),
-        "thisProc = {}\n".format(thisProc)]))
+        "thisProc = {}\n".format(thisProc)])
 
     for key in sorted(coordDistrib):
-        print("coordDistrib({})".format(key)+" =",coordDistrib[key])
+        print "coordDistrib({})".format(key)+" =",coordDistrib[key]
 
 def initOld( instanceDef, argsOptions ):
     thisProc = "p_lop.{}".format("init")
@@ -409,7 +409,7 @@ def initOld( instanceDef, argsOptions ):
         valDefault = item[1]
         aPI[name] = valDefault
 
-    print(argsOptions)
+    print argsOptions
 
     if len(argsOptions) > 0:
         tmpList = argsOptions
@@ -418,10 +418,10 @@ def initOld( instanceDef, argsOptions ):
             name = tmpList[0].strip("-")
             if name not in optAryNames:
                 #error
-                print("\n".join([
+                print "\n".join([
                 "\nERROR from {}:".format(thisProc),
                 ".. option name {} not in this list".format(name),
-                "\n.. {}".format(optAryNames.sort())]))
+                "\n.. {}".format(optAryNames.sort())])
             if name not in optAryNamesBool:
                 aPI[name] = True
                 del tmpList[0]
@@ -434,19 +434,19 @@ def initOld( instanceDef, argsOptions ):
     nCheck = numAllConstants + len(reqAry) + len(optAry)
     if len(aPI) != nCheck:
         #Error
-        print("\n".join([
+        print "\n".join([
         "\nERROR from {}:".format(thisProc),
         "\nsize of reqAry+optAry ({}) is not matched to".format(nCheck),
-        "\nsize of aPI ({})".format(len(aPI))]))
+        "\nsize of aPI ({})".format(len(aPI))])
 
     aPI["commandLine"] = "{} {} {}".format(aPI["commandName"], instanceDef, argsOptions)
     aPI["commandLineOptionNames"] = optAryList
     if abs(int(aPI["writeVar"])) == 1:
-        print("\n".join([
+        print "\n".join([
         "\n** TRACE FROM {} **".format(thisProc),
         "** ALL commandLine variable names ** with either default or \
-        user-assigned values"]))
-        print(aPI)
+        user-assigned values"])
+        print aPI
 
     microSecs = time.time()
     aPI["instanceFile"] = aPI["instanceDef"]
@@ -465,15 +465,15 @@ def initOld( instanceDef, argsOptions ):
         random.seed(seedInit)
         init = random.random()
         aPI["seedInit"] = seedInit
-    elif isinstance(aPI["seedInit"], int):
+    elif isinstance(aPI["seedInit"], (long, int)):
         random.seed(seedInit)
         init = random.random()
     else:
         #Error
-        print("\n".join([
+        print "\n".join([
             "ERROR from {}:".format(thisProc),
             ".. only -seedInit NA or -seedInit <int> are valid assignments, not \
-            -seedInit {}\ ".format(aPI["seedInit"])]))
+            -seedInit {}\ ".format(aPI["seedInit"])])
 
     #ABOUT Coord Init
     if aPI["coordInit"] == "NA":
@@ -484,10 +484,10 @@ def initOld( instanceDef, argsOptions ):
         coordTmp.sort()
         if len(coordTmp) != aPI["nDim"]:
             #Error
-            print("\n".join([
+            print "\n".join([
                 "\nERROR from {}:".format(thisProc),
                 "The permutation coordinate is of length {},".format(len(coordTmp)),
-                "not the expected length {}\n".format(aPI["nDim"])]))
+                "not the expected length {}\n".format(aPI["nDim"])])
         aPI["rankInit"] = P_coord.inversion(aPI["coordInit"])
 
     # ABOUT walkSegmLmt and walkSegmCoef
@@ -502,16 +502,16 @@ def initOld( instanceDef, argsOptions ):
                 aPI["walkSegmLmt"] = int(aPIwalkSegmCoef * aPI["nDim"])
             else:
                 #Error
-                print("\n".join([
+                print "\n".join([
                     "\nERROR from {}:".format(thisProc),
                     "The walkSegmCoef can only be assigned a value of NA or a\
-                    positive number, not {}".format(aPI["walkSegmCeof"])]))
+                    positive number, not {}".format(aPI["walkSegmCeof"])])
         except ValueError:
             #Error
-            print("\n".join([
+            print "\n".join([
                 "\nERROR from {}:".format(thisProc),
                 "The walkSegmCoef can only be assigned a value of NA or a\
-                positive number, not {}".format(aPI["walkSegmCeof"])]))
+                positive number, not {}".format(aPI["walkSegmCeof"])])
     elif aPIwalkSegmCoef == "NA": 
         try:
             aPIwalkSegmLmt = float(aPIWalkSegmLmt)
@@ -519,23 +519,23 @@ def initOld( instanceDef, argsOptions ):
                 aPI["walkSegmLmt"] = int(aPIWalkSegmLmt)
             else:
                 #Error
-                print("\n".join([
+                print "\n".join([
                     "\nERROR from {}:".format(thisProc),
                     "The walkSegmLmt can only be assigned a value of NA or a\
-                    positive number, not {}".format(aPI["walkSegmLmt"])]))
+                    positive number, not {}".format(aPI["walkSegmLmt"])])
         except ValueError:
             #Error
-            print("\n".join([
+            print "\n".join([
                 "\nERROR from {}:".format(thisProc),
                 "The walkSegmLmt can only be assigned a value of NA or a\
-                positive number, not {}".format(aPI["walkSegmLmt"])]))
+                positive number, not {}".format(aPI["walkSegmLmt"])])
     else:
         #Error
-        print("\n".join([
+        print "\n".join([
             "\nERROR from {}:".format(thisProc),
             "The walkSegmLmt and walkSegmCoef can only be assigned pairwise \
             values of",
-            "(NA NA) (default), (NA double), or (integer, NA)"]))
+            "(NA NA) (default), (NA double), or (integer, NA)"])
 
     # ABOUT walkIntervalLmt and walkIntervalCoef
     aPIwalkIntervalLmt = aPI["walkIntervalLmt"]
@@ -549,16 +549,16 @@ def initOld( instanceDef, argsOptions ):
                 aPI["walkIntervalLmt"] = int(aPI["walkIntervalCoef"] * aPI["nDim"])
             else:
                 #Error
-                print("\n".join([
+                print "\n".join([
                     "\nERROR from {}:".format(thisProc),
                     "The walkIntervalCoef can only be assigned a value of NA or a\
-                    positive number > 0, not {}".format(aPIwalkIntervalCoef)]))
+                    positive number > 0, not {}".format(aPIwalkIntervalCoef)])
         except ValueError:
             #Error
-            print("\n".join([
+            print "\n".join([
                 "\nERROR from {}:".format(thisProc),
                 "The walkIntervalCoef can only be assigned a value of NA or a\
-                positive number > 0, not {}".format(aPIwalkIntervalCoef)]))
+                positive number > 0, not {}".format(aPIwalkIntervalCoef)])
     elif aPIwalkSegmCoef == "NA":
         try:
             aPIwalkIntervalLmt = float(aPIWalkIntervalLmt)
@@ -566,22 +566,22 @@ def initOld( instanceDef, argsOptions ):
                 aPI["walkIntervalLmt"] = int(aPIWalkIntervalLmt)
             else:
                 #Error
-                print("\n".join([
+                print "\n".join([
                     "\nERROR from {}:".format(thisProc),
                     "The walkIntervalLmt can only be assigned a value of NA or a\
-                    positive number > 0, not {}".format(aPIwalkIntervalLmt)]))
+                    positive number > 0, not {}".format(aPIwalkIntervalLmt)])
         except ValueError:
             #Error
-            print("\n".join([
+            print "\n".join([
                 "\nERROR from {}:".format(thisProc),
                 "The walkIntervalLmt can only be assigned a value of NA or a\
-                positive number > 0, not {}".format(aPIwalkIntervalLmt)]))
+                positive number > 0, not {}".format(aPIwalkIntervalLmt)])
     else:
         #Error
-        print("\n".join([
+        print "\n".join([
             "ERROR from {}:".format(thisProc),
             "The walkIntervalLmt and walkIntervalCoef can only be assigned pairwise values of",
-            "(NA NA) (default), (NA double), or (integer, NA)"]))
+            "(NA NA) (default), (NA double), or (integer, NA)"])
 
     aPI["valueMin"] = aPI["valueTarget"]
     aPI["valueTarget"] = aPI["valueMin"] * ( 1 + aPI["valueTol"] )
@@ -616,9 +616,9 @@ def initOld( instanceDef, argsOptions ):
     
     if aV["targetReached"] > 0:
         aV["coordInit"] = aV["coordInit"]
-        print("\n".join([
+        print "\n".join([
             "\# BINGO, targetReached = {} for seed = {},".format(aV["targetReached"], aPI["seedInit"]),
-            "\# coordInit = {}, valueInit = {} ".format(aV["coordinit"], aV["valueInit"])]))
+            "\# coordInit = {}, valueInit = {} ".format(aV["coordinit"], aV["valueInit"])])
         aV["cntProbe"] = 1
         aV["walkLength"] = 0
         aV["isCensored"] = 0
@@ -628,8 +628,8 @@ def initOld( instanceDef, argsOptions ):
         return "{} {} {}".format(aV["coordInit"], aV["valueInit"], aV["targetReached"])
     
     aV["cntProbe"] = 1
-    aCoordHash0 = {",".join(map(str,aV["coordInit"])):[]}
-    aCoordHash1 = {",".join(map(str,aV["coordInit"])):[]}
+    aCoordHash0 = {",".join(imap(str,aV["coordInit"])):[]}
+    aCoordHash1 = {",".join(imap(str,aV["coordInit"])):[]}
     aV["isCensored"] = 0
     aV["isBlocked"] = 0
     aV["walkLength"] = 0
@@ -649,13 +649,13 @@ def initOld( instanceDef, argsOptions ):
     aWalkProbed[(aV["walkLength"],0)] = "{} {} {} {} {} {} {}".format(aV["walkLength"], aV["cntRestart"],aV["coordPivot"], aV["valuePivot"], aV["neighbSize"], aV["cntProbe"], 1)
     
     if aPI["writeVar"] == 1 or aPI["writeVar"] == -1:
-        print("\n".join([
+        print "\n".join([
             "** Final values of initialized primary input variables (array aPI) **",
             "{}".format(aPI),
             "** Final values of initialized auxiliary variables (array aV) **",
             "{}".format(aV),
             "** as reported on {}, returning".format(aPI["dateLine"]),
-            "coordInit\tvalueInit\ttargetReached"]))
+            "coordInit\tvalueInit\ttargetReached"])
     
     return (aV["coordInit"], aV["valueInit"], aV["targetReached"])
 
@@ -709,17 +709,17 @@ def init( instanceDef, args ):
     aValueBest = {}
     aAdjacent = {}
 
-    print("\n".join([
+    print "\n".join([
         "# ** from: {}:".format(thisProc),
         "# instanceDef={}".format(instanceDef),
         "# argsOptions={}".format(argsOptions)
-        ]))
+        ])
     
     namesRequired = []
     namesInternal = []
     namesOptionalBool = []
     namesOptional = []
-    for name in list(all_valu.keys()):
+    for name in all_valu.keys():
     
         val = all_valu[name]
     
@@ -760,7 +760,7 @@ def init( instanceDef, args ):
 
     if not os.path.isfile(infoSolutionsFile):
         #Error
-        print("\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile))
+        print "\nERROR from {}:\nfile {} is missing!\n".format(thisProc, infoSolutionsFile)
     rList = core.file_read(infoSolutionsFile).split('\n')
     rList.pop()
     rListTmp = []
@@ -780,9 +780,9 @@ def init( instanceDef, args ):
             break
     if not isFound:
         #Error
-        print(("\nERROR from {}:"
+        print ("\nERROR from {}:"
                 "\n .. instance {} was not found in file"
-                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile)))
+                "\n     {}\n".format(thisProc, aV["instanceID"], infoSolutionsFile))
     #end timing
     microSecs = time.time() - microSecs
 
@@ -804,23 +804,23 @@ def init( instanceDef, args ):
                 tmpList = tmpList[1:]
             elif not name:
                 #Error
-                print(("\nERROR from {}:"
+                print ("\nERROR from {}:"
                         "\n.. option name {} is not either of two lists below:"
                         "\n{}"
                         "\n\nor\n"
-                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool)))
+                        "\n{}".format(thisProc, name, namesOptional, namesOptionalBool))
                 break
 
     if aV["seedInit"] == "NA":
         aV["seedInit" ] = 1e9 * random.random()
         random.seed(aV["seedInit"])
-    elif isinstance(aV["seedInit"], int):
+    elif isinstance(aV["seedInit"], (int,long)):
         random.seed(aV["seedInit"])
     else:
         #Error
-        print(("ERROR from {}:"
+        print ("ERROR from {}:"
                 ".. only -seedInit NA or -ssedInit <int> are valid assignments,"
-                "not -seedInit {}\n".format(thisProc, aV['seedInit'])))
+                "not -seedInit {}\n".format(thisProc, aV['seedInit']))
     
     if aV["coordInit"] == "NA":
         aV['coordInit'] = P.coord.rand(aV["nDim"])
@@ -829,9 +829,9 @@ def init( instanceDef, args ):
         aV["coordInit"] = [int(c) for c in aV["coordInit"].split(",")]
         if len(aV["coordInit"]) != aV["nDim"]:
             #Error
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "\nThe permutation coordinate is of length {},"
-                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"])))
+                    "not the expected length {}\n".format(thisProc, aV["coordinit"], aV["nDim"]))
         aV["rankInit"] = P.coord.rank(aV["coordInit"])
 
     if aV["walkIntervalLmt"] == "NA" and aV["walkIntervalCoef"] != "NA":
@@ -842,9 +842,9 @@ def init( instanceDef, args ):
                 aV["walkIntervalCoef"] = walkIntervalCoef
         except:
             #Error
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkIntervalCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"])))
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalCoef"]))
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] == "NA":
         try:
             walkIntervalLmt = int(aV["walkIntervalLmt"])
@@ -852,15 +852,15 @@ def init( instanceDef, args ):
                 aV["walkIntervalLmt"] = walkIntervalLmt
         except:
             #Error
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkIntervalLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"])))
+                    "or a positive number, not {} \n".format(thisProc, aV["walkIntervalLmt"]))
     elif aV["walkIntervalLmt"] != "NA" and aV["walkIntervalCoef"] != "NA":
         #Error
-        print(("ERROR from {}:"
+        print ("ERROR from {}:"
                 "The walkIntervalLmt and walkIntervalCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"])))
+                "not ({} {})\n".format(thisProc, aV["walkIntervalLmt"], aV["walkIntervalCoef"]))
 
     if aV["walkSegmLmt"] == "NA" and aV["walkSegmCoef"] != "NA":
         try:
@@ -870,9 +870,9 @@ def init( instanceDef, args ):
                 aV["walkSegmCoef"] = walkSegmCoef
         except:
             #Error
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkSegmCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"])))
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmCoef"]))
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] == "NA":
         try:
             walkSegmLmt = int(aV["walkSegmLmt"])
@@ -880,15 +880,15 @@ def init( instanceDef, args ):
                 aV["walkSegmLmt"] = walkSegmLmt
         except:
             #Error
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkSegmLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"])))
+                    "or a positive number, not {} \n".format(thisProc, aV["walkSegmLmt"]))
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] != "NA":
         #Error
-        print(("ERROR from {}:"
+        print ("ERROR from {}:"
                 "The walkSegmLmt and walkSegmCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"])))
+                "not ({} {})\n".format(thisProc, aV["walkSegmLmt"], aV["walkSegmCoef"]))
 
     aV["coordType"] = "P"
     aV["functionDomain"] = "P.lop"
@@ -962,24 +962,24 @@ def init( instanceDef, args ):
 
     errorItems = []
     errorLines = []
-    for name in list(aV.keys()):
+    for name in aV.keys():
         if name not in all_valu:
             errorLines.append( ("{} -- this variable is missing from the solver"
                 " domain table in the file {}\n".format(name, all_info["infoVariablesFile"])))
             errorItems.append(name)
 
     if len(errorItems) > 0:
-        print("\nWarning from {}\n{}".format(thisProc, errorLines))
-        print("Missing variables\n{}\n".format(errorItems))
+        print "\nWarning from {}\n{}".format(thisProc, errorLines)
+        print "Missing variables\n{}\n".format(errorItems)
 
    
     if aV["targetReached"] > 0:
-        print("# BINGO: valueTarget has been reached or exceeded with coordInit")
+        print "# BINGO: valueTarget has been reached or exceeded with coordInit"
         stdout(withWarning=1)
         return
 
     if aV["writeVar"] == 1:
-        print("@TODO: Lines 675-678")
+        print "@TODO: Lines 675-678"
 
     return "{} {} {}".format(aV["targetReached"], aV["valueInit"], aV["coordInit"])
 
@@ -997,7 +997,7 @@ def main( instanceDef, args ):
             "\t\t../xBin/P.lopP (under bash)".format(thisProc))
 
     if instanceDef == "??":
-        print(ABOUT)
+        print ABOUT
         return
     
     #info global variables
@@ -1025,24 +1025,24 @@ def main( instanceDef, args ):
     if len(rList) == 0:
         return
     elif aV["isInitOnly"]:
-        print(("\n{}"
+        print ("\n{}"
             "\n.. completed initialization of all variables,"
             "\n   exiting the solver since option -{} has been asserted."
-            "\n{}\n".format("-"*78,aV["isInitOnly"],"-"*78)))
+            "\n{}\n".format("-"*78,aV["isInitOnly"],"-"*78))
     else:
-        print(("\n{}"
+        print ("\n{}"
             "\n.. completed initialization of all variables,"
             "\n   proceeding with the search under solverID = {}"
-            "\n{}\n".format("-"*78,aV["solverID"],"-"*78)))
+            "\n{}\n".format("-"*78,aV["solverID"],"-"*78))
     
     # (2) Phase 2: proceed with the combinatorial search
     cntRestart = 0
     coordInitList = aV["coordInit"]
     aV["cntRestartUniq"] = 0
     aV["cntRestart"] = cntRestart
-    print(( "# FROM {}: initialized for restart={}"
+    print ( "# FROM {}: initialized for restart={}"
         "\n# coordInit={}, valueInit={}".format(thisProc, cntRestart,
-            aV["coordInit"], aV["valueInit"])))
+            aV["coordInit"], aV["valueInit"]))
 
     while cntRestart < aV["cntRestartLmt"]:
         # invoke the self-avoiding walk and return aV["targetReached"] (global)
@@ -1071,9 +1071,9 @@ def main( instanceDef, args ):
         if aV["targetReached"] > 0:
             break
         elif aV["writeVar"] == 2:
-            print(("# FROM {}: initialized for restart={}"
+            print ("# FROM {}: initialized for restart={}"
                 "\n# coordInit={}, valueInit={}".format(thisProc, cntRestart,
-                    aV["coordInit"], aV["valueInit"])))
+                    aV["coordInit"], aV["valueInit"]))
 
         if aV["runtime"] > aV["runtimelmt"]:
             break
@@ -1094,7 +1094,7 @@ def info( infoVariablesFile="../xLib/P.lop.info_variables.txt", isQuery=0 ):
         "\t../xBin/P.lopT (under bash)"
     )
     if isQuery == "??":
-        print(ABOUT)
+        print ABOUT
         return
 
     #info global variables
@@ -1115,7 +1115,7 @@ def info( infoVariablesFile="../xLib/P.lop.info_variables.txt", isQuery=0 ):
             "walkSegmCoef", "walkIntervalLmt", "walkIntervalCoef",
             "walkRepeatsLmt", "isSimple", "writeVar" ]
 
-    print("\n".join([
+    print "\n".join([
         "USAGE:\n",
         "under TkCon shell (which has sourced ../xLib/all_python.py",
         "\tP.lop.main instanceFile [optional_arguments]",
@@ -1153,7 +1153,7 @@ def info( infoVariablesFile="../xLib/P.lop.info_variables.txt", isQuery=0 ):
         "\t\t\ti.e. the number of variables (columns in the square matrix)",
         "Here is a complete list of pairs 'name defaultValue', with short",
         "in-line descriptions:"
-        ]))
+        ])
 
     for name in optInfoList:
         value = all_valu[name]
@@ -1176,9 +1176,9 @@ def info( infoVariablesFile="../xLib/P.lop.info_variables.txt", isQuery=0 ):
             else:
                 nam1 = " "+nam
 
-            print("\t{}{}{}{}\t{}".format(nam1,space1,val,space2,descr))
+            print "\t{}{}{}{}\t{}".format(nam1,space1,val,space2,descr)
 
-    print("\n".join([
+    print "\n".join([
         "\nDETAILS:",
         "This solver reads an instance of the 'linear ordering problem in a " +
             "matrix format",
@@ -1201,7 +1201,7 @@ def info( infoVariablesFile="../xLib/P.lop.info_variables.txt", isQuery=0 ):
         "  1 0 2 0         0 0 5 0",
         "  4 1 0 1         1 3 0 2",
         "  3 2 1 0         2 1 0 0"
-        ]))
+        ])
 
     return
 

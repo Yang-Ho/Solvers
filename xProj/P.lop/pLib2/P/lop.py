@@ -3,7 +3,7 @@
 # Wed Jan 21 2015
 # Combinatorial Optimizational Project for CSC 499
 # Under the tutelage of Dr. Franc Brglez
-
+from itertools import imap
 import P.coord
 import time
 import sys
@@ -34,10 +34,10 @@ the next step of a SAW is blocked.
 of length L, there are up to L-1 explicit probes of the function P.lop.f."
 """
     if coordPiv == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coordPiv == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     #info global variables
@@ -52,7 +52,7 @@ of length L, there are up to L-1 explicit probes of the function P.lop.f."
     try:
         aV["writeVar"] = int(aV["writeVar"])
     except:
-        print("writeVar is not an int")
+        print "writeVar is not an int"
 
     coordBest = None
     coordBestList = []
@@ -112,7 +112,7 @@ of length L, there are up to L-1 explicit probes of the function P.lop.f."
                         coordA, valueA, valueBest, rank, neighbSize, aV["cntProbe"])
 
     if aV["writeVar"] == 3:
-        print(rowLines)
+        print rowLines
 
     idx = int(len(coordBestList)*random.random())
     if len(coordBestList) > 0:
@@ -133,10 +133,10 @@ of the adjacent coordinates that are free as candiates. A neighborhood size
 of 0 signifies that the procedure is returning a 'trapped pivot'.
 """
     if coordPiv == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coordPiv == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
         #raise Exception("Valid query is '{} ??'".format(thisCmd))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisCmd))
@@ -163,9 +163,9 @@ of 0 signifies that the procedure is returning a 'trapped pivot'.
     valuePiv = rList[0]
     aValueAdj = rList[1]
     if aV["writeVar"] == 3:
-        print("pivotPair = {}:{}".format(coordPiv, valuePiv))
-        print(aValueAdj)
-        print(aCoordHash0)
+        print "pivotPair = {}:{}".format(coordPiv, valuePiv)
+        print aValueAdj
+        print aCoordHash0
 
     valueOrderedList = sorted(aValueAdj.keys())
     #valueOrderedList.sort()
@@ -207,10 +207,10 @@ returns tuple of values, including the 0|1|2 status of targetReached:
       (targetReached coordBest valueBest)
 """.format(thisCmd, initProc, pivotProcSimple, pivotProc)
     if Query == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif Query == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
         #raise Exception("Valid query is '{} ??'".format(thisCmd))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisCmd))
@@ -238,8 +238,8 @@ returns tuple of values, including the 0|1|2 status of targetReached:
         procPivotNext = saw_pivot_simple
     else:
         procPivotNext = saw_pivot
-    print("# FROM: {}, searching for pivotBest via {}".format(thisCmd, 
-            procPivotNext.__name__))
+    print "# FROM: {}, searching for pivotBest via {}".format(thisCmd, 
+            procPivotNext.__name__)
     # auxiliary variables
     aV["coordBest"] = aV["coordInit"][:]
     aV["valueBest"] = aV["valueInit"]
@@ -293,8 +293,8 @@ returns tuple of values, including the 0|1|2 status of targetReached:
         if aV["neighbSize"] == 0:
             aV["isTrapped"] = 1
             aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print(("WARNING from {}: isTrapped=1, neighbSize={} ..."
-                    "no free adjacent coordinates...".format(thisCmd, neighbSize)))
+            print ("WARNING from {}: isTrapped=1, neighbSize={} ..."
+                    "no free adjacent coordinates...".format(thisCmd, neighbSize))
             break
 
         if aV["valueBest"] <= valueTarget:
@@ -318,20 +318,20 @@ returns tuple of values, including the 0|1|2 status of targetReached:
         if aV["cntProbe"] > cntProbeLmt:
             aV["isCensored"] = 1
             aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print(("WARNING from {}: isCensored=1, cntProbe={} > cntProbeLmt"
-                    "={}\n".format(thisCmd, aV["cntProbe"], aV["cntProbeLmt"])))
+            print ("WARNING from {}: isCensored=1, cntProbe={} > cntProbeLmt"
+                    "={}\n".format(thisCmd, aV["cntProbe"], aV["cntProbeLmt"]))
             break 
         if step >= walkLengthLmt:
             aV["isCensored"] = 1
             aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print(("WARNING from {}: isCensored=1, step={} > walkLengthLmt"
-                    "={}\n".format(thisCmd, step, walkLengthLmt)))
+            print ("WARNING from {}: isCensored=1, step={} > walkLengthLmt"
+                    "={}\n".format(thisCmd, step, walkLengthLmt))
             break 
         if aV["runtime"] > runtimeLmt:
             aV["isCensored"] = 1
             aV["speedProbe"] = int(aV["cntProbe"]/aV["runtime"])
-            print(("WARNING from {}: isCensored=1, runtime={} > runtimeLmt"
-                    "={}\n".format(thisCmd, aV["runtime"], aV["runtimeLmt"])))
+            print ("WARNING from {}: isCensored=1, runtime={} > runtimeLmt"
+                    "={}\n".format(thisCmd, aV["runtime"], aV["runtimeLmt"]))
             break 
 
     if aV["valueBest"] == valueTarget:
@@ -352,10 +352,10 @@ the sandbox {}, reads the file contents and returns parameter values
 and data structures expected by the combinatorial solver under this sandbox."
 """.format(thisCmd, sandbox)
     if fileName == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif fileName == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
         #raise Exception("Valid query is '{} ??'".format(thisCmd))
         #sys.stderr.write("Valid query is '{}' ??'\n".format(thisCmd))
@@ -392,10 +392,10 @@ an isomorph instance file created by permuting rows and columns of the
 original instance file.
 """
     if coordPerm == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coordPerm == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     rList = core.file_read(fileName).splitlines()
@@ -427,7 +427,7 @@ original instance file.
         rowLines += " " + str(row).translate(None, "[,\']") + "\n"
     filePerm = fileName.split(".lop")[0] + "-" + str(coordPerm).translate(None, "[ ]") + ".lop"
     file_write(filePerm, rowLines)
-    print(".. created file " + filePerm)
+    print ".. created file " + filePerm
 
 def fAdj( coordPiv = [5, 4, 2, 1, 4] ):
     thisCmd = "P.lop.fAdj"
@@ -442,10 +442,10 @@ before deciding on the pivotBest for the next step under the rules of
 the self-avoiding walk.
 """
     if coordPiv == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coordPiv == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     # info global variables
@@ -510,16 +510,16 @@ the self-avoiding walk.
     
     aV["cntProbe"] += 1
     if aV["writeVar"] == 3:
-        print(( "FROM: {}"
+        print ( "FROM: {}"
             "\nreturning the pivot coordinate:value pair AND ALL ADJACENT"
             "\ncoordinate:value pairs, computed via the tableau method,"
             " cntProbe={}"
             "\nstep\tcoord\t\tvalue\trank"
             "\n0\t{}\t{}\t{}".format(thisCmd, aV["cntProbe"], ",".join(map(str,coordPiv)),
-                valuePiv, P.coord.rank(coordPiv))))
+                valuePiv, P.coord.rank(coordPiv)))
         index = 1
         for coord in aCoordAdj:
-            print("{}\t{}\t{}\t{}".format(index,",".join(map(str,coord)), aCoordAdj[coord], P.coord.rank(coord)))
+            print "{}\t{}\t{}\t{}".format(index,",".join(map(str,coord)), aCoordAdj[coord], P.coord.rank(coord))
             index += 1
 
     return (valuePiv, aValueAdj)
@@ -533,10 +533,10 @@ the parameters from the instance file associated with the sandbox P.lop
 function value, given this coordinate.
 """
     if coord == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif coord == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     #instance global variables
@@ -570,10 +570,10 @@ creates a file of vertices and a file of edges annotated with x-y coordinates
 for plotting of Hasse graphs under R.
 """
     if instanceFile == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif instanceFile == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     global all_info
@@ -582,7 +582,7 @@ for plotting of Hasse graphs under R.
     global aStruc
 
     hasseAry = {}
-    print(core.file_read(instanceFile))
+    print core.file_read(instanceFile)
     aInstance = pFile_read(instanceFile)
     aPI = {"nDim": aInstance[0], "varList": aInstance[2], "density": aInstance[3]}
     aStruc = aInstance[1]
@@ -590,17 +590,17 @@ for plotting of Hasse graphs under R.
     coordRef = [i for i in range(nDim + 1)]
     permFile = "../../../xBed/xBenchm/perm/perm.0" + str(aPI["nDim"]) + ".txt"
     coordList = core.file_read(permFile)
-    print(".. " + str(len(coordList.splitlines()) - 1) + " permutations read from file " + permFile + "\n")
+    print ".. " + str(len(coordList.splitlines()) - 1) + " permutations read from file " + permFile + "\n"
     valueMin = int(1e30)
     list = coordList.splitlines()
     bestAry = ""
     bestRank = 0
     for coord in list[:]:
         if len(coord) > 0:
-            coord = list(map(int, coord.split(",")))
+            coord = map(int, coord.split(","))
             value = f(coord)
             rank = P.coord.rank(coord)
-            if rank not in hasseAry:
+            if not hasseAry.has_key(rank):
                 hasseAry[rank] = []
             hasseAry[rank].append(str(coord) + ":" + str(value))
             if value < valueMin:
@@ -608,14 +608,14 @@ for plotting of Hasse graphs under R.
                 bestAry = str(coord) +  ":" + str(value)
                 bestRank = rank
     rankMax = len(hasseAry) - 1
-    print("rank\tsize\tcoord_value_pairs")
+    print "rank\tsize\tcoord_value_pairs"
     widthMax = 0
     for i in range(rankMax):
         hasseAry[i].sort()
-        print(str(i) + "\t" + str(len(hasseAry[i])) + "\t" + str(hasseAry[i]))
-    print("\nvalueBest=-" + str(valueMin))
+        print str(i) + "\t" + str(len(hasseAry[i])) + "\t" + str(hasseAry[i])
+    print "\nvalueBest=-" + str(valueMin)
     if len(bestAry) > 0:
-        print("bestAry(" + str(bestRank) + ")\t= " + str(bestAry))
+        print "bestAry(" + str(bestRank) + ")\t= " + str(bestAry)
 
     return [aPI["nDim"], rankMax, widthMax, coordList, bestAry, hasseAry]
 
@@ -625,7 +625,7 @@ def exhB( instanceFile = "../xBenchm/lop/tiny/i-4-test1.lop" ):
     sandbox = "P.lop"
     ABOUT = """
 Example:         P.lop.exhB  ../xBenchm/lop/tiny/i-4-test-18.lop (under python)
-         ../xBin/P.lop.exhBP ../xBenchm/lop/tiny/i-4-test-18.lop (under bash)
+         ../xBin2/P.lop.exhBP ../xBenchm/lop/tiny/i-4-test-18.lop (under bash)
          
 The command $thisCmd takes an instance file (instanceDef) compatible with   
 the sandbox $sandbox. The sandbox is defined by (1), permutation coordinates 
@@ -643,18 +643,18 @@ the methods.
 
 For a stdout query, use one of these these commands:
           P.lop.exhB  ??  (after running the file all_tcl under python)
-  ../xBin/P.lop.exhBB     (immediately executable under bash) 
+  ../xBin2/P.lop.exhBB     (immediately executable under bash) 
 
 """
     if instanceFile == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif instanceFile == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     # Read the instance
-    print(core.file_read(instanceFile))
+    print core.file_read(instanceFile)
     aInstance = pFile_read( instanceFile )
     aPI = { "nDim" : aInstance[0], "varList" : aInstance[2], "density" : aInstance[3] }
     aStruc = aInstance[1]
@@ -669,7 +669,7 @@ For a stdout query, use one of these these commands:
     coordList0 = [coordRef]
     value = f(coordRef)
     valueBest = 1e30
-    bestAry = {value: ["000_"+",".join(map(str,coordRef))+":"+str(value)]}
+    bestAry = {value: ["000_"+",".join(imap(str,coordRef))+":"+str(value)]}
     coordDistrib = {"000":1}
     sizeTot = 1
 
@@ -679,11 +679,11 @@ For a stdout query, use one of these these commands:
     runtimeCoord = 0.0
     runtimeProbe = 0.0
     if ( L <= 5 ):
-        hasseVerticies = {(0,1): [",".join(map(str,coordRef)) + ":" + str(value)] }
+        hasseVerticies = {(0,1): [",".join(imap(str,coordRef)) + ":" + str(value)] }
 
     sizeRank = 0
 
-    Lm1Range = range(Lm1)
+    Lm1Range = xrange(Lm1)
     for rank in range(1, rankMax+1):
         coordList1 = []
         # Timing
@@ -701,8 +701,8 @@ For a stdout query, use one of these these commands:
                     elm_i = coord[ip1]
 
                 inversion = P.coord.rank( coordAdj )
-                if inversion == rank and not (",".join(map(str,coordAdj)) in aCoordHash):
-                    aCoordHash[",".join(map(str,coordAdj))] = []
+                if inversion == rank and not (",".join(imap(str,coordAdj)) in aCoordHash):
+                    aCoordHash[",".join(imap(str,coordAdj))] = []
                     coordList1.append(coordAdj)
                     sizeTot += 1
                     sizeRank += 1
@@ -714,7 +714,7 @@ For a stdout query, use one of these these commands:
         microSecs = time.time() 
         for coord in coordList1:
             value = f( coord )
-            solutionString = ",".join(map(str,coord))+":"+str(value)
+            solutionString = ",".join(imap(str,coord))+":"+str(value)
             if L <= 5:
                 if (rank,sizeRank) in hasseVerticies:
                     hasseVerticies[(rank,sizeRank)].append(solutionString)
@@ -722,7 +722,7 @@ For a stdout query, use one of these these commands:
                     hasseVerticies[(rank,sizeRank)] = [solutionString]
             if value < valueBest:
                 coordString = "{:03}_".format(rank)+solutionString
-                if value in bestAry:
+                if bestAry.has_key(value):
                     bestAry[value].append(coordString)
                 else:
                     bestAry[value] = [coordString]
@@ -736,22 +736,22 @@ For a stdout query, use one of these these commands:
         coordList1 = []
         sizeRank = 0
 
-    print()   
+    print   
     if L <= 5:
         for key in sorted(hasseVerticies):
-            print("hasseVerticies" + str(key) + " =", hasseVerticies[key])
+            print "hasseVerticies" + str(key) + " =", hasseVerticies[key]
     
     valueMin = min(bestAry)
-    print("\nThere are {} valueBest = {} solutions:\nrank\tsolution".format(len(bestAry[valueMin]), valueMin))
+    print "\nThere are {} valueBest = {} solutions:\nrank\tsolution".format(len(bestAry[valueMin]), valueMin)
 
     for item in bestAry[valueMin]:
         item = item.split("_")
         rank = item[0]
         solution = item[1]
-        print(rank+"\t"+solution)
+        print rank+"\t"+solution
 
     # Out put file stuff
-    print("\n".join([
+    print "\n".join([
         "\n",
         "instanceFile = {}".format(instanceFile),
         "There are {} valueBest = {} solutions".format(len(bestAry[valueMin]),
@@ -764,12 +764,12 @@ For a stdout query, use one of these these commands:
         "runtimeRatio = {:6.5}".format(runtimeCoord/runtimeProbe),
         "hostID = {}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0],
             os.uname()[1], platform.system(), os.uname()[2]),
-        "compiler = python-"+".".join(map(str,sys.version_info[:3])),
+        "compiler = python-"+".".join(imap(str,sys.version_info[:3])),
         "dateLine = {}".format(time.strftime("%a %b %d %H:%M:%S %Z %Y")),
-        "thisCmd = {}\n".format(thisCmd)]))
+        "thisCmd = {}\n".format(thisCmd)])
 
     for key in sorted(coordDistrib):
-        print("coordDistrib({})".format(key)+" =",coordDistrib[key])
+        print "coordDistrib({})".format(key)+" =",coordDistrib[key]
 
 def init( instanceDef, args = [] ):
     thisCmd = "P.lop.init"
@@ -788,10 +788,10 @@ explicit values of
 """.format(thisCmd, thisCmd, mainProc, mainProc, thisCmd)
 
     if instanceDef == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif instanceDef == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     # info global variables
@@ -816,18 +816,18 @@ explicit values of
     aCoordHash0 = {}
     aWalkProbed = {}
 
-    print("\n".join([
+    print "\n".join([
         "# ** from: {}:".format(thisCmd),
         "# instanceDef={}".format(instanceDef),
         "# argsOptions={}".format(argsOptions)
-        ]))
+        ])
 
     # (0B) Phase 0B: extract variable groups from all_valu
     namesRequired = []
     namesInternal = []
     namesOptionalBool = []
     namesOptional = []
-    for name in list(all_valu.keys()):
+    for name in all_valu.keys():
     
         val = all_valu[name]
     
@@ -869,7 +869,7 @@ explicit values of
     aV["infoSolutionsFile"] = infoSolutionsFile
 
     if not os.path.isfile(infoSolutionsFile):
-        print("\nERROR from {}:\nfile {} is missing!\n".format(thisCmd, infoSolutionsFile))
+        print "\nERROR from {}:\nfile {} is missing!\n".format(thisCmd, infoSolutionsFile)
         return
     rList = core.file_read(infoSolutionsFile).splitlines()
     rList.pop()
@@ -892,9 +892,9 @@ explicit values of
         if isFound:
             break
     if not isFound:
-        print(("\nERROR from {}:"
+        print ("\nERROR from {}:"
                 "\n .. instance {} was not found in file"
-                "\n     {}\n".format(thisCmd, aV["instanceID"], infoSolutionsFile)))
+                "\n     {}\n".format(thisCmd, aV["instanceID"], infoSolutionsFile))
         return
     #end timing
     microSecs = time.time() - microSecs
@@ -920,11 +920,11 @@ explicit values of
                 aV[name] = True
                 tmpList = tmpList[1:]
             elif not name:
-                print(("\nERROR from {}:"
+                print ("\nERROR from {}:"
                         "\n.. option name {} is not either of two lists below:"
                         "\n{}"
                         "\n\nor\n"
-                        "\n{}".format(thisCmd, name, namesOptional, namesOptionalBool)))
+                        "\n{}".format(thisCmd, name, namesOptional, namesOptionalBool))
                 return
             else:
                 aV[name] = int(tmpList[1])
@@ -942,9 +942,9 @@ explicit values of
             aV["seedInit"] = int(aV["seedInit"])
             random.seed(aV["seedInit"])
         except:
-            print(("ERROR from {}:"
+            print ("ERROR from {}:"
                     ".. only -seedInit NA or -ssedInit <int> are valid assignments,"
-                    "not -seedInit {}\n".format(thisCmd, aV['seedInit'])))
+                    "not -seedInit {}\n".format(thisCmd, aV['seedInit']))
             return
    
     # initialize permutation coordinate
@@ -956,9 +956,9 @@ explicit values of
         # check if user provided coordInit is the valid length
         aV["coordInit"] = [int(c) for c in aV["coordInit"].split(",")]
         if len(aV["coordInit"]) != aV["nDim"]:
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "\nThe permutation coordinate is of length {},"
-                    "not the expected length {}\n".format(thisCmd, aV["coordinit"], aV["nDim"])))
+                    "not the expected length {}\n".format(thisCmd, aV["coordinit"], aV["nDim"]))
             return
         aV["rankInit"] = P.coord.rank(aV["coordInit"])
         """
@@ -997,9 +997,9 @@ explicit values of
                 aV["walkSegmLmt"] = int(walkSegmCoef * aV["nDim"])
                 aV["walkSegmCoef"] = walkSegmCoef
         except:
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkSegmCoef can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisCmd, aV["walkSegmCoef"])))
+                    "or a positive number, not {} \n".format(thisCmd, aV["walkSegmCoef"]))
             return
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] == "NA":
         try:
@@ -1007,15 +1007,15 @@ explicit values of
             if walkSegmLmt > 0:
                 aV["walkSegmLmt"] = walkSegmLmt
         except:
-            print(("\nERROR from {}:"
+            print ("\nERROR from {}:"
                     "The walkSegmLmt can only be assigned a value of NA"
-                    "or a positive number, not {} \n".format(thisCmd, aV["walkSegmLmt"])))
+                    "or a positive number, not {} \n".format(thisCmd, aV["walkSegmLmt"]))
             return
     elif aV["walkSegmLmt"] != "NA" and aV["walkSegmCoef"] != "NA":
-        print(("ERROR from {}:"
+        print ("ERROR from {}:"
                 "The walkSegmLmt and walkSegmCoef can only be assigned"
                 "pairwise values of\n(NA NA) (default) (NA double) or (integer NA)"
-                "not ({} {})\n".format(thisCmd, aV["walkSegmLmt"], aV["walkSegmCoef"])))
+                "not ({} {})\n".format(thisCmd, aV["walkSegmLmt"], aV["walkSegmCoef"]))
         return
 
     # (3A) Phase 3A: directly initialize the remaining internal variables
@@ -1047,7 +1047,7 @@ explicit values of
     aV["dateLine"] = time.strftime("%a %b %d %H:%M:%S %Z %Y") 
     aV["hostID"] = "{}@{}-{}-{}".format(pwd.getpwuid(os.getuid())[0],
             os.uname()[1], platform.system(), os.uname()[2])
-    aV["compiler"] = "python-"+".".join(map(str,sys.version_info[:3]))
+    aV["compiler"] = "python-"+".".join(imap(str,sys.version_info[:3]))
 
     # find aV["valueInit"] by doing the first probe for function value
     # Timing
@@ -1103,29 +1103,29 @@ explicit values of
     #       solverDomain table all_info["infoVariablesFile"]
     errorItems = []
     errorLines = []
-    for name in list(aV.keys()):
+    for name in aV.keys():
         if name not in all_valu:
             errorLines.append( ("{} -- this variable is missing from the solver"
                 " domain table in the file {}\n".format(name, all_info["infoVariablesFile"])))
             errorItems.append(name)
     if len(errorItems) > 0:
-        print("\nWarning from {}\n{}".format(thisCmd, errorLines))
-        print("Missing variables\n{}\n".format(errorItems))
+        print "\nWarning from {}\n{}".format(thisCmd, errorLines)
+        print "Missing variables\n{}\n".format(errorItems)
 
     # (8) Phase 8: check whether coordInit caused targetReached to be > 1
     if aV["targetReached"] > 0:
-        print("# BINGO: valueTarget has been reached or exceeded with coordInit")
+        print "# BINGO: valueTarget has been reached or exceeded with coordInit"
         stdout(withWarning=1)
         return
 
     # (9) Phase 9: write to stdout based on writeVar
     if aV["writeVar"] == 1:
-        print("\n** Final values of initialized variables (array aV) **")
-        print(aV)
-        print("\n** Values associated with instance array aStruc **")
-        print(aStruc)
-        print("\n** as reported on {}, returning".format("@TODO: TIME STAMP"))
-        print("targetReached\tvalueInit\tcoordInit")
+        print "\n** Final values of initialized variables (array aV) **"
+        print aV
+        print "\n** Values associated with instance array aStruc **"
+        print aStruc
+        print "\n** as reported on {}, returning".format("@TODO: TIME STAMP")
+        print "targetReached\tvalueInit\tcoordInit"
 
     #result = "{} {} {}".format(aV["targetReached"], aV["valueInit"], aV["coordInit"])
     result = (aV["targetReached"], aV["valueInit"], aV["coordInit"])
@@ -1153,13 +1153,13 @@ invoke the command
 To output the command line documentation of the encapsulated/executable 
 version of {} 
 
-  ../xBin/P.lopP
+  ../xBin2/P.lopP
 """.format(thisCmd, thisCmd, thisCmd)
     if instanceDef == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif instanceDef == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
     
     #info global variables
@@ -1182,7 +1182,7 @@ version of {}
     sandboxPath = os.path.dirname(thisDir) 
     sandboxName = os.path.basename(sandboxPath)
     infoVariablesFile = sandboxName + ".info_variables.txt"
-    infoVariablesFile = "/".join([sandboxPath,"pLib",infoVariablesFile])
+    infoVariablesFile = "/".join([sandboxPath,"pLib2",infoVariablesFile])
 
     all_info = {}
     all_info["infoVariablesFile"] = infoVariablesFile
@@ -1203,42 +1203,42 @@ version of {}
     if rList is None:
         return
     elif aV["isInitOnly"]:
-        print(("\n{}"
+        print ("\n{}"
             "\n.. completed initialization of all variables,"
             "\n   exiting the solver since option -{} has been asserted."
-            "\n{}\n".format("-"*78,aV["isInitOnly"],"-"*78)))
-        print("targetReached coordInit valueInit = {}\n".format(rList))
-        for key, value in list(aV.items()):
-            print("aV({}) = {}".format(key,value))
-        print()
+            "\n{}\n".format("-"*78,aV["isInitOnly"],"-"*78))
+        print "targetReached coordInit valueInit = {}\n".format(rList)
+        for key, value in aV.items():
+            print "aV({}) = {}".format(key,value)
+        print
         for i in range(len(aStruc)):
-            print("aStruc[{}] = {}".format(i, aStruc[i]))
-        print()
-        for key, value in list(aCoordHash0.items()):
-            print("aCoordHash0({}) = {}".format(key,value))
-        print()
-        for key, value in list(aWalkProbed.items()):
-            print("aWalkProbed({}) = {}".format(key,value))
+            print "aStruc[{}] = {}".format(i, aStruc[i])
+        print
+        for key, value in aCoordHash0.items():
+            print "aCoordHash0({}) = {}".format(key,value)
+        print
+        for key, value in aWalkProbed.items():
+            print "aWalkProbed({}) = {}".format(key,value)
         return
     else:
-        print(("\n{}"
+        print ("\n{}"
             "\n.. completed initialization of all variables,"
             "\n   proceeding with the search under solverID = P.lop.{}"
-            "\n{}\n".format("-"*78,aV["solverID"].__name__,"-"*78)))
+            "\n{}\n".format("-"*78,aV["solverID"].__name__,"-"*78))
     
     # (2) Phase 2: proceed with the combinatorial search
     if aV["solverMethod"] == "saw":
         aV["solverID"] = saw
     else:
-        print("\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisCmd, aV["solverMethod"]))
+        print "\nERROR from {}:\nsolverMethod = {} is not implemented\n".format(thisCmd, aV["solverMethod"])
         return
-    print("#    Proceeding with the search under solverID = P.lop.{}".format(aV["solverID"].__name__))
-    print("#"*78)
+    print "#    Proceeding with the search under solverID = P.lop.{}".format(aV["solverID"].__name__)
+    print "#"*78
     aV["solverID"]()
 
     stdout()
     if aV["isWalkTables"]:
-        print("TODO: walk.tables method")
+        print "TODO: walk.tables method"
     return
     
 def stdout( withWarning = 1 ):
@@ -1258,11 +1258,11 @@ This procedure is universal under any function coordType=P!
     global all_value
     global aV
 
-    print(("# \n# FROM {}: A SUMMARY OF NAME-VALUE PAIRS"
+    print ("# \n# FROM {}: A SUMMARY OF NAME-VALUE PAIRS"
             "\n# commandLine = {}"
             "\n#    dateLine = {}"
             "\n#   timeStamp = {}"
-            "\n#".format(thisCmd, aV["commandLine"], aV["dateLine"], aV["timeStamp"])))
+            "\n#".format(thisCmd, aV["commandLine"], aV["dateLine"], aV["timeStamp"]))
 
     stdoutNames = ("instanceDef", "solverID", "coordInit", "coordBest", "nDim",
             "walkLengthLmt", "walkLength", "cntRestartLmt", "cntRestart", 
@@ -1278,16 +1278,16 @@ This procedure is universal under any function coordType=P!
         if name in aV:
             if name != "solverID":
                 if name not in lists:
-                    print("{}\t\t{}".format(name, aV[name]))
+                    print "{}\t\t{}".format(name, aV[name])
                 else:
-                    print("{}\t\t{}".format(name, ",".join(map(str,aV[name]))))
+                    print "{}\t\t{}".format(name, ",".join(map(str,aV[name])))
             else:
-                print("{}\t\tP.lop.{}".format(name, aV[name].__name__))
+                print "{}\t\tP.lop.{}".format(name, aV[name].__name__)
         else:
             if withWarning:
-                print("# WARNING: no value exist for {}".format(name))
+                print "# WARNING: no value exist for {}".format(name)
 
-def info( isQuery=0, infoVariablesFile="../pLib/P.lop.info_variables.txt"):
+def info( isQuery=0, infoVariablesFile="../pLib2/P.lop.info_variables.txt"):
     thisCmd = "P.lop.info"
     ABOUT = """
 This proc takes a variable 'isQuery' and the hard-wired path to file
@@ -1309,13 +1309,13 @@ infoVariablesFile *info_variables.txt.
 
             P.lop.main ??   (under python)
        or
-            ../xBin/P.lopP  (under bash)
+            ../xBin2/P.lopP  (under bash)
 """.format( thisCmd, thisCmd, thisCmd )
     if isQuery == "??":
-        print(ABOUT)
+        print ABOUT
         return
     elif isQuery == "?":
-        print("Valid query is '{} ??'".format(thisCmd))
+        print "Valid query is '{} ??'".format(thisCmd)
         return
 
     #info global variables
@@ -1345,30 +1345,30 @@ infoVariablesFile *info_variables.txt.
             "valueTarget", "valueTol", "walkSegmLmt",
             "walkSegmCoef", "isSimple", "writeVar" ]
 
-    print("\n".join([
+    print "\n".join([
         "USAGE:\n",
-        "under TkCon shell (which has sourced ../pLib/all_python.py",
+        "under TkCon shell (which has sourced ../pLib2/all_python.py",
         "\tP.lop.main instanceFile [optional_arguments]",
         "",
         "under bash, invoking the 'tcl executable P.lopT' which sources" + 
             " libraries directly",
-        "\t../xBin/P.lopT instanceFile [optional_arguments]",
+        "\t../xBin2/P.lopT instanceFile [optional_arguments]",
         "",
         "under bash, invoking the 'python executable P.lopP' which sources" + 
             " libraries directly",
-        "\t../xBin/P.lopP instanceFile [optional_arguments]",
+        "\t../xBin2/P.lopP instanceFile [optional_arguments]",
         "",
         "under bash, invoking the 'compiled C++ code as a binary P.lopX",
-        "\t../xBin/P.lopX instanceFile [optional_arguments]",
+        "\t../xBin2/P.lopX instanceFile [optional_arguments]",
         "",
         "EXAMPLES:",
         "\tP.lop.main ../xBenchm/lop/tiny/i-5-book2.lop -initOnly",
         "\tP.lop.main ../xBenchm/lop/tiny/i-5-book2.lop -valueTarget -51",
-        "\t../xBin/P.lopT ../xBenchm/lop/tiny/i-5-book2.lop -valueTarget" + 
+        "\t../xBin2/P.lopT ../xBenchm/lop/tiny/i-5-book2.lop -valueTarget" + 
             " -51 -runtimeLmt 5 -seedInit 1789",
-        "\t../xBin/P.lopP ../xBenchm/lop/tiny/i-5-book2.lop -valueTarget" +
+        "\t../xBin2/P.lopP ../xBenchm/lop/tiny/i-5-book2.lop -valueTarget" +
             " -51 -coordInit 1,2,3,4,5 -runtimeLmt 5",
-        "\t../xBin/P.lopX ../xBenchm/lop/tiny/i-5-book2.lop -valueTarget" +
+        "\t../xBin2/P.lopX ../xBenchm/lop/tiny/i-5-book2.lop -valueTarget" +
             " -51 -coordInit 5,3,2,1,4 -seedinit 1914",
         "DESCRIPTION:",
         "P.lop.main, P.lopT, P.lopP, or P.lopX take one REQUIRED argument",
@@ -1383,7 +1383,7 @@ infoVariablesFile *info_variables.txt.
         "\t\t\ti.e. the number of variables (columns in the square matrix)",
         "Here is a complete list of pairs 'name defaultValue', with short",
         "in-line descriptions:"
-        ]))
+        ])
 
     # create nameList and valuelist
     for name in optInfoList:
@@ -1409,9 +1409,9 @@ infoVariablesFile *info_variables.txt.
             else:
                 nam1 = " "+nam
 
-            print("\t{}{}{}{}\t{}".format(nam1,space1,val,space2,descr))
+            print "\t{}{}{}{}\t{}".format(nam1,space1,val,space2,descr)
 
-    print("\n".join([
+    print "\n".join([
         "\nDETAILS:",
         "This solver reads an instance of the 'linear ordering problem in a " +
             "matrix format",
@@ -1434,7 +1434,7 @@ infoVariablesFile *info_variables.txt.
         "  1 0 2 0         0 0 5 0",
         "  4 1 0 1         1 3 0 2",
         "  3 2 1 0         2 1 0 0"
-        ]))
+        ])
 
     return
 
