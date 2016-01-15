@@ -1,0 +1,337 @@
+#!/bin/sh
+# just a trick to get tclsh to ignore the following line \
+exec tclsh "$0" ${1+"$@"}
+#------- keep here as a 80-character reference line to check text width -------#
+
+#      file: xPeriment
+# Copyright: Franc Brglez, Tue Apr 21 11:10:27 EDT 2015
+
+set thisScript [file tail [info script]]
+### For additional variable initializations in this file, search for the     ###
+### line '00.thisScript.init' -- after the all procedures have been defined. ###
+
+proc xPeriment.info { thisScript } {
+    
+    set thisCmd xPeriment.info
+    
+    puts "\nFrom ${thisCmd}: user-query about the command $thisScript ...\
+      \n   User can invoke '$thisScript' under any sandbox directory (xWork or similar)\
+      \n   adjacent to xBenchm/, xBin/, xLib/ and invoke the /experiment with\
+      \n   the command\n\
+      \n       ../../../xBed/xBin/xPeriment all\n\
+      \n   where 'all' triggers the sourcing  of xPerimentConfigFile\
+      \n   which must be ** the only *.tcl ** file in this directory.\n "
+    
+} ;# xPeriment.info
+
+proc xPeriment.init { xPerimentConfigFile } {
+
+    # this global is REQUIRED in order ot access variable values inder tcl_plaform!!
+    global     tcl:  tcl_interactive tcl_libPath tcl_library tcl_patchLevel \
+      tcl_pkgPath tcl_platform tcl_version
+    
+    set thisCmd xPeriment.init
+    
+    set xP(xPerimentConfigFile) $xPerimentConfigFile
+    puts ".. sourcing user-defined xPerimentConfigFille\n$xPerimentConfigFile\
+      \n   under user's workdir\n[pwd]"
+    
+    set xP(sandboxID) [file tail [file dirname [pwd]]]
+    source $xPerimentConfigFile  
+    set tokens           [split [file rootname $xPerimentConfigFile] -]
+    set xP(solverOptionsID) [lindex $tokens end]
+    set xP(solverName)   [lindex $tokens 1]
+
+    set solverOptions $xP(solverOptions) 
+    set idx [lsearch $solverOptions "-seedInit"] 
+    if {$idx < 0} {
+        error "\nERROR ... file $xPerimentConfigFile is \
+          missing the value of -seedInit\n"
+    } else {
+        # extract value of seedInit and remove it from solverOptions
+        set seedInit [lindex $solverOptions $idx+1]
+        if {![string is integer $seedInit] || $seedInit < 0} {
+            error "\nERROR ... seedInit=$seedInit is not an integer >= 0\n"
+        }
+        set xP(solverOptions) [lreplace $solverOptions $idx $idx+1]
+    }
+    set xP(seedInit) $seedInit
+    set xP(solverPath) [file join $xP(solverDir) $xP(solverName)]
+    
+    if {![file exists $xP(solverPath)]} {
+        error "\nERROR from $thisCmd:\
+          \n.. there is no solver with the name $xP(solverPath)\
+          \n   The expected solver name is decoded from the name of\
+          \n   xPerimentConfigFile = $xPerimentConfigFile ... \
+          \n.. what is being decoded is this:\
+          \n   solverName      = $xP(solverName)\
+          \n   solverOptionsID = $xP(solverOptionsID) \
+          (user-encoded label for solver options)\n"
+    }
+    # a directory to save tables of experiments for this configuration
+    set xP(xPerimentConfigDir) [file rootname $xP(xPerimentConfigFile)]
+    if {[file exists $xP(xPerimentConfigDir)]} {
+        error "\nERROR from $thisCmd:\
+          \n.. directory with the name $xP(xPerimentConfigDir) exists\
+          already ...\
+          \n  this name is derived from the current configuration file under\
+          \n  [pwd]\
+          \n.. to proceed, either\
+          \n      move   $xP(xPerimentConfigDir) elsewhere, or\
+          \n      rename $xP(xPerimentConfigFile), following the convention\
+          \n             xPeriment-config-<solverName>.<solverOptionsID>.tcl\
+          \n      where the prefix xPeriment-config- **is required**\n"
+    } else {
+        file mkdir $xP(xPerimentConfigDir)
+    }
+    set xP(hostID) {}
+    append xP(hostID) $tcl_platform(user)  @ \
+      [lindex [split [info hostname] .] 0] - $tcl_platform(os) - \
+      $tcl_platform(osVersion) 
+    
+    #parray xP
+    return [array get xP]
+} ;#  xPeriment.init 
+
+
+proc xPeriment.main { thisScript argv argc } { 
+  
+    set thisCmd xPeriment.main    
+    #puts thisScript=$thisScript\nargv=$argv\nargc=$argc
+    
+    if {$argc == 0} {
+        # return a user query
+        xPeriment.info $thisScript  ; return
+        
+    } elseif {[lindex $argv 0] == "all"} {
+        # find the single configuration file under sandboxDir/xWork
+        puts ".. starting xPeriment under \n[pwd]"
+        puts [glob *]
+        set fileList [glob *.tcl]
+        if {[llength $fileList] == 1} {
+            set xPerimentConfigFile $fileList
+        } else {
+            error "\nERROR from $thisCmd:\
+              \n.. only a single xPeriment configuration file *.tcl is allowed\
+              \n.. under pwd=$pwd\n"
+        }   
+    } else {
+        error "\nERROR from $thisCmd:\
+          \n.. 'all' is the only valid non-empty argument"
+    }
+##! initialize all variables for the experiment
+    array set xP [xPeriment.init $xPerimentConfigFile] ;# parray xP
+    
+##! invoke xPeriment.exec:   
+    # for each instancedDef AND for each seed  
+    foreach instanceDef $xP(instanceDefList) {
+    
+        set xP(instanceDef)  $instanceDef
+        set instanceName     [file tail [file rootname $instanceDef]]
+        set xP(instanceName) $instanceName
+        # ASSUMING a structured instanceName!!!
+        # instanceDim = value of nDim before any reductions (symmetry etc)
+        set instanceDim [lindex [split $instanceName -] 1] 
+        set xP(instanceDim) $instanceDim 
+        
+        set fileSample {}
+        append fileSample xPer - $xP(solverName) - $xP(solverOptionsID) - \
+           $instanceName - $xP(sampleSize) - $xP(seedInit) - sample.txt
+        set fileSample [file join $xP(xPerimentConfigDir) $fileSample]
+        
+        set sampleHeader "# thisFile = $fileSample\
+          \n# configuration file = $xP(xPerimentConfigFile)\
+          \n# created on [join [clock format [clock seconds] -gmt 0]]\
+          \n#\n[join $xP(sampleColumns) \t]\n"
+        
+        file.write $fileSample $sampleHeader
+        set rowLine {}
+        
+        for {set iSample 1} {$iSample <= $xP(sampleSize)} {incr iSample} { 
+            
+            if {$iSample == 1} {
+                set  seed [expr {$xP(seedInit) + $iSample - 1}]
+                expr {srand($seed)} ;# initialize RNG for new seeds
+            } else {
+                set seed [expr {int(1e6*rand())}]
+                expr {srand($seed)} ;# initialize RNG for new seeds
+            }
+            # compute a sample (row) to append to the sample table
+            set xP(solverCommand) "$xP(solverPath) $xP(instanceDef) \
+              [concat $xP(solverOptions) -seedInit $seed]"
+            set rowLine [xPeriment.exec $iSample $seed [array get xP]]
+            file.append $fileSample $rowLine\n
+        }
+        puts ".. Procedure $thisCmd created the file\n$fileSample"
+        table.html             $fileSample
+        table.sample.stats     $fileSample    ;# also invoked table.html
+        table.sample.coordUniq $fileSample    ;# also invoked table.html
+        puts \n
+    }
+    puts ".. moving the file $xP(xPerimentConfigFile) under \
+      \n   the directory $xP(xPerimentConfigDir) (with results of all experiments"
+    file rename $xP(xPerimentConfigFile)  $xP(xPerimentConfigDir)
+    return
+#~dd 
+# % ../../../xBed/xBin/xPeriment all
+# .. sourced file ./~SYNC/gitPublic/xBed/xLib/core.tcl
+# .. sourced file ./~SYNC/gitPublic/xBed/xLib/util.tcl
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+# Tue Apr 21 12:52:58 EDT 2015 
+# .. sourcing user-defined xPerimentConfigFille
+# xPeriment-config-P.lopT-config2.tcl 
+#    under user's workdir
+# /Users/brglez/Sites/~SYNC/gitPublic/xProj499-Sp15/P.lop/xWork
+# .. from xPeriment.exec ... completed sample 1 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-11.lop  -isSimple -runtimeLmt 5 -seedInit 1901
+# .. from xPeriment.exec ... completed sample 2 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-11.lop  -isSimple -runtimeLmt 5 -seedInit 53335
+# .. from xPeriment.exec ... completed sample 3 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-11.lop  -isSimple -runtimeLmt 5 -seedInit 567930
+# ....
+# ....
+# .. from xPeriment.exec ... completed sample 99 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-11.lop  -isSimple -runtimeLmt 5 -seedInit 813861
+# .. from xPeriment.exec ... completed sample 100 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-11.lop  -isSimple -runtimeLmt 5 -seedInit 475795
+# .. Procedure xPeriment.main created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-11-100-1901-sample.txt
+# .. Procedure table.html created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-11-100-1901-sample.html
+# .. Procedure table.html created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-11-100-1901-sample-stats.html
+# .. Procedure table.html created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-11-100-1901-sample-coordUniq.html
+# 
+# .. from xPeriment.exec ... completed sample 1 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-13.lop  -isSimple -runtimeLmt 5 -seedInit 1901
+# .. from xPeriment.exec ... completed sample 2 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-13.lop  -isSimple -runtimeLmt 5 -seedInit 53335
+# .. from xPeriment.exec ... completed sample 3 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-13.lop  -isSimple -runtimeLmt 5 -seedInit 567930
+# ....
+# ....
+# .. from xPeriment.exec ... completed sample 99 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-13.lop  -isSimple -runtimeLmt 5 -seedInit 813861
+# .. from xPeriment.exec ... completed sample 100 with command 
+# ../xBin/P.lopT ../xBenchm/lop/tiny/pal-13.lop  -isSimple -runtimeLmt 5 -seedInit 475795
+# .. Procedure xPeriment.main created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-13-100-1901-sample.txt
+# .. Procedure table.html created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-13-100-1901-sample.html
+# .. Procedure table.html created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-13-100-1901-sample-stats.html
+# .. Procedure table.html created the file
+# xPeriment-config-P.lopT-config2/xPer-P.lopT-config2-pal-13-100-1901-sample-coordUniq.html
+# Tue Apr 21 12:53:17 EDT 2015 .. completed xPeriment 
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# % 
+# Copyright:
+# Franc Brglez, Sun Apr 19 15:01:42 EDT 2015
+#~dd         
+} ;# xPeriment.main
+
+#------- keep here as a 80-character reference line to check text width -------#
+proc xPeriment.exec {iSample seed xP_} {
+    
+    set thisCmd  xPeriment.exec
+    
+    # initialize the variable array xP
+    array set xP $xP_
+    set solverCommand $xP(solverCommand)
+    
+    set fileTemp stdoutTemp.txt  ; set fileError stderrTemp.txt
+    file delete -force $fileTemp ; file delete -force $fileError
+    set ErrorMessage {} 
+    
+    #parray xP
+    if { [catch {eval exec [concat $solverCommand >& $fileTemp]} CatchMsg] } {
+        # error from exec
+        set ErrorMessage "\n\n$CatchMsg\
+          \n\n**  ERROR from $thisCmd while invoking exec on \n$solverCommand\
+          \nFor more details, see the file \n$fileError \n"
+        file.write $fileError $ErrorMessage
+        puts $ErrorMessage ; set ErrorIsInExec 1
+    } else {
+        puts ".. from $thisCmd ...\
+          completed sample $iSample with command\
+          \n$solverCommand" ; set ErrorIsInExec 0
+    } 
+    set wordList [file.read $fileTemp]
+    # wordList as per http://wiki.tcl.tk/989 -- THANSK!!
+    set wordList [regexp -inline -all -- {\S+} $wordList]
+    #puts wordList\n$wordList
+    
+    # NOTE: instanceDef is EXPECTED FIRST keyword in solver stdout
+    set idx [lsearch $wordList "instanceDef"]
+    if {$idx < 0} {
+        error "\nERROR from $thisCmd in file $fileTemp\
+          \nmissing the word delimiter named 'instanceDef'"
+    } else {
+        set wordList [lrange $wordList $idx end]
+    }
+    set cnt -1
+    foreach word $wordList {
+        incr cnt ;# puts word=$word
+        if {![expr $cnt%2]} {
+            # exclude hostID returned by encapsulation script
+            if {$word != "hostID"} {
+                set aV($word) [lindex $wordList [expr {$cnt+1}]]
+            }
+        }
+    }
+    set aV(instanceID)  $xP(instanceName)-$iSample-$seed
+    set aV(instanceDim) $xP(instanceDim)
+    set aV(sandboxID)   $xP(sandboxID)
+    set aV(solverName)  $xP(solverName)
+    set aV(hostID)      $xP(hostID)
+    set aV(runtime)     [format "%#.3g" $aV(runtime)]
+    
+    set tableRow {}
+    foreach var $xP(sampleColumns) {
+        if {[info exists aV($var)]} {
+            lappend tableRow $aV($var) 
+        } else {
+            lappend tableRow NA
+        }
+    }
+    #puts [join $tableRow \t]
+    return [join $tableRow \t]
+    
+} ;# xPeriment.exec
+
+#----------------------------00.thisScript.init--------------------------------#
+proc 00.thisScript.init {} {}  ;# appears first in the alpha's pulldown menu
+#---a precedure to source, and optionally echo, the required libraries --------#
+proc _SourceAndEcho_ {libFilePath {echoIsOn 0}} {
+    source $libFilePath ; set pathList [file split $libFilePath]
+    set pathList [eval file join [lrange $pathList end-4 end]]
+    if {$echoIsOn} {puts ".. sourced file [eval file join $pathList]"}
+}
+# first, find libFilePath from the location (and path) of thisScript
+set currDir [pwd] ; set thisDir [file dirname [info script]]
+if {[string equal [file pathtype $thisDir] "relative"]} {
+    cd $thisDir ; set thisDir [pwd] ;  cd $currDir
+}
+puts currDir=$currDir
+puts thisDir=$thisDir
+set xLibPath   [file join    [file dirname $thisDir] xLib]
+_SourceAndEcho_ [file join $xLibPath  file.tcl]    1
+_SourceAndEcho_ [file join $xLibPath  format.tcl]  1
+_SourceAndEcho_ [file join $xLibPath  list.tcl]    1
+_SourceAndEcho_ [file join $xLibPath  util.tcl]    1
+
+cd $currDir
+set progCommand "$thisScript $argv"
+set firstLine "[string repeat + 78]\
+  \n[join [clock format [clock seconds] -gmt 0]] "
+puts $firstLine
+
+# invoke the main procedure
+${thisScript}.main  $thisScript  $argv  $argc
+ 
+set lastLine \
+  "[join [clock format [clock seconds] -gmt 0]] .. completed $thisScript\
+  \n[string repeat + 78]\n"
+puts $lastLine
+#------- keep here as a 80-character reference line to check text width -------#
