@@ -13,7 +13,7 @@ import platform
 import random
 import util
 import core
-from config import *
+from config_P import *
 
 def saw_pivot_bee():
     return

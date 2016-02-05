@@ -24,7 +24,7 @@ os.chdir(workDir)
 print(".. returning to directory \n{}".format(workDir))
 print(time.strftime("%a %b %d %H:%M:%S %Z %Y"))
 
-from config import *
+from config_P import *
 #sys.path.extend(["./pLib","../../../xBed/pLib"])
 
 thisDir = workDir
